@@ -2,17 +2,17 @@
 
 ## Thông tin nhóm
 
-- Tên nhóm:
-- Lớp: L3A / L3B
-- Repo nhóm: `K5-L3A-DAY03-TenNhom-ResearchAgentToolEval` hoặc `K5-L3B-DAY03-TenNhom-ResearchAgentToolEval` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt:
+- Tên nhóm: Nhom002
+- Lớp: L3B
+- Repo nhóm: `K5-L3B-DAY03-Nhom002-ResearchAgentToolEval`
+- URL repo, nhánh nộp, commit chốt: https://github.com/cduyminh/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval · nhánh `main` · commit chốt: (điền khi nộp)
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |        |      |       |        |         |
-|   2 |        |      |       |        |         |
+|   1 | Cao Duy Minh | 2A202603988 | cduyminh@gmail.com | cduyminh | Nhóm trưởng |
+|   2 | Hoàng Nhật Minh | 2A202603992 | Minh40009@gmail.com |  |  |
 
 ## Cá nhân
 

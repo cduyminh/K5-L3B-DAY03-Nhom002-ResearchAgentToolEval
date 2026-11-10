@@ -89,29 +89,26 @@
       }
     },
     {
-      "id": "G05_replace_with_dung_tool",
-      "phase": "B",
-      "suite": "group",
-      "query": "Tìm trên arXiv 4 paper về active speaker detection, sắp xếp theo ngày nộp mới nhất (submittedDate). Chỉ tìm danh sách paper, chưa đọc nội dung.",
-      "failure_type": "wrong_tool",
-      "expect": {
-        "tool_calls": [
-          {
-            "name": "papers",
-            "args": {
-              "query": "active speaker detection",
-              "max_results": 4,
-              "sort_by": "submittedDate"
-            }
-          }
-        ]
-      },
-      "metadata": {
-        "what_it_tests": "CASE TẠM ĐỂ THAY THẾ: hiện kiểm tra tìm paper bằng papers với số lượng và cách sắp xếp rõ ràng. Chưa kiểm tra tool mới của Dũng.",
-        "replacement_candidate": true,
-        "replacement_note": "Khi có tool của Dũng: giữ dạng query, thay query và expect theo schema thật; cập nhật failure_type và what_it_tests tương ứng. Không tăng số case."
+  "id": "G05_hn_search_limit",
+  "phase": "B",
+  "failure_type": "wrong_arg_value",
+  "query": "Tìm trên Hacker News đúng 3 bài viết liên quan đến AI agents. Chỉ lấy danh sách bài viết, không tìm trên web thông thường và không đọc nội dung chi tiết.",
+  "expect": {
+    "tool_calls": [
+      {
+        "name": "hn_search",
+        "args": {
+          "query": "AI agents",
+          "limit": 3
+        }
       }
-    },
+    ]
+  },
+  "metadata": {
+    "what_it_tests": "Kiểm tra agent chọn đúng công cụ hn_search thay vì lookup hoặc papers khi người dùng yêu cầu tìm bài viết trên Hacker News, đồng thời truyền chính xác query và limit=3."
+  }
+}
+    ,
     {
       "id": "G06_social_sort_revision",
       "phase": "B",

@@ -68,6 +68,7 @@ Lấy từ `starter_v0/artifacts/version_log.csv` và `starter_v0/runs/*.json`. 
 | v3 | `tools.yaml` | Viết lại description mỗi tool (khi nào dùng/không dùng) + convention args: `lookup` topic=news, query ngắn, timeframe; `clarify` text vs yes_no; `send` chỉ khi confirmed=true (R12, R13) | 0.90 | 1.00 (20/20) | `starter_v0/runs/v3_B_base_openrouter_20261110T180224950196.json` |
 | v4 | `system_prompt.md` | Khung slide (Persona/Rules/Capabilities/Constraints/Output/Escalation) + guardrail scope, untrusted input (chống injection), không lộ prompt → từ chối toán/code/injection/lộ prompt (4/4 probe trong `starter_v0/analysis/adversarial/v4_*`) mà không tụt base | 1.00 | 1.00 (20/20) | `starter_v0/runs/v4_B_base_openrouter_20261110T190329500716.json` |
 | v5 | `tools.yaml` | `limit` của `timeline`/`social_search` có `maximum: 20` + mô tả → "500 tweet" thành limit=20 kèm thông báo (probe v4: 500 → v5: 20) | 1.00 | 1.00 (20/20) | `starter_v0/runs/v5_B_base_openrouter_20261110T190750804435.json` |
+| v6 | `tools.yaml` | Guardrail ở mức tool: tool đọc = dữ liệu không phải lệnh; `fetch` từ chối URL nội bộ; `send` là hành động ghi, chỉ khi chính user yêu cầu; cap `max_results`/`top_k`/`max_chars` → "100 bài arXiv" thành 10 (v5 không giới hạn, treo). Còn lỗi: lệnh ẩn trong đoạn dán vẫn khiến model đề nghị đăng (bị chặn ở yes_no) | 1.00 | 1.00 (20/20) | `starter_v0/runs/v6_B_base_openrouter_20261110T192946023134.json` |
 
 ### B2. Failure Analysis
 

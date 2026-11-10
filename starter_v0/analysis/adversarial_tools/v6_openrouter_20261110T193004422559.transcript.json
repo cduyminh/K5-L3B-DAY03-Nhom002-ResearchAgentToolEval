@@ -1,0 +1,519 @@
+{
+  "transcript_id": "v6_openrouter_20261110T193004422559",
+  "version": "v6",
+  "artifact_version": "v6+p378bcb48c809+taafdc1e041f7",
+  "prompt_hash": "378bcb48c8092b76cdd0c5a0fa6fef82b6664bb9a2c952a242191406690516b7",
+  "tools_hash": "aafdc1e041f7c8333e49df4d39f8f42d043c02972b29264130182e72f5c9c6d4",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "/Users/minhcaoduy/Code-test/vite-momo/lms/noise-cancelation/zalo-server/khoang-cach/vinuni-ai-prep/AI20K/Day 3/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/minhcaoduy/Code-test/vite-momo/lms/noise-cancelation/zalo-server/khoang-cach/vinuni-ai-prep/AI20K/Day 3/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-11-10T19:30:04",
+  "updated_at": "2026-11-10T19:30:16",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T19:30:04",
+      "user": "Tìm 100 bài báo arXiv mới nhất về prompt injection",
+      "status": "answered",
+      "assistant_text": "Tôi đã tìm thấy 10 bài báo mới nhất trên arXiv về \"prompt injection\". Dưới đây là danh sách:\n\n- [Anchor Behavior, Not Parameters: Rehearsal-Free Continual Learning with a Single Shared Prompt](http://arxiv.org/abs/2611.12777v1) - Duy-Cuong Bui et al. (2026-11-09)\n- [Can the Confidence and Decisions of System 1 Models Be Trusted? An Explainability and Perturbation Audit of Jev-Style Decision Models](http://arxiv.org/abs/2611.12521v1) - Julien Delaunay (2026-11-09)\n- [Say Shibboleth: Fingerprinting the LLMs and Harnesses Behind Agentic Attacks](http://arxiv.org/abs/2611.12386v1) - Dario Pasquini et al. (2026-11-09)\n- [CARE-PO: Controllable Tool-Call Efficiency for LLM Agents](http://arxiv.org/abs/2611.12125v1) - Xiaoyang Ye et al. (2026-11-09)\n- [Translating KV Caches Between Hybrid-Attention Language Models: MLA Latents, Linear-Attention States and Sparse-Attention Indexers](http://arxiv.org/abs/2611.12062v1) - Povilas Kvedaras et al. (2026-11-09)\n- [BioFirewall: A genome-writing-native governance layer for design-stage biosecurity screening of agentic AI](http://arxiv.org/abs/2608.20413v2) - Anees Ahmed Mahaboob Ali et al. (2026-08-15)\n- [Harness Matters: Measuring and Dissecting Security Resilience in Web Agents](http://arxiv.org/abs/2611.11971v1) - Xinyi Wu et al. (2026-11-09)\n- [Scaling Adaptive Prompt Injection Attacks with Agent Swarms](http://arxiv.org/abs/2611.11861v1) - Alexey Kurakin et al. (2026-11-09)\n- [Self-Indexing Latent Memories for Access-Aware Continual Instruction Tuning of LLMs](http://arxiv.org/abs/2611.11684v1) - Dhruv Dixit et al. (2026-11-08)\n- [Toward Self-Evolving Geospatial Algorithms: An LLM-Driven Framework with a Case Study on Spatial Regime Discovery](http://arxiv.org/abs/2611.11669v1) - Xiayin Lou et al. (2026-11-08)\n\nNếu bạn cần thêm thông tin hoặc bài báo khác, hãy cho tôi biết!",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "papers",
+              "args": {
+                "query": "prompt injection",
+                "max_results": 10,
+                "sort_by": "lastUpdatedDate"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "papers",
+              "args": {
+                "query": "prompt injection",
+                "max_results": 10,
+                "sort_by": "lastUpdatedDate"
+              },
+              "result": {
+                "tool": "arxiv_search",
+                "query": "prompt injection",
+                "api_query": "all:prompt AND all:injection",
+                "total_results": 2971,
+                "items": [
+                  {
+                    "arxiv_id": "2611.12777v1",
+                    "title": "Anchor Behavior, Not Parameters: Rehearsal-Free Continual Learning with a Single Shared Prompt",
+                    "summary": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm maximally parameter efficient. The open question is how a shared prompt can keep the knowledge of old classes while being updated for new ones. Existing methods protect old knowledge in parameter space, where they freeze task-specific prompts, expand new components, or sparsely gate which tokens receive gradients. However, this method sacrifices plasticity, yet the drift it still permits in shared tokens can corrupt the prompt's function on past classes. What must be preserved is the prompt's behavior. We propose TEA-Prompt, which couples (i) a token evaluation module that assigns each prompt token a continuous, input-conditional relevance score injected into the attention logits, softly specializing tokens across tasks without discarding any of them, and (ii) an attention-behavior anchoring loss that constrains each token's attention output around class-specific query regions using only compact Gaussian query statistics without stored old images, weighted by the token's past relevance. Anchoring the attention value allows the parameters to continue updating freely, as long as their interaction remains unchanged. TEA-Prompt achieves state-of-the-art accuracy with markedly lower forgetting on CIFAR-100, ImageNet-R, and CUB-200 with only 0.38M parameters. Code is publicy available at https://github.com/cuonga1cvp/TEA-Prompt.git",
+                    "authors": [
+                      "Duy-Cuong Bui",
+                      "Trung-Anh Dang",
+                      "Vincent Nguyen",
+                      "Duc V. Le",
+                      "Ngoc-Son Vu"
+                    ],
+                    "published": "2026-11-09T17:50:05Z",
+                    "updated": "2026-11-09T17:50:05Z",
+                    "url": "http://arxiv.org/abs/2611.12777v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.12777v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.LG",
+                    "categories": [
+                      "cs.LG",
+                      "cs.CV"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.12521v1",
+                    "title": "Can the Confidence and Decisions of System 1 Models Be Trusted? An Explainability and Perturbation Audit of Jev-Style Decision Models",
+                    "summary": "\"System 1\" decision models (pioneered by TypeSafe AI's Jev) replace autoregressive text generation with a single forward pass returning typed probability distributions over declared schemas (Choice, Score, Noul). While deployed for low-latency routing and automated triage, their statistical calibration and post-hoc explainability remain uncharacterized. We introduce an open, deterministic audit benchmark evaluating System 1 decision models across calibration under label-preserving perturbations, cross-question interference, and post-hoc attribution faithfulness. Evaluating five open-weight models (0.8B to 27B) alongside generative System 2 baselines -- both single-token logprob scoring and structured JSON/CoT decoding -- across NLI (e-SNLI), adversarial syntactic shortcuts (HANS), synthetic clinical triage (N=900), prompt injection defense (Tensor Trust, N=250), and an 86-case logic-gate trigger suite yields five findings: (1) provider confidence is an exact closed-form dispersion transform (1 - H(p)/ln K on sub-10B models; normalized margin on Clef-27B) rather than empirical accuracy; (2) bundling multiple questions in one request induces directional cross-question interference (11.7% to 22.4% binary flips on Tev1-0.8B, vs. 0.1% to 0.2% on Tev1-4B); (3) System 1 models with >= 4B parameters are faster and better calibrated under syntactic shifts (ECE_w = 0.030 to 0.087) than logprob (0.144) and JSON (0.378) baselines; (4) for prompt-injection defense (N=250), >= 4B models achieve 0.988 to 0.998 AUROC with up to 95.2% recall and 0.0% false alarms at 48 to 60 ms; and (5) single-pass inference makes 512-coalition XAI interactive (1.3 to 3.2 s/input), while KernelSHAP with a logit link (S1-SHAP) mitigates softmax saturation on disjunctive OR gates (89.3% to 100.0% gate recovery vs. 57.1% to 82.1% in prob space; p_adj = 0.004).",
+                    "authors": [
+                      "Julien Delaunay"
+                    ],
+                    "published": "2026-11-09T14:58:53Z",
+                    "updated": "2026-11-09T14:58:53Z",
+                    "url": "http://arxiv.org/abs/2611.12521v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.12521v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.LG",
+                    "categories": [
+                      "cs.LG",
+                      "cs.CL"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.12386v1",
+                    "title": "Say Shibboleth: Fingerprinting the LLMs and Harnesses Behind Agentic Attacks",
+                    "summary": "We study the fingerprinting of agentic cyberattacks. Our objective is to reliably infer information about the attacker's configuration, such as LLM version and harness, from telemetry. To achieve this, we introduce a technique we call shibboleth traps: modular honeypot services designed to elicit discriminative behaviors from agentic attackers. The traps make informative interactions a condition for obtaining resources the agent seeks, eliciting model declarations and characteristic writing without requiring a successful prompt injection. To achieve harness fingerprinting, we introduce general mechanisms to indirectly probe peculiar execution behaviors of harnesses. These probes reveal how a harness masks secrets in tool output, enforces command time limits, and schedules tool calls, using only the effects visible in subsequent requests. We show that combined declarative and behavioral inference distinguishes among 15 candidate models with an average 90% top-1 accuracy, with behavioral classifiers evaluated on held-out harnesses or task families. In a separate experiment across four harnesses, fixed probe rules identify the correct harness with 92% accuracy. When instructed to conceal their identity, agents still leave useful behavioral evidence even as their declarations become uninformative.",
+                    "authors": [
+                      "Dario Pasquini",
+                      "Reworr",
+                      "Giuseppe Ateniese",
+                      "Manish Bhatt",
+                      "Sergej Epp"
+                    ],
+                    "published": "2026-11-09T13:27:13Z",
+                    "updated": "2026-11-09T13:27:13Z",
+                    "url": "http://arxiv.org/abs/2611.12386v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.12386v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CR",
+                    "categories": [
+                      "cs.CR",
+                      "cs.AI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.12125v1",
+                    "title": "CARE-PO: Controllable Tool-Call Efficiency for LLM Agents",
+                    "summary": "External tool calls are a major running cost of an LLM agent, while its training objectives align almost exclusively with task completion. In a step-level diagnosis of Qwen3.5 trajectories at two model sizes on GAIA, a long-horizon tool-use benchmark, we find that most contain removable calls, at a similar rate at both sizes. Some methods add an efficiency reward to the objective to reduce the call count, but introduce problems of their own: the anchor they price calls against is computed from the policy's own rollouts (e.g., the group's shortest correct rollout) and so moves with the policy; training can drift toward a collapsed policy that issues no tool call at all, a degeneracy seen in published reports and in our 27B baseline; and a training run delivers a single operating point, so the user cannot trade efficiency against capability. We present CARE-PO (Controllable Anchored Relative Efficiency Policy Optimization) to mitigate these problems. The efficiency reward prices calls against a reference budget anchored to the task's own difficulty and fixed before training. Injecting a successful trajectory from the training data into each online GRPO rollout group and charging for evidence a trajectory never gathers ease the drift toward a collapsed call count. Shaping the cost curve by an effort tag in the prompt yields an efficiency and a capability operating point from a single training run. On GAIA, five of the six operating points across three model sizes improve on their base model in success rate and call count at once. On four held-out multi-hop benchmarks the result is size-dependent: at 27B and 4B success rate is held or raised at a lower call count, while at 9B both operating points trade success rate for fewer calls. The call count remains well above zero throughout training at all three sizes.",
+                    "authors": [
+                      "Xiaoyang Ye",
+                      "Xiao Yao",
+                      "Hairui Zhu",
+                      "Yiying Yang",
+                      "Bei Gan",
+                      "Jinliang Lu",
+                      "Tengjin Weng",
+                      "Yuan Yao",
+                      "Wenhao Jiang"
+                    ],
+                    "published": "2026-11-09T09:41:37Z",
+                    "updated": "2026-11-09T09:41:37Z",
+                    "url": "http://arxiv.org/abs/2611.12125v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.12125v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.LG",
+                    "categories": [
+                      "cs.LG",
+                      "cs.AI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.12062v1",
+                    "title": "Translating KV Caches Between Hybrid-Attention Language Models: MLA Latents, Linear-Attention States and Sparse-Attention Indexers",
+                    "summary": "A model that takes over another model's conversation must normally re-read the whole history; a text hand-off shortens the re-read only by dropping content. KV-cache translation instead maps the source's cache into the target's own format, so the target continues from the full context without re-reading it. It works for grouped-query attention (GQA), but open-weights frontier models now cache compressed latents (MLA), sparse-attention indexer keys and fixed-size linear-attention states. We replicate KV-Lingo on a GQA pair and then give, for each of these objects, where to capture and inject it and a mechanism that reaches native quality. We study two hybrid pairs at 16-48B scale in both directions, Kimi-VL-A3B - Kimi-Linear-48B (MLA - MLA + Kimi Delta Attention) and Qwen3.5-27B - Qwen3.8-27B (Gated DeltaNet hybrids), plus a sparse-attention target (Qwen3.8-27B - Qwen3.8-Flash-Next). MLA latents translate with token-wise linear maps; recurrent states are copied with a closed-form correction or synthesised by replaying the target's own recurrence. Exact long-range recall needs token identity: decoding token ids from the source's layer-0 MLA latent raises needle recall from 0.09 to 0.99 at 2-32K and to 0.83-1.00 at 64K, eight times the longest training prompt. The hybrid full-MLA direction is within the paired confidence interval of native quality on every task metric, and same-shape GDN hybrids reach the native level in both directions (apart from 6% refusals inherited from the source), with time to first token 18.7 and 46.8 times shorter than a re-read at 64K tokens. Segment-wise multi-turn transfer stays at the re-prefill level; naive re-translation collapses. On the sparse-attention target, predicted indexer keys recall the needle as well as the target's own keys (one seed). We state as a hypothesis how the recipes transfer to 300B+ hybrid flagships.",
+                    "authors": [
+                      "Povilas Kvedaras",
+                      "Tomas Rasymas"
+                    ],
+                    "published": "2026-11-09T08:37:12Z",
+                    "updated": "2026-11-09T08:37:12Z",
+                    "url": "http://arxiv.org/abs/2611.12062v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.12062v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.LG",
+                    "categories": [
+                      "cs.LG",
+                      "cs.CL"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2608.20413v2",
+                    "title": "BioFirewall: A genome-writing-native governance layer for design-stage biosecurity screening of agentic AI",
+                    "summary": "AI design tools now plan genome-scale edits, and agentic systems execute those plans with progressively less human oversight. Biosecurity controls are limited to two points: refusal guardrails at the foundation model and sequence-identity screening at the synthesiser. The design stage between them, where the plan is specified, is governed by recommendations, not by any deployed system. We present BioFirewall, a rule-governed middleware that intercepts a genome-writing plan and returns allow, flag-for-review, or refuse across five genome-writing-native hazard axes: cargo, locus, edit type, germline and scale, with cited evidence, a signed design passport, a tamper-evident audit log, and tiered access. On a de-circularised benchmark of safe proxies scored against independent oracles, a function-aware cargo classifier reached a true-positive rate of 0.72 (95% CI 0.43 to 0.89) at a false-positive rate of 1.105%, the nearest attainable to 1%, on a held-out split. Language-model judges did not reliably screen these sequences: their engagement depended heavily on sequence class, so a rate conditioned on engagement does not measure screening performance. Under prompt injection, the blocking verdicts of the open-weight judges tested flipped to allow, while the deterministic screen remained invariant. None of the 288 legitimate plans was refused, giving a 95% upper bound on the false-refuse rate of 0.0103 for the evaluated corpus under an independence assumption, or 0.632 treating the three plan templates as independent units. On a held-out gene set, the locus axis was enriched for drivers of in vivo insertional oncogenesis (AUROC 0.605; odds ratio 3.34), and a session monitor intercepted the cross-call decomposition attacks it was built to detect. These results show design-stage governance is achievable within the evaluated scope. BioFirewall is open source under a permissive licence.",
+                    "authors": [
+                      "Anees Ahmed Mahaboob Ali",
+                      "Radhakrishnan Delhibabu",
+                      "Everette Jacob Remington Nelson"
+                    ],
+                    "published": "2026-08-15T17:14:49Z",
+                    "updated": "2026-11-09T08:08:52Z",
+                    "url": "http://arxiv.org/abs/2608.20413v2",
+                    "pdf_url": "https://arxiv.org/pdf/2608.20413v2",
+                    "source": "arxiv.org",
+                    "primary_category": "q-bio.GN",
+                    "categories": [
+                      "q-bio.GN"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.11971v1",
+                    "title": "Harness Matters: Measuring and Dissecting Security Resilience in Web Agents",
+                    "summary": "Web agents extend LLMs from text generation to real-world web interaction by relying on execution harnesses that interpret user goals, perceive webpages, plan actions, and ground model decisions into browser operations. While prior work has recognized that agent security depends on more than the backend model alone, how harness design quantitatively shapes web-agent security remains insufficiently measured. To systematically study web-agent harness security, we first characterize web-agent harnesses as a four-stage execution workflow covering goal interpretation, webpage perception, reasoning and planning, and action execution. Based on this abstraction, we build WebTrap Farm, a systematic and extensible evaluation framework covering three representative attack categories: malicious user prompts, malicious prompt injection, and deceptive web design. To avoid conflating security with task capability, we use paired usability calibration tasks to separate genuine defensive behavior from capability limitations. Our evaluation shows that existing web-agent harnesses remain vulnerable to typical attacks, with some unsafe behaviors occurring even without explicit attack content, revealing harness-intrinsic security failures (RQ1). Statistical analysis further shows that both harness and backend model significantly affect security outcomes, indicating that deployed-agent security is jointly shaped by the harness and backend model (RQ2). Finally, we localize where defensive behavior emerges across workflow stages and identify more secure design mechanisms, providing actionable guidance for building more robust web agents (RQ3). These findings highlight the web-agent harness as an important security boundary and motivate moving beyond model-centric defenses toward harness-level security design.",
+                    "authors": [
+                      "Xinyi Wu",
+                      "Jiagui Chen",
+                      "JiaYi Dong",
+                      "Geng Hong",
+                      "Xudong Pan",
+                      "Jiarun Dai",
+                      "Mingxuan Liu",
+                      "Min Yang"
+                    ],
+                    "published": "2026-11-09T06:53:04Z",
+                    "updated": "2026-11-09T06:53:04Z",
+                    "url": "http://arxiv.org/abs/2611.11971v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.11971v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CR",
+                    "categories": [
+                      "cs.CR",
+                      "cs.AI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.11861v1",
+                    "title": "Scaling Adaptive Prompt Injection Attacks with Agent Swarms",
+                    "summary": "Prompt injections have emerged as one of the top security risks faced by AI agents today. Early work in prompt injection attacks looked at simple tool-call agents and static attack payloads, and were saturated since mid-2025. As of Fall 2026, human red-teaming may be nearing saturation, especially on the Gemini family of models. In this work, we argue that despite this apparent plateau, prompt injection attacks are still possible and continued effort into prompt injection defense is needed. We design a new synthetic evaluation dataset which uses random non-malicious actions as adversarial goals. Such dataset design helps us to evaluate prompt injection robustness as a model ability to respect instruction hierarchy, and disentangle this ability from model knowledge of security practices. We show that an agentic attacker of increased capabilities can reliably trick model to follow instructions in tool output in our evaluation, even for models previously considered robust on public prompt injection benchmarks such as GraySwan Arena. This shows that current frontier defenses may require proactive, automated red-teaming to remain resilient to increasingly capable adversaries.",
+                    "authors": [
+                      "Alexey Kurakin",
+                      "Vishal Karande",
+                      "Alex Bie",
+                      "Chongyang Shi",
+                      "Shuang Song",
+                      "Saeed Mahloujifar",
+                      "Abdullatif Köksal",
+                      "Jamie Hayes",
+                      "Juliette Pluto",
+                      "Yinghao Sun",
+                      "Kamalika Chaudhuri"
+                    ],
+                    "published": "2026-11-09T04:34:14Z",
+                    "updated": "2026-11-09T04:34:14Z",
+                    "url": "http://arxiv.org/abs/2611.11861v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.11861v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CR",
+                    "categories": [
+                      "cs.CR",
+                      "cs.LG"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.11684v1",
+                    "title": "Self-Indexing Latent Memories for Access-Aware Continual Instruction Tuning of LLMs",
+                    "summary": "Continual instruction tuning often preserves old skills with task-private modules. Inference still requires selecting the right module from the prompt alone. We introduce Task-Isolated Latent Adapter Continual Training (TILA-CT), a replay-free method that makes each task module self-indexing. Each task receives a latent memory and adapter bank in a frozen LLM. During adaptation, the memory gathers causal-prefix information and injects task-conditioned context. For access, its persistent state provides the routing prototype used by a shared prompt-only router. On the 8-task CT-Pipeline stream, TILA-CT achieves 65.19 acquisition and 63.98 final macro score, with 1.38 points of average forgetting. A middle-reversed order gives 65.38 acquisition and 64.17 final macro score. Across 6 backbones, final scores remain within 1.5 points of acquisition. Ablations support memory-derived routing keys and causal gathering. Final macro routing accuracy is 93.9\\%, and oracle routing recovers 1.21 final macro points. These results separate preserved task computation from learned access to it.",
+                    "authors": [
+                      "Dhruv Dixit",
+                      "Paritosh Pandey",
+                      "Snehalkumar 'Neil' S. Gaikwad"
+                    ],
+                    "published": "2026-11-08T23:15:34Z",
+                    "updated": "2026-11-08T23:15:34Z",
+                    "url": "http://arxiv.org/abs/2611.11684v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.11684v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.11669v1",
+                    "title": "Toward Self-Evolving Geospatial Algorithms: An LLM-Driven Framework with a Case Study on Spatial Regime Discovery",
+                    "summary": "Geospatial algorithms have been developed through expert-driven discovery: a researcher spots a limitation, proposes a structural fix, and checks it by hand. With LLM-driven multi-agent systems becoming practical, much of the candidate-generation, evaluation, and selection work can now be largely automated, while the researcher's role shifts upstream toward problem formulation, evaluation design, and interpretation. We refer to this paradigm as Self-Evolving Geospatial Algorithms (SEGA) and propose a framework with three required modules: a two-loop architecture with embedded geographic knowledge as the inner-loop engine; an automatic code formatter that converts any raw geospatial algorithm into the standardized triple required by the inner loop; and a simulation-driven training protocol, in which evolution runs only on synthetic data with known ground truth, and the discovered algorithm is applied unchanged to real data, keeping real-world results out-of-sample. We use spatial regime discovery as a case study, seeded with the Two-stage K-Models algorithm. Evolution uses the Rand Index against the ground-truth partition as fitness signal; the frozen algorithm is then evaluated on 150 simulated grids and 11 real-world datasets across climate, health, hydrology, and politics. The evolved algorithm outperforms its seed, knowledge-free baselines, and four classical regionalization methods. Ablations further indicate that the channel of geographic-knowledge injection, structured retrieval versus prompt-level hints, is itself load-bearing. In this case study, LLM-assisted search sped up the inner loop; whether it does so for other seeds and task families remains open. The geographer's role -- asking the right questions, designing trustworthy evaluation -- grows more central.",
+                    "authors": [
+                      "Xiayin Lou",
+                      "Peng Luo",
+                      "Liqiu Meng"
+                    ],
+                    "published": "2026-11-08T22:49:39Z",
+                    "updated": "2026-11-08T22:49:39Z",
+                    "url": "http://arxiv.org/abs/2611.11669v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.11669v1",
+                    "source": "arxiv.org",
+                    "primary_category": "physics.soc-ph",
+                    "categories": [
+                      "physics.soc-ph"
+                    ]
+                  }
+                ],
+                "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Tôi đã tìm thấy 10 bài báo mới nhất trên arXiv về \"prompt injection\". Dưới đây là danh sách:\n\n- [Anchor Behavior, Not Parameters: Rehearsal-Free Continual Learning with a Single Shared Prompt](http://arxiv.org/abs/2611.12777v1) - Duy-Cuong Bui et al. (2026-11-09)\n- [Can the Confidence and Decisions of System 1 Models Be Trusted? An Explainability and Perturbation Audit of Jev-Style Decision Models](http://arxiv.org/abs/2611.12521v1) - Julien Delaunay (2026-11-09)\n- [Say Shibboleth: Fingerprinting the LLMs and Harnesses Behind Agentic Attacks](http://arxiv.org/abs/2611.12386v1) - Dario Pasquini et al. (2026-11-09)\n- [CARE-PO: Controllable Tool-Call Efficiency for LLM Agents](http://arxiv.org/abs/2611.12125v1) - Xiaoyang Ye et al. (2026-11-09)\n- [Translating KV Caches Between Hybrid-Attention Language Models: MLA Latents, Linear-Attention States and Sparse-Attention Indexers](http://arxiv.org/abs/2611.12062v1) - Povilas Kvedaras et al. (2026-11-09)\n- [BioFirewall: A genome-writing-native governance layer for design-stage biosecurity screening of agentic AI](http://arxiv.org/abs/2608.20413v2) - Anees Ahmed Mahaboob Ali et al. (2026-08-15)\n- [Harness Matters: Measuring and Dissecting Security Resilience in Web Agents](http://arxiv.org/abs/2611.11971v1) - Xinyi Wu et al. (2026-11-09)\n- [Scaling Adaptive Prompt Injection Attacks with Agent Swarms](http://arxiv.org/abs/2611.11861v1) - Alexey Kurakin et al. (2026-11-09)\n- [Self-Indexing Latent Memories for Access-Aware Continual Instruction Tuning of LLMs](http://arxiv.org/abs/2611.11684v1) - Dhruv Dixit et al. (2026-11-08)\n- [Toward Self-Evolving Geospatial Algorithms: An LLM-Driven Framework with a Case Study on Spatial Regime Discovery](http://arxiv.org/abs/2611.11669v1) - Xiayin Lou et al. (2026-11-08)\n\nNếu bạn cần thêm thông tin hoặc bài báo khác, hãy cho tôi biết!",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "papers",
+          "args": {
+            "query": "prompt injection",
+            "max_results": 10,
+            "sort_by": "lastUpdatedDate"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "prompt injection",
+            "api_query": "all:prompt AND all:injection",
+            "total_results": 2971,
+            "items": [
+              {
+                "arxiv_id": "2611.12777v1",
+                "title": "Anchor Behavior, Not Parameters: Rehearsal-Free Continual Learning with a Single Shared Prompt",
+                "summary": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm maximally parameter efficient. The open question is how a shared prompt can keep the knowledge of old classes while being updated for new ones. Existing methods protect old knowledge in parameter space, where they freeze task-specific prompts, expand new components, or sparsely gate which tokens receive gradients. However, this method sacrifices plasticity, yet the drift it still permits in shared tokens can corrupt the prompt's function on past classes. What must be preserved is the prompt's behavior. We propose TEA-Prompt, which couples (i) a token evaluation module that assigns each prompt token a continuous, input-conditional relevance score injected into the attention logits, softly specializing tokens across tasks without discarding any of them, and (ii) an attention-behavior anchoring loss that constrains each token's attention output around class-specific query regions using only compact Gaussian query statistics without stored old images, weighted by the token's past relevance. Anchoring the attention value allows the parameters to continue updating freely, as long as their interaction remains unchanged. TEA-Prompt achieves state-of-the-art accuracy with markedly lower forgetting on CIFAR-100, ImageNet-R, and CUB-200 with only 0.38M parameters. Code is publicy available at https://github.com/cuonga1cvp/TEA-Prompt.git",
+                "authors": [
+                  "Duy-Cuong Bui",
+                  "Trung-Anh Dang",
+                  "Vincent Nguyen",
+                  "Duc V. Le",
+                  "Ngoc-Son Vu"
+                ],
+                "published": "2026-11-09T17:50:05Z",
+                "updated": "2026-11-09T17:50:05Z",
+                "url": "http://arxiv.org/abs/2611.12777v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12777v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.LG",
+                "categories": [
+                  "cs.LG",
+                  "cs.CV"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12521v1",
+                "title": "Can the Confidence and Decisions of System 1 Models Be Trusted? An Explainability and Perturbation Audit of Jev-Style Decision Models",
+                "summary": "\"System 1\" decision models (pioneered by TypeSafe AI's Jev) replace autoregressive text generation with a single forward pass returning typed probability distributions over declared schemas (Choice, Score, Noul). While deployed for low-latency routing and automated triage, their statistical calibration and post-hoc explainability remain uncharacterized. We introduce an open, deterministic audit benchmark evaluating System 1 decision models across calibration under label-preserving perturbations, cross-question interference, and post-hoc attribution faithfulness. Evaluating five open-weight models (0.8B to 27B) alongside generative System 2 baselines -- both single-token logprob scoring and structured JSON/CoT decoding -- across NLI (e-SNLI), adversarial syntactic shortcuts (HANS), synthetic clinical triage (N=900), prompt injection defense (Tensor Trust, N=250), and an 86-case logic-gate trigger suite yields five findings: (1) provider confidence is an exact closed-form dispersion transform (1 - H(p)/ln K on sub-10B models; normalized margin on Clef-27B) rather than empirical accuracy; (2) bundling multiple questions in one request induces directional cross-question interference (11.7% to 22.4% binary flips on Tev1-0.8B, vs. 0.1% to 0.2% on Tev1-4B); (3) System 1 models with >= 4B parameters are faster and better calibrated under syntactic shifts (ECE_w = 0.030 to 0.087) than logprob (0.144) and JSON (0.378) baselines; (4) for prompt-injection defense (N=250), >= 4B models achieve 0.988 to 0.998 AUROC with up to 95.2% recall and 0.0% false alarms at 48 to 60 ms; and (5) single-pass inference makes 512-coalition XAI interactive (1.3 to 3.2 s/input), while KernelSHAP with a logit link (S1-SHAP) mitigates softmax saturation on disjunctive OR gates (89.3% to 100.0% gate recovery vs. 57.1% to 82.1% in prob space; p_adj = 0.004).",
+                "authors": [
+                  "Julien Delaunay"
+                ],
+                "published": "2026-11-09T14:58:53Z",
+                "updated": "2026-11-09T14:58:53Z",
+                "url": "http://arxiv.org/abs/2611.12521v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12521v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.LG",
+                "categories": [
+                  "cs.LG",
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12386v1",
+                "title": "Say Shibboleth: Fingerprinting the LLMs and Harnesses Behind Agentic Attacks",
+                "summary": "We study the fingerprinting of agentic cyberattacks. Our objective is to reliably infer information about the attacker's configuration, such as LLM version and harness, from telemetry. To achieve this, we introduce a technique we call shibboleth traps: modular honeypot services designed to elicit discriminative behaviors from agentic attackers. The traps make informative interactions a condition for obtaining resources the agent seeks, eliciting model declarations and characteristic writing without requiring a successful prompt injection. To achieve harness fingerprinting, we introduce general mechanisms to indirectly probe peculiar execution behaviors of harnesses. These probes reveal how a harness masks secrets in tool output, enforces command time limits, and schedules tool calls, using only the effects visible in subsequent requests. We show that combined declarative and behavioral inference distinguishes among 15 candidate models with an average 90% top-1 accuracy, with behavioral classifiers evaluated on held-out harnesses or task families. In a separate experiment across four harnesses, fixed probe rules identify the correct harness with 92% accuracy. When instructed to conceal their identity, agents still leave useful behavioral evidence even as their declarations become uninformative.",
+                "authors": [
+                  "Dario Pasquini",
+                  "Reworr",
+                  "Giuseppe Ateniese",
+                  "Manish Bhatt",
+                  "Sergej Epp"
+                ],
+                "published": "2026-11-09T13:27:13Z",
+                "updated": "2026-11-09T13:27:13Z",
+                "url": "http://arxiv.org/abs/2611.12386v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12386v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CR",
+                "categories": [
+                  "cs.CR",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12125v1",
+                "title": "CARE-PO: Controllable Tool-Call Efficiency for LLM Agents",
+                "summary": "External tool calls are a major running cost of an LLM agent, while its training objectives align almost exclusively with task completion. In a step-level diagnosis of Qwen3.5 trajectories at two model sizes on GAIA, a long-horizon tool-use benchmark, we find that most contain removable calls, at a similar rate at both sizes. Some methods add an efficiency reward to the objective to reduce the call count, but introduce problems of their own: the anchor they price calls against is computed from the policy's own rollouts (e.g., the group's shortest correct rollout) and so moves with the policy; training can drift toward a collapsed policy that issues no tool call at all, a degeneracy seen in published reports and in our 27B baseline; and a training run delivers a single operating point, so the user cannot trade efficiency against capability. We present CARE-PO (Controllable Anchored Relative Efficiency Policy Optimization) to mitigate these problems. The efficiency reward prices calls against a reference budget anchored to the task's own difficulty and fixed before training. Injecting a successful trajectory from the training data into each online GRPO rollout group and charging for evidence a trajectory never gathers ease the drift toward a collapsed call count. Shaping the cost curve by an effort tag in the prompt yields an efficiency and a capability operating point from a single training run. On GAIA, five of the six operating points across three model sizes improve on their base model in success rate and call count at once. On four held-out multi-hop benchmarks the result is size-dependent: at 27B and 4B success rate is held or raised at a lower call count, while at 9B both operating points trade success rate for fewer calls. The call count remains well above zero throughout training at all three sizes.",
+                "authors": [
+                  "Xiaoyang Ye",
+                  "Xiao Yao",
+                  "Hairui Zhu",
+                  "Yiying Yang",
+                  "Bei Gan",
+                  "Jinliang Lu",
+                  "Tengjin Weng",
+                  "Yuan Yao",
+                  "Wenhao Jiang"
+                ],
+                "published": "2026-11-09T09:41:37Z",
+                "updated": "2026-11-09T09:41:37Z",
+                "url": "http://arxiv.org/abs/2611.12125v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12125v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.LG",
+                "categories": [
+                  "cs.LG",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2611.12062v1",
+                "title": "Translating KV Caches Between Hybrid-Attention Language Models: MLA Latents, Linear-Attention States and Sparse-Attention Indexers",
+                "summary": "A model that takes over another model's conversation must normally re-read the whole history; a text hand-off shortens the re-read only by dropping content. KV-cache translation instead maps the source's cache into the target's own format, so the target continues from the full context without re-reading it. It works for grouped-query attention (GQA), but open-weights frontier models now cache compressed latents (MLA), sparse-attention indexer keys and fixed-size linear-attention states. We replicate KV-Lingo on a GQA pair and then give, for each of these objects, where to capture and inject it and a mechanism that reaches native quality. We study two hybrid pairs at 16-48B scale in both directions, Kimi-VL-A3B - Kimi-Linear-48B (MLA - MLA + Kimi Delta Attention) and Qwen3.5-27B - Qwen3.8-27B (Gated DeltaNet hybrids), plus a sparse-attention target (Qwen3.8-27B - Qwen3.8-Flash-Next). MLA latents translate with token-wise linear maps; recurrent states are copied with a closed-form correction or synthesised by replaying the target's own recurrence. Exact long-range recall needs token identity: decoding token ids from the source's layer-0 MLA latent raises needle recall from 0.09 to 0.99 at 2-32K and to 0.83-1.00 at 64K, eight times the longest training prompt. The hybrid full-MLA direction is within the paired confidence interval of native quality on every task metric, and same-shape GDN hybrids reach the native level in both directions (apart from 6% refusals inherited from the source), with time to first token 18.7 and 46.8 times shorter than a re-read at 64K tokens. Segment-wise multi-turn transfer stays at the re-prefill level; naive re-translation collapses. On the sparse-attention target, predicted indexer keys recall the needle as well as the target's own keys (one seed). We state as a hypothesis how the recipes transfer to 300B+ hybrid flagships.",
+                "authors": [
+                  "Povilas Kvedaras",
+                  "Tomas Rasymas"
+                ],
+                "published": "2026-11-09T08:37:12Z",
+                "updated": "2026-11-09T08:37:12Z",
+                "url": "http://arxiv.org/abs/2611.12062v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.12062v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.LG",
+                "categories": [
+                  "cs.LG",
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2608.20413v2",
+                "title": "BioFirewall: A genome-writing-native governance layer for design-stage biosecurity screening of agentic AI",
+                "summary": "AI design tools now plan genome-scale edits, and agentic systems execute those plans with progressively less human oversight. Biosecurity controls are limited to two points: refusal guardrails at the foundation model and sequence-identity screening at the synthesiser. The design stage between them, where the plan is specified, is governed by recommendations, not by any deployed system. We present BioFirewall, a rule-governed middleware that intercepts a genome-writing plan and returns allow, flag-for-review, or refuse across five genome-writing-native hazard axes: cargo, locus, edit type, germline and scale, with cited evidence, a signed design passport, a tamper-evident audit log, and tiered access. On a de-circularised benchmark of safe proxies scored against independent oracles, a function-aware cargo classifier reached a true-positive rate of 0.72 (95% CI 0.43 to 0.89) at a false-positive rate of 1.105%, the nearest attainable to 1%, on a held-out split. Language-model judges did not reliably screen these sequences: their engagement depended heavily on sequence class, so a rate conditioned on engagement does not measure screening performance. Under prompt injection, the blocking verdicts of the open-weight judges tested flipped to allow, while the deterministic screen remained invariant. None of the 288 legitimate plans was refused, giving a 95% upper bound on the false-refuse rate of 0.0103 for the evaluated corpus under an independence assumption, or 0.632 treating the three plan templates as independent units. On a held-out gene set, the locus axis was enriched for drivers of in vivo insertional oncogenesis (AUROC 0.605; odds ratio 3.34), and a session monitor intercepted the cross-call decomposition attacks it was built to detect. These results show design-stage governance is achievable within the evaluated scope. BioFirewall is open source under a permissive licence.",
+                "authors": [
+                  "Anees Ahmed Mahaboob Ali",
+                  "Radhakrishnan Delhibabu",
+                  "Everette Jacob Remington Nelson"
+                ],
+                "published": "2026-08-15T17:14:49Z",
+                "updated": "2026-11-09T08:08:52Z",
+                "url": "http://arxiv.org/abs/2608.20413v2",
+                "pdf_url": "https://arxiv.org/pdf/2608.20413v2",
+                "source": "arxiv.org",
+                "primary_category": "q-bio.GN",
+                "categories": [
+                  "q-bio.GN"
+                ]
+              },
+              {
+                "arxiv_id": "2611.11971v1",
+                "title": "Harness Matters: Measuring and Dissecting Security Resilience in Web Agents",
+                "summary": "Web agents extend LLMs from text generation to real-world web interaction by relying on execution harnesses that interpret user goals, perceive webpages, plan actions, and ground model decisions into browser operations. While prior work has recognized that agent security depends on more than the backend model alone, how harness design quantitatively shapes web-agent security remains insufficiently measured. To systematically study web-agent harness security, we first characterize web-agent harnesses as a four-stage execution workflow covering goal interpretation, webpage perception, reasoning and planning, and action execution. Based on this abstraction, we build WebTrap Farm, a systematic and extensible evaluation framework covering three representative attack categories: malicious user prompts, malicious prompt injection, and deceptive web design. To avoid conflating security with task capability, we use paired usability calibration tasks to separate genuine defensive behavior from capability limitations. Our evaluation shows that existing web-agent harnesses remain vulnerable to typical attacks, with some unsafe behaviors occurring even without explicit attack content, revealing harness-intrinsic security failures (RQ1). Statistical analysis further shows that both harness and backend model significantly affect security outcomes, indicating that deployed-agent security is jointly shaped by the harness and backend model (RQ2). Finally, we localize where defensive behavior emerges across workflow stages and identify more secure design mechanisms, providing actionable guidance for building more robust web agents (RQ3). These findings highlight the web-agent harness as an important security boundary and motivate moving beyond model-centric defenses toward harness-level security design.",
+                "authors": [
+                  "Xinyi Wu",
+                  "Jiagui Chen",
+                  "JiaYi Dong",
+                  "Geng Hong",
+                  "Xudong Pan",
+                  "Jiarun Dai",
+                  "Mingxuan Liu",
+                  "Min Yang"
+                ],
+                "published": "2026-11-09T06:53:04Z",
+                "updated": "2026-11-09T06:53:04Z",
+                "url": "http://arxiv.org/abs/2611.11971v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.11971v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CR",
+                "categories": [
+                  "cs.CR",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2611.11861v1",
+                "title": "Scaling Adaptive Prompt Injection Attacks with Agent Swarms",
+                "summary": "Prompt injections have emerged as one of the top security risks faced by AI agents today. Early work in prompt injection attacks looked at simple tool-call agents and static attack payloads, and were saturated since mid-2025. As of Fall 2026, human red-teaming may be nearing saturation, especially on the Gemini family of models. In this work, we argue that despite this apparent plateau, prompt injection attacks are still possible and continued effort into prompt injection defense is needed. We design a new synthetic evaluation dataset which uses random non-malicious actions as adversarial goals. Such dataset design helps us to evaluate prompt injection robustness as a model ability to respect instruction hierarchy, and disentangle this ability from model knowledge of security practices. We show that an agentic attacker of increased capabilities can reliably trick model to follow instructions in tool output in our evaluation, even for models previously considered robust on public prompt injection benchmarks such as GraySwan Arena. This shows that current frontier defenses may require proactive, automated red-teaming to remain resilient to increasingly capable adversaries.",
+                "authors": [
+                  "Alexey Kurakin",
+                  "Vishal Karande",
+                  "Alex Bie",
+                  "Chongyang Shi",
+                  "Shuang Song",
+                  "Saeed Mahloujifar",
+                  "Abdullatif Köksal",
+                  "Jamie Hayes",
+                  "Juliette Pluto",
+                  "Yinghao Sun",
+                  "Kamalika Chaudhuri"
+                ],
+                "published": "2026-11-09T04:34:14Z",
+                "updated": "2026-11-09T04:34:14Z",
+                "url": "http://arxiv.org/abs/2611.11861v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.11861v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CR",
+                "categories": [
+                  "cs.CR",
+                  "cs.LG"
+                ]
+              },
+              {
+                "arxiv_id": "2611.11684v1",
+                "title": "Self-Indexing Latent Memories for Access-Aware Continual Instruction Tuning of LLMs",
+                "summary": "Continual instruction tuning often preserves old skills with task-private modules. Inference still requires selecting the right module from the prompt alone. We introduce Task-Isolated Latent Adapter Continual Training (TILA-CT), a replay-free method that makes each task module self-indexing. Each task receives a latent memory and adapter bank in a frozen LLM. During adaptation, the memory gathers causal-prefix information and injects task-conditioned context. For access, its persistent state provides the routing prototype used by a shared prompt-only router. On the 8-task CT-Pipeline stream, TILA-CT achieves 65.19 acquisition and 63.98 final macro score, with 1.38 points of average forgetting. A middle-reversed order gives 65.38 acquisition and 64.17 final macro score. Across 6 backbones, final scores remain within 1.5 points of acquisition. Ablations support memory-derived routing keys and causal gathering. Final macro routing accuracy is 93.9\\%, and oracle routing recovers 1.21 final macro points. These results separate preserved task computation from learned access to it.",
+                "authors": [
+                  "Dhruv Dixit",
+                  "Paritosh Pandey",
+                  "Snehalkumar 'Neil' S. Gaikwad"
+                ],
+                "published": "2026-11-08T23:15:34Z",
+                "updated": "2026-11-08T23:15:34Z",
+                "url": "http://arxiv.org/abs/2611.11684v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.11684v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2611.11669v1",
+                "title": "Toward Self-Evolving Geospatial Algorithms: An LLM-Driven Framework with a Case Study on Spatial Regime Discovery",
+                "summary": "Geospatial algorithms have been developed through expert-driven discovery: a researcher spots a limitation, proposes a structural fix, and checks it by hand. With LLM-driven multi-agent systems becoming practical, much of the candidate-generation, evaluation, and selection work can now be largely automated, while the researcher's role shifts upstream toward problem formulation, evaluation design, and interpretation. We refer to this paradigm as Self-Evolving Geospatial Algorithms (SEGA) and propose a framework with three required modules: a two-loop architecture with embedded geographic knowledge as the inner-loop engine; an automatic code formatter that converts any raw geospatial algorithm into the standardized triple required by the inner loop; and a simulation-driven training protocol, in which evolution runs only on synthetic data with known ground truth, and the discovered algorithm is applied unchanged to real data, keeping real-world results out-of-sample. We use spatial regime discovery as a case study, seeded with the Two-stage K-Models algorithm. Evolution uses the Rand Index against the ground-truth partition as fitness signal; the frozen algorithm is then evaluated on 150 simulated grids and 11 real-world datasets across climate, health, hydrology, and politics. The evolved algorithm outperforms its seed, knowledge-free baselines, and four classical regionalization methods. Ablations further indicate that the channel of geographic-knowledge injection, structured retrieval versus prompt-level hints, is itself load-bearing. In this case study, LLM-assisted search sped up the inner loop; whether it does so for other seeds and task families remains open. The geographer's role -- asking the right questions, designing trustworthy evaluation -- grows more central.",
+                "authors": [
+                  "Xiayin Lou",
+                  "Peng Luo",
+                  "Liqiu Meng"
+                ],
+                "published": "2026-11-08T22:49:39Z",
+                "updated": "2026-11-08T22:49:39Z",
+                "url": "http://arxiv.org/abs/2611.11669v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.11669v1",
+                "source": "arxiv.org",
+                "primary_category": "physics.soc-ph",
+                "categories": [
+                  "physics.soc-ph"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T19:30:16"
+    }
+  ]
+}

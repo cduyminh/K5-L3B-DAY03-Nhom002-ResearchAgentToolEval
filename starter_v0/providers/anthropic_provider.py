@@ -5,6 +5,13 @@ from typing import Any
 
 from providers.base import ModelResponse, ToolCall
 
+DEFAULT_MODEL = "claude-opus-5-5"
+
+# Current Claude models (Opus 5.5, Sonnet 5.5, Fable 5.1, ...) reject sampling params
+# (temperature/top_p/top_k) and forced tool use (tool_choice "any"/"tool") with a 400.
+# Only these older models still accept forced tool use.
+_FORCED_TOOL_CHOICE_MODELS = ("claude-haiku-4-5", "claude-sonnet-4-6", "claude-opus-4-6")
+
 
 def _to_anthropic_tools(tools: list[dict[str, Any]] | None) -> list[dict[str, Any]]:
     converted: list[dict[str, Any]] = []
@@ -38,10 +45,10 @@ class AnthropicProvider:
         self,
         *,
         api_key_env: str = "ANTHROPIC_API_KEY",
-        default_model: str = "claude-haiku-4-5-20251001",
+        default_model: str | None = None,
     ) -> None:
         self.api_key_env = api_key_env
-        self.default_model = default_model
+        self.default_model = default_model or os.getenv("ANTHROPIC_MODEL") or DEFAULT_MODEL
 
     def complete(
         self,
@@ -49,7 +56,7 @@ class AnthropicProvider:
         tools: list[dict[str, Any]] | None = None,
         *,
         model: str | None = None,
-        temperature: float = 0.0,
+        temperature: float = 0.0,  # kept for the Provider interface; not sent (current models reject it)
         tool_choice: Any | None = None,
     ) -> ModelResponse:
         try:
@@ -61,24 +68,39 @@ class AnthropicProvider:
         if not api_key:
             raise RuntimeError(f"Missing API key env var: {self.api_key_env}")
 
+        selected_model = model or self.default_model
         system, chat_messages = _split_system(messages)
         kwargs: dict[str, Any] = {
-            "model": model or self.default_model,
+            "model": selected_model,
             "messages": chat_messages,
-            "max_tokens": 1024,
-            "temperature": temperature,
+            "max_tokens": 16000,  # room for adaptive thinking + tool call
         }
         if system:
             kwargs["system"] = system
         anthropic_tools = _to_anthropic_tools(tools)
         if anthropic_tools:
             kwargs["tools"] = anthropic_tools
-            if tool_choice == "required":
+            if tool_choice == "required" and selected_model.startswith(_FORCED_TOOL_CHOICE_MODELS):
                 kwargs["tool_choice"] = {"type": "any"}
+            # Newer models: leave tool_choice as auto; the system prompt must steer tool use.
 
-        resp = Anthropic(api_key=api_key).messages.create(**kwargs)
+        client = Anthropic(api_key=api_key)
+        if selected_model.startswith(_FORCED_TOOL_CHOICE_MODELS):
+            resp = client.messages.create(**kwargs)
+        else:
+            # Server-side fallback: if a safety classifier refuses, the API retries on a
+            # suitable model instead of returning stop_reason="refusal".
+            resp = client.beta.messages.create(
+                **kwargs,
+                output_config={"effort": "medium"},
+                betas=["server-side-fallback-2026-07-01"],
+                fallbacks="default",
+            )
+
         text_parts: list[str] = []
         calls: list[ToolCall] = []
+        if getattr(resp, "stop_reason", None) == "refusal":
+            return ModelResponse(text="[refusal] The model declined this request.", tool_calls=[], raw=resp)
         for block in resp.content:
             block_type = getattr(block, "type", None)
             if block_type == "text":

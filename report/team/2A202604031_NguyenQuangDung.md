@@ -68,8 +68,6 @@ Kết quả thực tế: `70 passed, 14 skipped in 0.29s`
 > Trong toàn bộ suite không có failed. Các `skipped` còn lại là test challenge mẫu chưa làm trong file todo, không phải lỗi của tool mới.
 
 ## 5. Tự đánh giá
-
-- Mức độ hoàn thành: 8.5/10
 - Điểm mạnh: triển khai tool mới theo chuẩn repo, đồng bộ đúng registry và YAML, có unit test cho happy path và lỗi, kiểm tra bằng pytest đạt 0 failed.
 - Cần cải thiện: nếu muốn đạt `0 skipped`, nhóm cần hoàn thiện các test stub còn lại trong `starter_v0/tests/test_tools_todo.py`.
 - Kết luận: phần công việc của tôi trong CP3 đã hoàn thành đúng mục tiêu: thêm tool mới, test tool mới, và chứng minh tool hoạt động đúng theo contract.

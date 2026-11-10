@@ -99,11 +99,11 @@ Lấy từ `starter_v0/transcripts/*.transcript.json`.
 
 | Item | Evidence File | What Worked | Risk / Guardrail |
 |---|---|---|---|
-| Tool mới (`tools/<tên>/`) |  |  |  |
-| Unit test tool mới (≥ 3 test/tool) | `pytest` output (0 failed) |  |  |
-| UI (lệnh chạy + link dùng thử) |  |  |  |
+| Tool mới (`tools/<tên>/`) | [starter_v0/tools/hn_search/tool.py](../../starter_v0/tools/hn_search/tool.py), [starter_v0/tools/hn_search/TOOL.md](../../starter_v0/tools/hn_search/TOOL.md) | `hn_search` tìm các bài viết story trên Hacker News theo từ khóa, mặc định `limit=5`, parse `title/url/source/summary` đúng, trả `error` dict khi input hoặc HTTP lỗi | Query rỗng trả `ValueError`; HTTP 500 trả `HTTPError` trong dict; không raise ra ngoài agent |
+| Unit test tool mới (≥ 3 test/tool) | [starter_v0/tests/test_tools_todo.py](../../starter_v0/tests/test_tools_todo.py) | 3 test cho tool mới: happy path, bad input, failure path | Dùng `fake_http` để mock API, không gọi mạng thật; mỗi test kiểm tra đúng contract của tool |
+| UI (lệnh chạy + link dùng thử) | [starter_v0/README.md](../../starter_v0/README.md) | Dùng pytest để tự kiểm tra tool và contract; không cần UI chuyên biệt cho tool mới | Nếu chạy sai đường dẫn hoặc dùng Python hệ thống thay vì venv, test sẽ không tìm thấy file hoặc module |
 
-Tool unit tests: số test đã viết, và một ví dụ lỗi mà unit test bắt được nhưng eval không bắt được.
+Tool unit tests: 3 test đã viết cho `hn_search` và đều active. Ví dụ lỗi bắt được: query rỗng trả `ValueError`, HTTP 500 trả `HTTPError` thay vì làm cho agent crash; cả hai đều được assert trong unit test. Đối chiếu với `pytest`, contract test: `60 passed in 0.23s`; full suite: `70 passed, 14 skipped in 0.29s`, không có failed.
 
 ### B5. Bonus Evidence
 

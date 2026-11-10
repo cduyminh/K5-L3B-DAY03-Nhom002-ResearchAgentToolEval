@@ -63,7 +63,7 @@ Lấy từ `starter_v0/artifacts/version_log.csv` và `starter_v0/runs/*.json`. 
 | Version | Changed Artifact | Hypothesis | Metric Before | Metric After | Run File |
 |---|---|---|---:|---:|---|
 | v0 | baseline | Đo hành vi chưa tối ưu trước khi sửa | — | 0.75 (15/20) | `starter_v0/runs/v0_B_base_openrouter_20261110T170325624893.json` |
-| v1 |  |  |  |  |  |
+| v1 | `system_prompt.md` | Bỏ chỉ dẫn "đoán account/URL"; thiếu account hoặc URL thì gọi `clarify` (R10, R11) | 0.75 | 0.80 (16/20) | `starter_v0/runs/v1_B_base_openrouter_20261110T171433638706.json` |
 | v2 |  |  |  |  |  |
 | v3 |  |  |  |  |  |
 

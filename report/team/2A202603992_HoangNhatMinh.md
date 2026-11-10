@@ -66,9 +66,8 @@ Các transcript bổ sung (cùng ngày 10/11/2026):
 - `v3_anthropic_20261110T184310323012` — "Mọi người đang bàn gì về GPT-5 trên Twitter?" → `social_search` (tool mới của nhóm).
 - `v3_anthropic_20261110T182402177131` — "Hello" → trả lời trực tiếp, **không gọi tool thừa**.
 
-### 3.5. Nhật ký người dùng và dọn provider (sau commit `9714733`, cần commit trước khi nộp)
+### 3.5. Dọn provider (sau commit `9714733`, cần commit trước khi nộp)
 
-- `starter_v0/user_log.py`: ghi mỗi lượt hỏi vào `logs/user_activity.jsonl` gồm **người dùng, provider/model, câu hỏi, câu trả lời**, trạng thái, tool đã gọi, id transcript. Dùng chung cho UI (ô "Tên người dùng" + bảng "📒 Nhật ký người dùng" trong sidebar) và CLI (`chat.py --user`). Có 3 unit test trong `tests/test_user_log.py`; `logs/` được thêm vào `.gitignore` để không commit dữ liệu người dùng.
 - Bỏ các lựa chọn provider `openai`, `gemini`, `ollama` khỏi UI và CLI (`app.py`, `chat.py`, `run_eval.py`, `scripts/preflight_provider.py`). Lý do: nhóm không có key cho các provider này; 2 transcript `v0_openrouter_…175820…` và `v3_openai_…182346…` cho thấy chọn nhầm provider chỉ dẫn tới `provider_error: Missing API key env var`.
 
 ## 4. Bằng chứng
@@ -77,10 +76,10 @@ Các transcript bổ sung (cùng ngày 10/11/2026):
   - Commit `9714733` "UI": `starter_v0/app.py`, `starter_v0/providers/anthropic_provider.py`, `starter_v0/requirements.txt`, `starter_v0/artifacts/version_log.csv`, `starter_v0/runs/v0_B_base_anthropic_20261110T172857200899.json`, 2 transcript đầu tiên.
   - Commit `cb10d22`: tạo file báo cáo cá nhân.
   - Transcript live: `starter_v0/transcripts/v3_anthropic_*.transcript.json` (6 file, liệt kê ở mục 3.4).
-  - Thay đổi chưa commit (mục 3.5): `starter_v0/user_log.py`, `starter_v0/tests/test_user_log.py`, `starter_v0/.gitignore`, `starter_v0/app.py`, `starter_v0/chat.py`, `starter_v0/run_eval.py`, `starter_v0/scripts/preflight_provider.py`.
+  - Thay đổi chưa commit (mục 3.5): `starter_v0/app.py`, `starter_v0/chat.py`, `starter_v0/run_eval.py`, `starter_v0/scripts/preflight_provider.py`.
 - **AI/công cụ đã dùng và cách tự kiểm tra kết quả:**
-  - Dùng Claude Code hỗ trợ viết UI, sửa provider và chức năng nhật ký.
-  - Tự kiểm tra: chạy `pytest` sau mỗi thay đổi (**65 passed, 0 failed**); mở UI chat thật với API key thật và đọc lại từng transcript JSON để xác nhận tool được gọi đúng, args đúng, lỗi provider hiển thị đúng chứ không bị ẩn; kiểm tra run v0 có `provider_error_cases == 0` trước khi ghi vào `version_log.csv`; dùng `git check-ignore` để xác nhận `logs/` không bị commit.
+  - Dùng Claude Code hỗ trợ viết UI và sửa provider.
+  - Tự kiểm tra: chạy `pytest` sau mỗi thay đổi (**0 failed**); mở UI chat thật với API key thật và đọc lại từng transcript JSON để xác nhận tool được gọi đúng, args đúng, lỗi provider hiển thị đúng chứ không bị ẩn; kiểm tra run v0 có `provider_error_cases == 0` trước khi ghi vào `version_log.csv`.
 
 ## 5. Tự đánh giá
 

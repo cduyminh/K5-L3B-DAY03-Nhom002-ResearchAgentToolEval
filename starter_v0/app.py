@@ -28,10 +28,22 @@ from providers import make_provider
 from tools import load_tool_declarations, to_openai_tools
 from versioning import artifact_version_dict, build_artifact_version
 
-PROVIDERS = ["anthropic", "openrouter", "openai", "gemini", "ollama"]
+PROVIDERS = ["anthropic", "openrouter"]
 TRANSCRIPTS_DIR = ROOT / "transcripts"
 
 st.set_page_config(page_title="Research Agent Chat", page_icon="🔎", layout="wide")
+
+
+def latest_logged_version() -> str:
+    """Last `version` in artifacts/version_log.csv (e.g. v3), fallback v0."""
+    import csv
+
+    try:
+        with (ARTIFACTS_DIR / "version_log.csv").open(encoding="utf-8") as fh:
+            rows = [r for r in csv.DictReader(fh) if r.get("version")]
+        return rows[-1]["version"] if rows else "v0"
+    except OSError:
+        return "v0"
 
 
 # ---------------------------------------------------------------- session setup
@@ -116,7 +128,7 @@ with st.sidebar:
     st.header("⚙️ Cấu hình")
     provider_name = st.selectbox("Provider", PROVIDERS, index=0)
     model = st.text_input("Model (để trống = default của provider)", value="")
-    version = st.text_input("Version label", value="v0")
+    version = st.text_input("Version label", value=latest_logged_version())
     history_window = st.number_input("History window (cặp user/assistant)", 0, 50, 5)
     max_tool_rounds = st.number_input("Max tool rounds", 1, 20, 4)
     start = st.button("🆕 New chat (áp dụng cấu hình)", use_container_width=True)

@@ -31,7 +31,7 @@ tools:
       type: object
       properties:
         screenname: {type: string, default: "", description: "Handle X/Twitter, KHÔNG có @. Đổi tên người nổi tiếng sang handle: Sam Altman -> sama, Elon Musk -> elonmusk, Andrej Karpathy -> karpathy."}
-        limit: {type: integer, default: 5, description: "Số bài cần lấy, đúng số user yêu cầu (vd \"10 tweet\" -> 10)."}
+        limit: {type: integer, default: 5, minimum: 1, maximum: 20, description: "Số bài cần lấy, đúng số user yêu cầu (vd \"10 tweet\" -> 10). TỐI ĐA 20: nếu user xin nhiều hơn 20 (vd 500) thì đặt 20 và nói rõ với user là chỉ lấy được tối đa 20."}
       required: [screenname]
 
   - name: social_search
@@ -41,7 +41,7 @@ tools:
       properties:
         query: {type: string, default: "", description: "Từ khóa"}
         search_type: {type: string, enum: [Latest, Top], default: "Latest", description: "Top khi user nói phổ biến/nổi bật/top; Latest khi muốn mới nhất."}
-        limit: {type: integer, default: 5, description: "Số lượng"}
+        limit: {type: integer, default: 5, minimum: 1, maximum: 20, description: "Số bài cần lấy, đúng số user yêu cầu. TỐI ĐA 20: nếu user xin nhiều hơn 20 thì đặt 20 và nói rõ với user."}
       required: [query]
 
   - name: lookup

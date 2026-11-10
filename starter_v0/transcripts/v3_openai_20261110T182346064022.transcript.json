@@ -1,0 +1,29 @@
+{
+  "transcript_id": "v3_openai_20261110T182346064022",
+  "version": "v3",
+  "artifact_version": "v3+p9e2eddeff443+tb475032307ec",
+  "prompt_hash": "9e2eddeff4430671111b53cb5c6a494c81c5c9d1ddab21c566043b98cbcbf634",
+  "tools_hash": "b475032307ecb310d0e9a4a58f924150f831fd43dc63c4d94c7ed3ca54441241",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "/Users/nhatminh/project/study_Vinuni/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/nhatminh/project/study_Vinuni/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "ui": "streamlit",
+  "created_at": "2026-11-10T18:23:46",
+  "updated_at": "2026-11-10T18:23:51",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T18:23:51",
+      "user": "Xin chào",
+      "status": "provider_error",
+      "assistant_text": null,
+      "rounds": [],
+      "tool_events": [],
+      "error": "RuntimeError: Missing API key env var: OPENAI_API_KEY",
+      "ended_at": "2026-11-10T18:23:51"
+    }
+  ]
+}

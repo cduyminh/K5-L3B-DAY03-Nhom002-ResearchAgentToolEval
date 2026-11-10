@@ -1,0 +1,513 @@
+{
+  "transcript_id": "v5_openrouter_20261110T190434962625",
+  "version": "v5",
+  "artifact_version": "v5+p378bcb48c809+t52cd5061bf7e",
+  "prompt_hash": "378bcb48c8092b76cdd0c5a0fa6fef82b6664bb9a2c952a242191406690516b7",
+  "tools_hash": "52cd5061bf7eb61fa96691f41fae26565bfa1c7ecd521c609ab410d0a644cf74",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "/Users/minhcaoduy/Code-test/vite-momo/lms/noise-cancelation/zalo-server/khoang-cach/vinuni-ai-prep/AI20K/Day 3/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/minhcaoduy/Code-test/vite-momo/lms/noise-cancelation/zalo-server/khoang-cach/vinuni-ai-prep/AI20K/Day 3/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-11-10T19:04:34",
+  "updated_at": "2026-11-10T19:04:57",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T19:04:34",
+      "user": "Cho mình 100 tweet phổ biến nhất về OpenAI",
+      "status": "answered",
+      "assistant_text": "Dưới đây là 20 tweet phổ biến nhất về OpenAI:\n\n- [Introducing GPT‑6 Cyber: a major advance in security research](https://x.com/OpenAI/status/2118390190246879554) - 21430 likes, 2003 retweets\n- [ChatGPT and Codex are helping engineers build for the physical world](https://x.com/OpenAI/status/2117692475775258785) - 8436 likes, 755 retweets\n- [Today, we’re bringing GPT-Image-2.6 to Codex and the API](https://x.com/OpenAIDevs/status/2118124753340756055) - 3775 likes, 317 retweets\n- [I still don't understand why everyone is not using this yet](https://x.com/Bober_smart/status/2090859011365056720) - 11361 likes, 1466 retweets\n- [Privacy should advance as fast as intelligence](https://x.com/OpenAI/status/2116186509384815084) - 3045 likes, 229 retweets\n- [We built Pando, a new Git backend for our monorepo](https://x.com/OpenAIDevs/status/2117408792346509663) - 6804 likes, 547 retweets\n- [Terence Tao says that the AI proof on the Navier–Stokes problem is correct](https://x.com/matharium/status/2119818726711406691) - 1367 likes, 156 retweets\n- [We built Control Room, a central system to track model workloads](https://x.com/OpenAI/status/2119913172039868579) - 4009 likes, 284 retweets\n- [Ever thought about building your own games?](https://x.com/OpenAIDevs/status/2119864571733446774) - 3071 likes, 307 retweets\n- [this is f*cking insane. andrej karpathy: \"the biggest regret of every engineer...\"](https://x.com/mojeskoqq/status/2116963310277202003) - 3939 likes, 345 retweets\n- [You can now connect multiple local computers to the same dot](https://x.com/OpenAIDevs/status/2119883176726409645) - 6704 likes, 456 retweets\n- [Our latest model advances bring stronger capabilities for building and migrating software](https://x.com/OpenAI/status/2112310345863930168) - 9541 likes, 680 retweets\n- [OpenAI is f*cking cooking... Sam Altman's team just shared 106 Codex plugins](https://x.com/mika_systems/status/2119876302903636459) - 214 likes, 37 retweets\n- [This is GPT-6 Astra](https://x.com/OpenAI/status/2095595741528125780) - 337969 likes, 35132 retweets\n- [We have a gif for you—ChatGPT Images 2.6 is here](https://x.com/ChatGPT/status/2118168231617700199) - 2705 likes, 154 retweets\n- [This is f*cking insane. Andrej Karpathy spent 8 years at OpenAI and Tesla](https://x.com/callanxai/status/2119798212760367165) - 483 likes, 64 retweets\n\nNếu bạn cần thêm thông tin hoặc muốn xem nhiều tweet hơn, hãy cho mình biết!",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "social_search",
+              "args": {
+                "query": "OpenAI",
+                "search_type": "Top",
+                "limit": 20
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "social_search",
+              "args": {
+                "query": "OpenAI",
+                "search_type": "Top",
+                "limit": 20
+              },
+              "result": {
+                "tool": "search_tweets",
+                "query": "OpenAI",
+                "search_type": "Top",
+                "items": [
+                  {
+                    "title": "Introducing GPT‑6 Cyber: a major advance in security research that pairs stronger capabilities with better model alignme",
+                    "summary": "Introducing GPT‑6 Cyber: a major advance in security research that pairs stronger capabilities with better model alignment.\n\nThe model powered the Linux kernel research we announced yesterday, and security teams at companies like Mozilla, Palo Alto Networks, Calif, and Cisco—alongside our own at OpenAI—are already putting it to work.\n\nGPT-6 Cyber is available to select Daybreak Red customers and we are expanding access over time.\n\nhttps://t.co/Nzab3Z1Td6",
+                    "url": "https://x.com/OpenAI/status/2118390190246879554",
+                    "source": "@OpenAI",
+                    "date": "Thu Nov 05 17:09:13 +0000 2026",
+                    "metrics": {
+                      "favorites": 21430,
+                      "retweets": 2003,
+                      "views": "4130480"
+                    }
+                  },
+                  {
+                    "title": "ChatGPT and Codex are helping engineers build for the physical world.",
+                    "summary": "ChatGPT and Codex are helping engineers build for the physical world.\n\nWe’re sharing our progress across mechanical design, electrical engineering, and simulation—from helping our hardware teams iterate faster to testing new workflows with industry collaborators. https://t.co/b3rW9zYJGA",
+                    "url": "https://x.com/OpenAI/status/2117692475775258785",
+                    "source": "@OpenAI",
+                    "date": "Tue Nov 03 18:56:45 +0000 2026",
+                    "metrics": {
+                      "favorites": 8436,
+                      "retweets": 755,
+                      "views": "1399775"
+                    }
+                  },
+                  {
+                    "title": "Today, we’re bringing GPT-Image-2.6 to Codex and the API.",
+                    "summary": "Today, we’re bringing GPT-Image-2.6 to Codex and the API.\n\nImage-2.6 Flare and Sunburst, our two new API image models, generate images 50% faster than before.\n\nAt medium or high quality, Sunburst keeps details more consistent from one edit to the next. https://t.co/iNhtjqKueJ",
+                    "url": "https://x.com/OpenAIDevs/status/2118124753340756055",
+                    "source": "@OpenAIDevs",
+                    "date": "Wed Nov 04 23:34:28 +0000 2026",
+                    "metrics": {
+                      "favorites": 3775,
+                      "retweets": 317,
+                      "views": "385406"
+                    }
+                  },
+                  {
+                    "title": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 17,000 do",
+                    "summary": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 17,000 dollars a month\n\nAndrey Karpathy, co-founder of OpenAI, published a simple idea that got 16 million views: stop using AI to write code, use it to build a second brain\n\nYou point Claude Code to a folder, drop any source in there (an article, transcript, PDF) and Claude reads it, links it, and saves it into a living wiki of everything you know. It compounds like interest: the more you feed it, the smarter it gets\n\nHere is the gist:\n\nInstall Obsidian, create a vault, open it in Claude Code\n\nPaste the file with Karpathy's wiki idea and tell Claude to build it\n\nClaude creates three folders: raw for sources, wiki for its pages, CLAUDE\nwhich runs everything\n\nDrop any source into raw and say \"ingest this\"\n\nAsk questions across everything, forever\n\nFive minutes to set up, and you never start with an empty chat again\n\nThe full step-by-step guide is in the article. Save to bookmarks",
+                    "url": "https://x.com/Bober_smart/status/2090859011365056720",
+                    "source": "@Bober_smart",
+                    "date": "Fri Aug 21 17:50:09 +0000 2026",
+                    "metrics": {
+                      "favorites": 11361,
+                      "retweets": 1466,
+                      "views": "2888597"
+                    }
+                  },
+                  {
+                    "title": "Privacy should advance as fast as intelligence. OpenAI Private Intelligence gives businesses stronger controls over thei",
+                    "summary": "Privacy should advance as fast as intelligence. OpenAI Private Intelligence gives businesses stronger controls over their data while using our most capable models.\n\nWe’re building these protections in close collaboration with some of our largest customers to help businesses apply frontier AI to their most sensitive work.\nhttps://t.co/BiA4N8FQVH",
+                    "url": "https://x.com/OpenAI/status/2116186509384815084",
+                    "source": "@OpenAI",
+                    "date": "Fri Oct 30 15:12:35 +0000 2026",
+                    "metrics": {
+                      "favorites": 3045,
+                      "retweets": 229,
+                      "views": "475684"
+                    }
+                  },
+                  {
+                    "title": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 15,000 do",
+                    "summary": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 15,000 dollars a month\n\nAndrey Karpathy, co-founder of OpenAI, published a simple idea that got 25 million views: stop using AI to write code, use it to build a second brain\n\nYou point Claude Code to a folder, drop any source in there (an article, transcript, PDF) and Claude reads it, links it, and saves it into a living wiki of everything you know. It compounds like interest: the more you feed it, the smarter it gets\n\nHere is the gist:\n\nInstall Obsidian, create a vault, open it in Claude Code\n\nPaste the file with Karpathy's wiki idea and tell Claude to build it\n\nClaude creates three folders: raw for sources, wiki for its pages, CLAUDE\nwhich runs everything\n\nDrop any source into raw and say ingest this\n\nAsk questions across everything, forever\n\n5 minutes to set up, and you never start with an empty chat again\n\nThe full instructions can be found in the article below",
+                    "url": "https://x.com/Bober_smart/status/2119070145284841481",
+                    "source": "@Bober_smart",
+                    "date": "Sat Nov 07 14:11:07 +0000 2026",
+                    "metrics": {
+                      "favorites": 1183,
+                      "retweets": 128,
+                      "views": "95628"
+                    }
+                  },
+                  {
+                    "title": "We built Pando, a new Git backend for our monorepo, to handle more pushes and fetches without changing how our engineers",
+                    "summary": "We built Pando, a new Git backend for our monorepo, to handle more pushes and fetches without changing how our engineers and agents use Git.\n\nPando cut push latency by ~80% and now serves nearly a petabyte of Git data a day. We can grow Git capacity alongside agent usage. https://t.co/4c0YXOfKqK",
+                    "url": "https://x.com/OpenAIDevs/status/2117408792346509663",
+                    "source": "@OpenAIDevs",
+                    "date": "Tue Nov 03 00:09:30 +0000 2026",
+                    "metrics": {
+                      "favorites": 6804,
+                      "retweets": 547,
+                      "views": "1860682"
+                    }
+                  },
+                  {
+                    "title": "Terence Tao says that the AI proof on the Navier–Stokes problem is correct, yet mathematicians learned almost nothing fr",
+                    "summary": "Terence Tao says that the AI proof on the Navier–Stokes problem is correct, yet mathematicians learned almost nothing from it. The proof is 100 pages, AI-generated and full of issues in its text, but a formal certificate in the language Lean confirms it.\n\nNavier–Stokes is a Millennium Prize problem that asks whether the equations for fluids like water can start smooth and then blow up, with velocity or pressure becoming infinite. Human mathematicians came very close, and OpenAI ran its biggest model, with millions of dollars of compute, to get there first.\n\nA human proof normally comes with talks on what was tried, what worked and what it connects to, like picking fruit and planting the seeds. Tao calls this one strip mining: the fruit taken, the landscape left barren. One colleague, using lots of AI, could explain only half of it after days of work.",
+                    "url": "https://x.com/matharium/status/2119818726711406691",
+                    "source": "@matharium",
+                    "date": "Mon Nov 09 15:45:43 +0000 2026",
+                    "metrics": {
+                      "favorites": 1367,
+                      "retweets": 156,
+                      "views": "387849"
+                    }
+                  },
+                  {
+                    "title": "We built Control Room, a central system to track model workloads across our research infrastructure and stop them quickl",
+                    "summary": "We built Control Room, a central system to track model workloads across our research infrastructure and stop them quickly when safety or security concerns arise.\n\nIt connects every research inference workload, including agentic sampling for model training and evaluation, data processing, and more. This works together with our misalignment monitoring systems, and halts model output within 35 seconds of a decision to intervene to stop or pause a job.\n\nControl Room is just one part of our holistic approach for safe frontier model training and deployment.\n\nhttps://t.co/tc0lBqFdS5",
+                    "url": "https://x.com/OpenAI/status/2119913172039868579",
+                    "source": "@OpenAI",
+                    "date": "Mon Nov 09 22:01:00 +0000 2026",
+                    "metrics": {
+                      "favorites": 4009,
+                      "retweets": 284,
+                      "views": "686167"
+                    }
+                  },
+                  {
+                    "title": "Ever thought about building your own games? The Codex edition @modretro Chromatic is now on Supply Co.",
+                    "summary": "Ever thought about building your own games? The Codex edition @modretro Chromatic is now on Supply Co.\n\nWith the ModRetro Chromatic plugin in Codex, you can design levels, animate sprites, and playtest on your handheld.\n\nSpeedrun checkout while Codex builds your ROM 😉 https://t.co/3OViRHh2Ry",
+                    "url": "https://x.com/OpenAIDevs/status/2119864571733446774",
+                    "source": "@OpenAIDevs",
+                    "date": "Mon Nov 09 18:47:53 +0000 2026",
+                    "metrics": {
+                      "favorites": 3071,
+                      "retweets": 307,
+                      "views": "579256"
+                    }
+                  },
+                  {
+                    "title": "this is f*cking insane. andrej karpathy: \"the biggest regret of every engineer in my field right now is every AI convers",
+                    "summary": "this is f*cking insane. andrej karpathy: \"the biggest regret of every engineer in my field right now is every AI conversation they never saved, and in 10 years the ones who started saving in 2024 will be running circles around the rest of us\"\n\nandrej karpathy, co-founder of openai, pulled 16M views on one idea: stop using AI to write code, use it to build a second brain that remembers every article, pdf, transcript and conversation you ever fed it\n\nyou point claude code at a folder, drop anything into it, and claude reads it, cross-links it with everything already there, and writes it into a living wiki. your knowledge finally compounds instead of leaking out of your head every friday\n\nthe stack:\n\n→ brew install obsidian, mkdir ~/vault, cd ~/vault\n→ run claude in that folder and type \"init a knowledge vault with CLAUDE.md as the rules, /raw for sources, /wiki for your pages\"\n→ drop any file into /raw (youtube transcript, meeting notes, 400-page pdf, screenshot of a tweet) and type \"ingest\"\n→ claude writes a wiki page, links it to 5 existing ones automatically, updates CLAUDE.md with any new pattern it noticed about how you think\n→ never open a blank claude chat again. every question goes through the vault, every answer cites your own sources with dates and links\n\n5 minutes to set up. compounding knowledge from that evening forward\n\nthe ugly part most will scroll past: in 10 years the engineers who started this in 2024 will remember every book, every podcast, every meeting with receipts. you will remember none of them. karpathy already picked which side he is on and you are still not on his\n\nfull step-by-step is in the article below\n\nbookmark this before you waste another monday",
+                    "url": "https://x.com/mojeskoqq/status/2116963310277202003",
+                    "source": "@mojeskoqq",
+                    "date": "Sun Nov 01 18:39:19 +0000 2026",
+                    "metrics": {
+                      "favorites": 3939,
+                      "retweets": 345,
+                      "views": "463536"
+                    }
+                  },
+                  {
+                    "title": "You can now connect multiple local computers to the same dot and choose which one it uses for a task.",
+                    "summary": "You can now connect multiple local computers to the same dot and choose which one it uses for a task.\n\nIt can build and test your app on a dedicated machine while you keep coding on your laptop. https://t.co/7NcrytEqHC",
+                    "url": "https://x.com/OpenAIDevs/status/2119883176726409645",
+                    "source": "@OpenAIDevs",
+                    "date": "Mon Nov 09 20:01:49 +0000 2026",
+                    "metrics": {
+                      "favorites": 6704,
+                      "retweets": 456,
+                      "views": "1029884"
+                    }
+                  },
+                  {
+                    "title": "Our latest model advances bring stronger capabilities for building and migrating software in low-resource programming la",
+                    "summary": "Our latest model advances bring stronger capabilities for building and migrating software in low-resource programming languages such as COBOL, Fortran, and Visual Basic.\n\nThese languages power software that banks, governments, and businesses depend on. Progress here means understanding decades of business logic and helping developers modernize those systems while preserving what works.\n\nWe’re building these capabilities around the challenges developers and enterprise customers bring us. If your team is working on these systems, tell us which languages and workflows we should tackle next.\n\nhttps://t.co/2TbnkQixJ1",
+                    "url": "https://x.com/OpenAI/status/2112310345863930168",
+                    "source": "@OpenAI",
+                    "date": "Mon Oct 19 22:30:05 +0000 2026",
+                    "metrics": {
+                      "favorites": 9541,
+                      "retweets": 680,
+                      "views": "1806782"
+                    }
+                  },
+                  {
+                    "title": "This is f*cking insane. Anthropic engineer Andrej Karpathy:",
+                    "summary": "This is f*cking insane. Anthropic engineer Andrej Karpathy:\n\n\"The biggest mistake in AI right now is forcing agents to work before you master the harness around the model\n\nWe made that mistake at OpenAI in 2016. It cost us 5 years\"\n\nIn just 6 minutes, he explains why the agent is not the product. The foundation is\n\nOpus 5.5 → Harness → Loops → Graphs → Agents That Emerge on Their Own\n\nDemos are easy. Products take a decade\n\nWorth more than most $1,000 agent engineering courses\n\nBookmark and watch it today\n\nThen read the full Graph Engineering guide below ↓",
+                    "url": "https://x.com/res1dualedge/status/2119793106820251958",
+                    "source": "@res1dualedge",
+                    "date": "Mon Nov 09 14:03:55 +0000 2026",
+                    "metrics": {
+                      "favorites": 303,
+                      "retweets": 30,
+                      "views": "49619"
+                    }
+                  },
+                  {
+                    "title": "OpenAI is f*cking cooking... Sam Altman's team just shared 106 Codex plugins and skills for free, and most of them repla",
+                    "summary": "OpenAI is f*cking cooking... Sam Altman's team just shared 106 Codex plugins and skills for free, and most of them replace a tool you already pay for\n\n62 plugins, 44 skills, 170,000 GitHub stars. the average team pays $2,000 a month for the apps these plug into. Codex now runs them for you at $0 extra\n\npick by the job that eats your week:\n\n→ shipping an app: build-ios-apps, build-web-apps, vercel\n→ getting paid: stripe, shopify\n→ design: figma, canva, adobe\n→ inbox and meetings: gmail, slack, zoom, granola\n→ keeping it safe: codex-security, sentry\n\nopen Codex, ask it to install the plugin by name, connect your account and give it the first task\n\nplugins: https://t.co/OTm3idf2a4\nskills: https://t.co/OIahJIqKYw\n\nmost people will scroll past this and keep paying for 10 apps. you just need one plugin to start\n\nthe whole stack, running live below ↓",
+                    "url": "https://x.com/mika_systems/status/2119876302903636459",
+                    "source": "@mika_systems",
+                    "date": "Mon Nov 09 19:34:30 +0000 2026",
+                    "metrics": {
+                      "favorites": 214,
+                      "retweets": 37,
+                      "views": "14428"
+                    }
+                  },
+                  {
+                    "title": "This is GPT-6 Astra.",
+                    "summary": "This is GPT-6 Astra.\n\nAnything you can do on a computer, Astra can do for you. Fast. https://t.co/gDd0IsewJw",
+                    "url": "https://x.com/OpenAI/status/2095595741528125780",
+                    "source": "@OpenAI",
+                    "date": "Thu Sep 03 19:32:13 +0000 2026",
+                    "metrics": {
+                      "favorites": 337969,
+                      "retweets": 35132,
+                      "views": "139346080"
+                    }
+                  },
+                  {
+                    "title": "We have a gif for you—ChatGPT Images 2.6 is here.",
+                    "summary": "We have a gif for you—ChatGPT Images 2.6 is here.\n\nChatGPT Images 2.6 can turn your prompts and pictures into animated GIFs.\n\nYou can also keep reference images of yourself, pets, and characters ready to reuse in new creations...no need to upload them again.\n\nGo on. Make it weird. Send more GIFs of your dog dancing.\n\nImages 2.6 is available today in ChatGPT, and Codex across all tiers on web, desktop, and mobile.\n\nhttps://t.co/WQg0cVJRca",
+                    "url": "https://x.com/ChatGPT/status/2118168231617700199",
+                    "source": "@ChatGPT",
+                    "date": "Thu Nov 05 02:27:14 +0000 2026",
+                    "metrics": {
+                      "favorites": 2705,
+                      "retweets": 154,
+                      "views": "286119"
+                    }
+                  },
+                  {
+                    "title": "This is f*cking insane. Andrej Karpathy spent 8 years at OpenAI and Tesla",
+                    "summary": "This is f*cking insane. Andrej Karpathy spent 8 years at OpenAI and Tesla\n\nLast week he compressed everything he knows into one free 2-hour lecture\n\nPrompts → Agents → Harness → Graphs → Loops\n\nPeople spend $15k on bootcamps that teach less than this\n\nYou probably don't have 2 hours right now\n\nDon't let it vanish from your feed\n\nWatch it, then read the full Graph Engineering guide below ↓",
+                    "url": "https://x.com/callanxai/status/2119798212760367165",
+                    "source": "@callanxai",
+                    "date": "Mon Nov 09 14:24:12 +0000 2026",
+                    "metrics": {
+                      "favorites": 483,
+                      "retweets": 64,
+                      "views": "61046"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Dưới đây là 20 tweet phổ biến nhất về OpenAI:\n\n- [Introducing GPT‑6 Cyber: a major advance in security research](https://x.com/OpenAI/status/2118390190246879554) - 21430 likes, 2003 retweets\n- [ChatGPT and Codex are helping engineers build for the physical world](https://x.com/OpenAI/status/2117692475775258785) - 8436 likes, 755 retweets\n- [Today, we’re bringing GPT-Image-2.6 to Codex and the API](https://x.com/OpenAIDevs/status/2118124753340756055) - 3775 likes, 317 retweets\n- [I still don't understand why everyone is not using this yet](https://x.com/Bober_smart/status/2090859011365056720) - 11361 likes, 1466 retweets\n- [Privacy should advance as fast as intelligence](https://x.com/OpenAI/status/2116186509384815084) - 3045 likes, 229 retweets\n- [We built Pando, a new Git backend for our monorepo](https://x.com/OpenAIDevs/status/2117408792346509663) - 6804 likes, 547 retweets\n- [Terence Tao says that the AI proof on the Navier–Stokes problem is correct](https://x.com/matharium/status/2119818726711406691) - 1367 likes, 156 retweets\n- [We built Control Room, a central system to track model workloads](https://x.com/OpenAI/status/2119913172039868579) - 4009 likes, 284 retweets\n- [Ever thought about building your own games?](https://x.com/OpenAIDevs/status/2119864571733446774) - 3071 likes, 307 retweets\n- [this is f*cking insane. andrej karpathy: \"the biggest regret of every engineer...\"](https://x.com/mojeskoqq/status/2116963310277202003) - 3939 likes, 345 retweets\n- [You can now connect multiple local computers to the same dot](https://x.com/OpenAIDevs/status/2119883176726409645) - 6704 likes, 456 retweets\n- [Our latest model advances bring stronger capabilities for building and migrating software](https://x.com/OpenAI/status/2112310345863930168) - 9541 likes, 680 retweets\n- [OpenAI is f*cking cooking... Sam Altman's team just shared 106 Codex plugins](https://x.com/mika_systems/status/2119876302903636459) - 214 likes, 37 retweets\n- [This is GPT-6 Astra](https://x.com/OpenAI/status/2095595741528125780) - 337969 likes, 35132 retweets\n- [We have a gif for you—ChatGPT Images 2.6 is here](https://x.com/ChatGPT/status/2118168231617700199) - 2705 likes, 154 retweets\n- [This is f*cking insane. Andrej Karpathy spent 8 years at OpenAI and Tesla](https://x.com/callanxai/status/2119798212760367165) - 483 likes, 64 retweets\n\nNếu bạn cần thêm thông tin hoặc muốn xem nhiều tweet hơn, hãy cho mình biết!",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "OpenAI",
+            "search_type": "Top",
+            "limit": 20
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "OpenAI",
+            "search_type": "Top",
+            "items": [
+              {
+                "title": "Introducing GPT‑6 Cyber: a major advance in security research that pairs stronger capabilities with better model alignme",
+                "summary": "Introducing GPT‑6 Cyber: a major advance in security research that pairs stronger capabilities with better model alignment.\n\nThe model powered the Linux kernel research we announced yesterday, and security teams at companies like Mozilla, Palo Alto Networks, Calif, and Cisco—alongside our own at OpenAI—are already putting it to work.\n\nGPT-6 Cyber is available to select Daybreak Red customers and we are expanding access over time.\n\nhttps://t.co/Nzab3Z1Td6",
+                "url": "https://x.com/OpenAI/status/2118390190246879554",
+                "source": "@OpenAI",
+                "date": "Thu Nov 05 17:09:13 +0000 2026",
+                "metrics": {
+                  "favorites": 21430,
+                  "retweets": 2003,
+                  "views": "4130480"
+                }
+              },
+              {
+                "title": "ChatGPT and Codex are helping engineers build for the physical world.",
+                "summary": "ChatGPT and Codex are helping engineers build for the physical world.\n\nWe’re sharing our progress across mechanical design, electrical engineering, and simulation—from helping our hardware teams iterate faster to testing new workflows with industry collaborators. https://t.co/b3rW9zYJGA",
+                "url": "https://x.com/OpenAI/status/2117692475775258785",
+                "source": "@OpenAI",
+                "date": "Tue Nov 03 18:56:45 +0000 2026",
+                "metrics": {
+                  "favorites": 8436,
+                  "retweets": 755,
+                  "views": "1399775"
+                }
+              },
+              {
+                "title": "Today, we’re bringing GPT-Image-2.6 to Codex and the API.",
+                "summary": "Today, we’re bringing GPT-Image-2.6 to Codex and the API.\n\nImage-2.6 Flare and Sunburst, our two new API image models, generate images 50% faster than before.\n\nAt medium or high quality, Sunburst keeps details more consistent from one edit to the next. https://t.co/iNhtjqKueJ",
+                "url": "https://x.com/OpenAIDevs/status/2118124753340756055",
+                "source": "@OpenAIDevs",
+                "date": "Wed Nov 04 23:34:28 +0000 2026",
+                "metrics": {
+                  "favorites": 3775,
+                  "retweets": 317,
+                  "views": "385406"
+                }
+              },
+              {
+                "title": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 17,000 do",
+                "summary": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 17,000 dollars a month\n\nAndrey Karpathy, co-founder of OpenAI, published a simple idea that got 16 million views: stop using AI to write code, use it to build a second brain\n\nYou point Claude Code to a folder, drop any source in there (an article, transcript, PDF) and Claude reads it, links it, and saves it into a living wiki of everything you know. It compounds like interest: the more you feed it, the smarter it gets\n\nHere is the gist:\n\nInstall Obsidian, create a vault, open it in Claude Code\n\nPaste the file with Karpathy's wiki idea and tell Claude to build it\n\nClaude creates three folders: raw for sources, wiki for its pages, CLAUDE\nwhich runs everything\n\nDrop any source into raw and say \"ingest this\"\n\nAsk questions across everything, forever\n\nFive minutes to set up, and you never start with an empty chat again\n\nThe full step-by-step guide is in the article. Save to bookmarks",
+                "url": "https://x.com/Bober_smart/status/2090859011365056720",
+                "source": "@Bober_smart",
+                "date": "Fri Aug 21 17:50:09 +0000 2026",
+                "metrics": {
+                  "favorites": 11361,
+                  "retweets": 1466,
+                  "views": "2888597"
+                }
+              },
+              {
+                "title": "Privacy should advance as fast as intelligence. OpenAI Private Intelligence gives businesses stronger controls over thei",
+                "summary": "Privacy should advance as fast as intelligence. OpenAI Private Intelligence gives businesses stronger controls over their data while using our most capable models.\n\nWe’re building these protections in close collaboration with some of our largest customers to help businesses apply frontier AI to their most sensitive work.\nhttps://t.co/BiA4N8FQVH",
+                "url": "https://x.com/OpenAI/status/2116186509384815084",
+                "source": "@OpenAI",
+                "date": "Fri Oct 30 15:12:35 +0000 2026",
+                "metrics": {
+                  "favorites": 3045,
+                  "retweets": 229,
+                  "views": "475684"
+                }
+              },
+              {
+                "title": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 15,000 do",
+                "summary": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 15,000 dollars a month\n\nAndrey Karpathy, co-founder of OpenAI, published a simple idea that got 25 million views: stop using AI to write code, use it to build a second brain\n\nYou point Claude Code to a folder, drop any source in there (an article, transcript, PDF) and Claude reads it, links it, and saves it into a living wiki of everything you know. It compounds like interest: the more you feed it, the smarter it gets\n\nHere is the gist:\n\nInstall Obsidian, create a vault, open it in Claude Code\n\nPaste the file with Karpathy's wiki idea and tell Claude to build it\n\nClaude creates three folders: raw for sources, wiki for its pages, CLAUDE\nwhich runs everything\n\nDrop any source into raw and say ingest this\n\nAsk questions across everything, forever\n\n5 minutes to set up, and you never start with an empty chat again\n\nThe full instructions can be found in the article below",
+                "url": "https://x.com/Bober_smart/status/2119070145284841481",
+                "source": "@Bober_smart",
+                "date": "Sat Nov 07 14:11:07 +0000 2026",
+                "metrics": {
+                  "favorites": 1183,
+                  "retweets": 128,
+                  "views": "95628"
+                }
+              },
+              {
+                "title": "We built Pando, a new Git backend for our monorepo, to handle more pushes and fetches without changing how our engineers",
+                "summary": "We built Pando, a new Git backend for our monorepo, to handle more pushes and fetches without changing how our engineers and agents use Git.\n\nPando cut push latency by ~80% and now serves nearly a petabyte of Git data a day. We can grow Git capacity alongside agent usage. https://t.co/4c0YXOfKqK",
+                "url": "https://x.com/OpenAIDevs/status/2117408792346509663",
+                "source": "@OpenAIDevs",
+                "date": "Tue Nov 03 00:09:30 +0000 2026",
+                "metrics": {
+                  "favorites": 6804,
+                  "retweets": 547,
+                  "views": "1860682"
+                }
+              },
+              {
+                "title": "Terence Tao says that the AI proof on the Navier–Stokes problem is correct, yet mathematicians learned almost nothing fr",
+                "summary": "Terence Tao says that the AI proof on the Navier–Stokes problem is correct, yet mathematicians learned almost nothing from it. The proof is 100 pages, AI-generated and full of issues in its text, but a formal certificate in the language Lean confirms it.\n\nNavier–Stokes is a Millennium Prize problem that asks whether the equations for fluids like water can start smooth and then blow up, with velocity or pressure becoming infinite. Human mathematicians came very close, and OpenAI ran its biggest model, with millions of dollars of compute, to get there first.\n\nA human proof normally comes with talks on what was tried, what worked and what it connects to, like picking fruit and planting the seeds. Tao calls this one strip mining: the fruit taken, the landscape left barren. One colleague, using lots of AI, could explain only half of it after days of work.",
+                "url": "https://x.com/matharium/status/2119818726711406691",
+                "source": "@matharium",
+                "date": "Mon Nov 09 15:45:43 +0000 2026",
+                "metrics": {
+                  "favorites": 1367,
+                  "retweets": 156,
+                  "views": "387849"
+                }
+              },
+              {
+                "title": "We built Control Room, a central system to track model workloads across our research infrastructure and stop them quickl",
+                "summary": "We built Control Room, a central system to track model workloads across our research infrastructure and stop them quickly when safety or security concerns arise.\n\nIt connects every research inference workload, including agentic sampling for model training and evaluation, data processing, and more. This works together with our misalignment monitoring systems, and halts model output within 35 seconds of a decision to intervene to stop or pause a job.\n\nControl Room is just one part of our holistic approach for safe frontier model training and deployment.\n\nhttps://t.co/tc0lBqFdS5",
+                "url": "https://x.com/OpenAI/status/2119913172039868579",
+                "source": "@OpenAI",
+                "date": "Mon Nov 09 22:01:00 +0000 2026",
+                "metrics": {
+                  "favorites": 4009,
+                  "retweets": 284,
+                  "views": "686167"
+                }
+              },
+              {
+                "title": "Ever thought about building your own games? The Codex edition @modretro Chromatic is now on Supply Co.",
+                "summary": "Ever thought about building your own games? The Codex edition @modretro Chromatic is now on Supply Co.\n\nWith the ModRetro Chromatic plugin in Codex, you can design levels, animate sprites, and playtest on your handheld.\n\nSpeedrun checkout while Codex builds your ROM 😉 https://t.co/3OViRHh2Ry",
+                "url": "https://x.com/OpenAIDevs/status/2119864571733446774",
+                "source": "@OpenAIDevs",
+                "date": "Mon Nov 09 18:47:53 +0000 2026",
+                "metrics": {
+                  "favorites": 3071,
+                  "retweets": 307,
+                  "views": "579256"
+                }
+              },
+              {
+                "title": "this is f*cking insane. andrej karpathy: \"the biggest regret of every engineer in my field right now is every AI convers",
+                "summary": "this is f*cking insane. andrej karpathy: \"the biggest regret of every engineer in my field right now is every AI conversation they never saved, and in 10 years the ones who started saving in 2024 will be running circles around the rest of us\"\n\nandrej karpathy, co-founder of openai, pulled 16M views on one idea: stop using AI to write code, use it to build a second brain that remembers every article, pdf, transcript and conversation you ever fed it\n\nyou point claude code at a folder, drop anything into it, and claude reads it, cross-links it with everything already there, and writes it into a living wiki. your knowledge finally compounds instead of leaking out of your head every friday\n\nthe stack:\n\n→ brew install obsidian, mkdir ~/vault, cd ~/vault\n→ run claude in that folder and type \"init a knowledge vault with CLAUDE.md as the rules, /raw for sources, /wiki for your pages\"\n→ drop any file into /raw (youtube transcript, meeting notes, 400-page pdf, screenshot of a tweet) and type \"ingest\"\n→ claude writes a wiki page, links it to 5 existing ones automatically, updates CLAUDE.md with any new pattern it noticed about how you think\n→ never open a blank claude chat again. every question goes through the vault, every answer cites your own sources with dates and links\n\n5 minutes to set up. compounding knowledge from that evening forward\n\nthe ugly part most will scroll past: in 10 years the engineers who started this in 2024 will remember every book, every podcast, every meeting with receipts. you will remember none of them. karpathy already picked which side he is on and you are still not on his\n\nfull step-by-step is in the article below\n\nbookmark this before you waste another monday",
+                "url": "https://x.com/mojeskoqq/status/2116963310277202003",
+                "source": "@mojeskoqq",
+                "date": "Sun Nov 01 18:39:19 +0000 2026",
+                "metrics": {
+                  "favorites": 3939,
+                  "retweets": 345,
+                  "views": "463536"
+                }
+              },
+              {
+                "title": "You can now connect multiple local computers to the same dot and choose which one it uses for a task.",
+                "summary": "You can now connect multiple local computers to the same dot and choose which one it uses for a task.\n\nIt can build and test your app on a dedicated machine while you keep coding on your laptop. https://t.co/7NcrytEqHC",
+                "url": "https://x.com/OpenAIDevs/status/2119883176726409645",
+                "source": "@OpenAIDevs",
+                "date": "Mon Nov 09 20:01:49 +0000 2026",
+                "metrics": {
+                  "favorites": 6704,
+                  "retweets": 456,
+                  "views": "1029884"
+                }
+              },
+              {
+                "title": "Our latest model advances bring stronger capabilities for building and migrating software in low-resource programming la",
+                "summary": "Our latest model advances bring stronger capabilities for building and migrating software in low-resource programming languages such as COBOL, Fortran, and Visual Basic.\n\nThese languages power software that banks, governments, and businesses depend on. Progress here means understanding decades of business logic and helping developers modernize those systems while preserving what works.\n\nWe’re building these capabilities around the challenges developers and enterprise customers bring us. If your team is working on these systems, tell us which languages and workflows we should tackle next.\n\nhttps://t.co/2TbnkQixJ1",
+                "url": "https://x.com/OpenAI/status/2112310345863930168",
+                "source": "@OpenAI",
+                "date": "Mon Oct 19 22:30:05 +0000 2026",
+                "metrics": {
+                  "favorites": 9541,
+                  "retweets": 680,
+                  "views": "1806782"
+                }
+              },
+              {
+                "title": "This is f*cking insane. Anthropic engineer Andrej Karpathy:",
+                "summary": "This is f*cking insane. Anthropic engineer Andrej Karpathy:\n\n\"The biggest mistake in AI right now is forcing agents to work before you master the harness around the model\n\nWe made that mistake at OpenAI in 2016. It cost us 5 years\"\n\nIn just 6 minutes, he explains why the agent is not the product. The foundation is\n\nOpus 5.5 → Harness → Loops → Graphs → Agents That Emerge on Their Own\n\nDemos are easy. Products take a decade\n\nWorth more than most $1,000 agent engineering courses\n\nBookmark and watch it today\n\nThen read the full Graph Engineering guide below ↓",
+                "url": "https://x.com/res1dualedge/status/2119793106820251958",
+                "source": "@res1dualedge",
+                "date": "Mon Nov 09 14:03:55 +0000 2026",
+                "metrics": {
+                  "favorites": 303,
+                  "retweets": 30,
+                  "views": "49619"
+                }
+              },
+              {
+                "title": "OpenAI is f*cking cooking... Sam Altman's team just shared 106 Codex plugins and skills for free, and most of them repla",
+                "summary": "OpenAI is f*cking cooking... Sam Altman's team just shared 106 Codex plugins and skills for free, and most of them replace a tool you already pay for\n\n62 plugins, 44 skills, 170,000 GitHub stars. the average team pays $2,000 a month for the apps these plug into. Codex now runs them for you at $0 extra\n\npick by the job that eats your week:\n\n→ shipping an app: build-ios-apps, build-web-apps, vercel\n→ getting paid: stripe, shopify\n→ design: figma, canva, adobe\n→ inbox and meetings: gmail, slack, zoom, granola\n→ keeping it safe: codex-security, sentry\n\nopen Codex, ask it to install the plugin by name, connect your account and give it the first task\n\nplugins: https://t.co/OTm3idf2a4\nskills: https://t.co/OIahJIqKYw\n\nmost people will scroll past this and keep paying for 10 apps. you just need one plugin to start\n\nthe whole stack, running live below ↓",
+                "url": "https://x.com/mika_systems/status/2119876302903636459",
+                "source": "@mika_systems",
+                "date": "Mon Nov 09 19:34:30 +0000 2026",
+                "metrics": {
+                  "favorites": 214,
+                  "retweets": 37,
+                  "views": "14428"
+                }
+              },
+              {
+                "title": "This is GPT-6 Astra.",
+                "summary": "This is GPT-6 Astra.\n\nAnything you can do on a computer, Astra can do for you. Fast. https://t.co/gDd0IsewJw",
+                "url": "https://x.com/OpenAI/status/2095595741528125780",
+                "source": "@OpenAI",
+                "date": "Thu Sep 03 19:32:13 +0000 2026",
+                "metrics": {
+                  "favorites": 337969,
+                  "retweets": 35132,
+                  "views": "139346080"
+                }
+              },
+              {
+                "title": "We have a gif for you—ChatGPT Images 2.6 is here.",
+                "summary": "We have a gif for you—ChatGPT Images 2.6 is here.\n\nChatGPT Images 2.6 can turn your prompts and pictures into animated GIFs.\n\nYou can also keep reference images of yourself, pets, and characters ready to reuse in new creations...no need to upload them again.\n\nGo on. Make it weird. Send more GIFs of your dog dancing.\n\nImages 2.6 is available today in ChatGPT, and Codex across all tiers on web, desktop, and mobile.\n\nhttps://t.co/WQg0cVJRca",
+                "url": "https://x.com/ChatGPT/status/2118168231617700199",
+                "source": "@ChatGPT",
+                "date": "Thu Nov 05 02:27:14 +0000 2026",
+                "metrics": {
+                  "favorites": 2705,
+                  "retweets": 154,
+                  "views": "286119"
+                }
+              },
+              {
+                "title": "This is f*cking insane. Andrej Karpathy spent 8 years at OpenAI and Tesla",
+                "summary": "This is f*cking insane. Andrej Karpathy spent 8 years at OpenAI and Tesla\n\nLast week he compressed everything he knows into one free 2-hour lecture\n\nPrompts → Agents → Harness → Graphs → Loops\n\nPeople spend $15k on bootcamps that teach less than this\n\nYou probably don't have 2 hours right now\n\nDon't let it vanish from your feed\n\nWatch it, then read the full Graph Engineering guide below ↓",
+                "url": "https://x.com/callanxai/status/2119798212760367165",
+                "source": "@callanxai",
+                "date": "Mon Nov 09 14:24:12 +0000 2026",
+                "metrics": {
+                  "favorites": 483,
+                  "retweets": 64,
+                  "views": "61046"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T19:04:57"
+    }
+  ]
+}

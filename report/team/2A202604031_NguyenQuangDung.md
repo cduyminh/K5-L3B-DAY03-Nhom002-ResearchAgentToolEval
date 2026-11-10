@@ -30,7 +30,6 @@
 - Commit/PR: chưa ghi nhận mã commit hoặc PR riêng trong báo cáo này.
 
 ## 5. Tự đánh giá
-
-- Hoàn thành phần CP3 theo cấu trúc tool của starter và kiểm tra được bằng full test suite.
-- Các tool mới có phạm vi đa dạng hơn: tìm kiếm Hacker News, xử lý văn bản và tổ chức bằng chứng nghiên cứu.
-- Giới hạn: `summarize_text` hiện lấy các câu đầu thay vì đánh giá mức độ quan trọng; `claim_evidence_matrix` chỉ ghép theo nội dung nhận định khớp chính xác và không xác minh nguồn hay sự thật. Các giới hạn này đã được mô tả trong `TOOL.md`/kết quả tool để tránh hiểu nhầm.
+- Điểm mạnh: triển khai tool mới theo chuẩn repo, đồng bộ đúng registry và YAML, có unit test cho happy path và lỗi, kiểm tra bằng pytest đạt 0 failed.
+- Cần cải thiện: nếu muốn đạt `0 skipped`, nhóm cần hoàn thiện các test stub còn lại trong `starter_v0/tests/test_tools_todo.py`.
+- Kết luận: phần công việc của tôi trong CP3 đã hoàn thành đúng mục tiêu: thêm tool mới, test tool mới, và chứng minh tool hoạt động đúng theo contract.

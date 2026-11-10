@@ -89,7 +89,16 @@ Liệt kê đúng 10 case trong `starter_v0/data/eval_group.json` (5 single turn
 
 | Case ID | What It Tests | Expected Tool/Behavior | Result |
 |---|---|---|---|
-|  |  |  |  |
+| G01_internal_tool_policy | Kiểm tra khả năng tra cứu chính sách sử dụng công cụ của agent (Single-turn). | Gọi `policy` với `policy_area="tool_usage"`, `top_k=2`. | PASS |
+| G02_paper_text_budget | Kiểm tra khả năng đọc nội dung bài báo khoa học theo giới hạn trang và số ký tự (Single-turn). | Gọi `paper_text` với `arxiv_url="1810.04805"`, `max_pages=1`, `max_chars=2000`. | PASS |
+| G03_ambiguous_article | Kiểm tra khả năng nhận diện yêu cầu thiếu thông tin và đặt câu hỏi làm rõ (Single-turn). | Gọi `clarify` với `response_type="text"` để yêu cầu người dùng bổ sung thông tin. | **FAIL** |
+| G04_recipe_out_of_scope | Kiểm tra khả năng tránh sử dụng công cụ không phù hợp khi nhận yêu cầu ngoài phạm vi công cụ (Single-turn). | `no_tool=true`, không gọi công cụ không cần thiết. | PASS |
+| G05_hn_search_limit | Kiểm tra khả năng sử dụng công cụ mới `hn_search` của nhóm và truyền đúng số lượng kết quả (Single-turn). | Gọi `hn_search` với `query="AI agents"`, `limit=3`. | PASS |
+| G06_social_sort_revision | Kiểm tra khả năng cập nhật tham số tìm kiếm mạng xã hội khi người dùng thay đổi yêu cầu qua nhiều lượt (Multi-turn). | Gọi `social_search` với `query="multimodal agents"`, `search_type="Top"`, `limit=2`. | PASS |
+| G07_cancel_send | Kiểm tra khả năng tuân thủ yêu cầu hủy thao tác gửi tin nhắn (Multi-turn). | `no_tool=true`, không gọi `send` sau khi người dùng hủy yêu cầu. | PASS |
+| G08_changed_text_needs_confirmation | Kiểm tra khả năng yêu cầu xác nhận khi nội dung cần gửi bị thay đổi (Multi-turn). | Gọi `clarify` với `response_type="yes_no"` trước khi thực hiện thao tác. | PASS |
+| G09_news_to_papers | Kiểm tra khả năng chuyển đổi công cụ khi người dùng thay đổi từ tìm tin tức sang tìm bài báo khoa học (Multi-turn). | Gọi `papers` với `query="vision language models"`, `max_results=3`, `sort_by="relevance"`. | PASS |
+| G10_format_template_revision | Kiểm tra khả năng cập nhật định dạng đầu ra khi người dùng thay đổi yêu cầu (Multi-turn). | Gọi `format` với `template="bullets"`, `headline="Bản tin thử nghiệm"` và danh sách `items` tương ứng. | PASS |
 
 ### B4. Live Chat Evidence
 

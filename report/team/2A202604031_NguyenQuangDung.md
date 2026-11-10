@@ -8,64 +8,26 @@
 
 ## 2. Phần việc phụ trách
 
-Tôi phụ trách phần triển khai và kiểm chứng tool mới cho nhóm:
-
-- Xây dựng tool `hn_search` để tìm các bài viết story trên Hacker News theo từ khóa.
-- Viết file mô tả tool theo chuẩn của repo.
-- Đăng ký tool vào `TOOL_FUNCTIONS` và khai báo trong `starter_v0/artifacts/tools.yaml`.
-- Viết 3 test unit cho tool mới: happy path, bad input, failure path.
-- Chạy kiểm tra contract và full pytest để xác minh không có failed.
+- CP3: xây dựng tool mới, viết `TOOL.md`, đăng ký implementation trong `tools/__init__.py`, khai báo schema trong `artifacts/tools.yaml`, và viết ít nhất 3 unit test cho mỗi tool.
+- B5a: tổng hợp bằng chứng về tool mới và unit test trong báo cáo nhóm.
 
 ## 3. Đóng góp cụ thể
 
-1. Triển khai tool mới
-   - File: `starter_v0/tools/hn_search/tool.py`
-   - Tool nhận `query` bắt buộc và `limit` mặc định `5`.
-   - Gọi API `https://hn.algolia.com/api/v1/search` với `tags=story`.
-   - Parse kết quả và trả về `items` gồm `title`, `url`, `source`, `summary`, `score`.
-   - Nếu query rỗng hoặc lỗi HTTP thì trả về `error` dict theo chuẩn của project, không raise exception.
-
-2. Viết tài liệu cho tool
-   - File: `starter_v0/tools/hn_search/TOOL.md`
-   - Mô tả mục đích, đầu vào, đầu ra, và khi nào nên dùng / không nên dùng.
-
-3. Đăng ký tool vào hệ thống
-   - File: `starter_v0/tools/__init__.py`
-   - File: `starter_v0/artifacts/tools.yaml`
-   - Đảm bảo tên tool, registry và khai báo YAML đồng bộ với eval contract.
-
-4. Viết unit test cho tool mới
-   - File: `starter_v0/tests/test_tools_todo.py`
-   - Test happy path: mock API và kiểm tra `url`, `tags`, `hitsPerPage`, dữ liệu trả về.
-   - Test bad input: query rỗng -> trả `ValueError` trong error dict.
-   - Test failure path: HTTP 500 -> trả `HTTPError` trong error dict.
+- Bổ sung `hn_search` để tìm Hacker News stories theo query; kiểm tra input, ánh xạ kết quả và trả error dict khi request thất bại.
+- Bổ sung `summarize_text` và `extract_sentences` để xử lý văn bản cục bộ.
+- Thay `extract_keywords` bằng `claim_evidence_matrix`: ghép nhận định với trích dẫn/bằng chứng người dùng cung cấp. Tool ghi rõ chỉ tổ chức thông tin, không tự xác minh tính đúng sai.
+- Tạo `TOOL.md` cho từng tool và đồng bộ đăng ký trong `tools/__init__.py` với khai báo trong `artifacts/tools.yaml`.
+- Viết 3 unit test cho mỗi tool: kiểm tra kết quả bình thường và các trường hợp input không hợp lệ hoặc không có dữ liệu/bằng chứng. Các HTTP call của `hn_search` được kiểm thử offline bằng `fake_http`.
+- Xóa các test stub TODO cũ bị skip trong `test_tools_todo.py` để suite chỉ còn các test đang thực thi.
 
 ## 4. Bằng chứng
 
-### File chính đã cập nhật
-- `starter_v0/tools/hn_search/tool.py`
-- `starter_v0/tools/hn_search/TOOL.md`
-- `starter_v0/tools/__init__.py`
-- `starter_v0/artifacts/tools.yaml`
-- `starter_v0/tests/test_tools_todo.py`
-
-### Lệnh tự kiểm tra
-
-```powershell
-cd D:\Lab3-002\K5-L3B-DAY03-Nhom002-ResearchAgentToolEval\starter_v0
-.\.venv\Scripts\python.exe -m pytest tests/test_tool_contract.py -q
-```
-
-Kết quả thực tế: `60 passed in 0.23s`
-
-```powershell
-cd D:\Lab3-002\K5-L3B-DAY03-Nhom002-ResearchAgentToolEval\starter_v0
-.\.venv\Scripts\python.exe -m pytest -q
-```
-
-Kết quả thực tế: `70 passed, 14 skipped in 0.29s`
-
-> Trong toàn bộ suite không có failed. Các `skipped` còn lại là test challenge mẫu chưa làm trong file todo, không phải lỗi của tool mới.
+- Các tool và metadata: [hn_search](../../starter_v0/tools/hn_search/tool.py), [summarize_text](../../starter_v0/tools/summarize_text/tool.py), [extract_sentences](../../starter_v0/tools/extract_sentences/tool.py), [claim_evidence_matrix](../../starter_v0/tools/claim_evidence_matrix/tool.py); mỗi thư mục có `TOOL.md` tương ứng.
+- Registry và schema: [tools/__init__.py](../../starter_v0/tools/__init__.py), [tools.yaml](../../starter_v0/artifacts/tools.yaml).
+- Unit test: [test_tools_todo.py](../../starter_v0/tests/test_tools_todo.py) có 12 test cho 4 tool mới, chạy offline.
+- Xác minh: từ thư mục `starter_v0`, chạy `.\.venv\Scripts\python.exe -m pytest -q`; kết quả `94 passed in 0.35s`, không skipped hoặc failed.
+- Cách tự kiểm tra: dùng contract test để kiểm tra sự khớp nhau giữa manifest, function signature, registry và `TOOL.md`; dùng unit test với fake HTTP cho nhánh thành công và HTTP lỗi của `hn_search`.
+- Commit/PR: chưa ghi nhận mã commit hoặc PR riêng trong báo cáo này.
 
 ## 5. Tự đánh giá
 - Điểm mạnh: triển khai tool mới theo chuẩn repo, đồng bộ đúng registry và YAML, có unit test cho happy path và lỗi, kiểm tra bằng pytest đạt 0 failed.

@@ -132,3 +132,42 @@ tools:
         query: {type: string, default: "", description: "Từ khóa tìm kiếm"}
         limit: {type: integer, default: 5, description: "Số lượng bài trả về"}
       required: [query]
+
+  - name: claim_evidence_matrix
+    description: "Sắp xếp nhận định và trích dẫn/bằng chứng người dùng cung cấp thành bảng; không tự xác minh tính đúng sai."
+    parameters:
+      type: object
+      properties:
+        claims:
+          type: array
+          items: {type: string}
+          description: "Danh sách nhận định cần sắp xếp."
+        evidence:
+          type: array
+          description: "Bằng chứng đã có; mỗi mục gồm claim, citation và excerpt tùy chọn."
+          items:
+            type: object
+            properties:
+              claim: {type: string}
+              citation: {type: string}
+              excerpt: {type: string}
+            required: [claim, citation]
+      required: [claims, evidence]
+
+  - name: summarize_text
+    description: "Tóm tắt ngắn một đoạn văn bản thành vài câu đầu hoặc vài câu chính."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, default: "", description: "Văn bản cần tóm tắt"}
+        max_sentences: {type: integer, default: 3, description: "Số câu tối đa trong bản tóm tắt"}
+      required: [text]
+
+  - name: extract_sentences
+    description: "Trích xuất các câu quan trọng từ văn bản theo giới hạn số câu."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, default: "", description: "Văn bản cần trích xuất câu"}
+        limit: {type: integer, default: 3, description: "Số câu cần lấy"}
+      required: [text]

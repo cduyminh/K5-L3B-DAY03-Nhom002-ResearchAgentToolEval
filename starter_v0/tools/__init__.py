@@ -18,6 +18,9 @@ from .social_search.tool import search_tweets
 from .send.tool import send_telegram
 from .lookup.tool import web_search
 from .hn_search.tool import hn_search
+from .claim_evidence_matrix.tool import claim_evidence_matrix
+from .summarize_text.tool import summarize_text
+from .extract_sentences.tool import extract_sentences
 
 
 # NOTE (starter_v0): tool names here are intentionally vague. These keys are the
@@ -37,6 +40,9 @@ TOOL_FUNCTIONS = {
     "papers": arxiv_search,
     "paper_text": get_arxiv_paper_text,
     "hn_search": hn_search,
+    "claim_evidence_matrix": claim_evidence_matrix,
+    "summarize_text": summarize_text,
+    "extract_sentences": extract_sentences,
     # TODO CP3 (student): register your new tool here, e.g. "my_tool": my_tool_function,
     # then declare it in artifacts/tools.yaml and run `pytest tests/test_tool_contract.py`.
 }

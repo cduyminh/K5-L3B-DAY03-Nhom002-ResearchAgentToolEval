@@ -8,9 +8,9 @@
 
 ## 1. Thông tin nhóm
 
-- Tên nhóm:
+- Tên nhóm: Nhom002
 - Thành viên và phân công: xem [TEAM.md](../../TEAM.md)
-- Provider/model dùng cho v0–v3:
+- Provider/model dùng cho v0–v3: OpenRouter · `openai/gpt-4o-mini` (mặc định của starter)
 
 ## 2. Mục tiêu và cách tiếp cận — PHẦN A: Giới thiệu agent
 
@@ -62,10 +62,10 @@ Lấy từ `starter_v0/artifacts/version_log.csv` và `starter_v0/runs/*.json`. 
 
 | Version | Changed Artifact | Hypothesis | Metric Before | Metric After | Run File |
 |---|---|---|---:|---:|---|
-| v0 | baseline |  |  |  |  |
-| v1 |  |  |  |  |  |
-| v2 |  |  |  |  |  |
-| v3 |  |  |  |  |  |
+| v0 | baseline | Đo hành vi chưa tối ưu trước khi sửa | — | 0.75 (15/20) | `starter_v0/runs/v0_B_base_openrouter_20261110T170325624893.json` |
+| v1 | `system_prompt.md` | Bỏ chỉ dẫn "đoán account/URL"; thiếu account hoặc URL thì gọi `clarify` (R10, R11) | 0.75 | 0.80 (16/20) | `starter_v0/runs/v1_B_base_openrouter_20261110T171433638706.json` |
+| v2 | `system_prompt.md` | Bỏ "send… just go ahead"; phải `clarify(yes_no)` và chỉ `send` khi đã xác nhận (R12) | 0.80 | 0.90 (18/20) | `starter_v0/runs/v2_B_base_openrouter_20261110T175934140943.json` |
+| v3 | `tools.yaml` | Viết lại description mỗi tool (khi nào dùng/không dùng) + convention args: `lookup` topic=news, query ngắn, timeframe; `clarify` text vs yes_no; `send` chỉ khi confirmed=true (R12, R13) | 0.90 | 1.00 (20/20) | `starter_v0/runs/v3_B_base_openrouter_20261110T180224950196.json` |
 
 ### B2. Failure Analysis
 
@@ -73,7 +73,11 @@ Lấy từ `results[*].result.failures` trong run JSON.
 
 | Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| R08_out_of_scope | out_of_scope | `send(text="Nguyên hàm của x^2 là x^3/3 + C…")` | Câu ngoài phạm vi (toán) nhưng agent không từ chối, còn gửi lên Telegram | Prompt: thêm luật từ chối câu ngoài phạm vi research; bỏ chỉ dẫn "send… just go ahead" |
+| R10_missing_handle | missing_info | `timeline(screenname="sama")` | Không nói tài khoản nào nhưng agent tự chọn Sam Altman thay vì hỏi lại | Prompt: bỏ chỉ dẫn "pick a well-known account"; thiếu handle thì gọi `clarify` |
+| R11_missing_url | missing_info | `fetch(url="https://example.com/article")` | Không có URL nhưng agent bịa URL | Prompt: bỏ chỉ dẫn "assume a likely URL"; thiếu URL thì gọi `clarify` |
+| R12_confirm_before_send | wrong_boundary | `send(text="Bản tin này đã được đăng lên Telegram.")` | Gửi ngay, không xin xác nhận | Prompt + `tools.yaml`: chỉ `send` khi user đã xác nhận (`confirmed=true`), trước đó gọi `clarify` dạng yes_no |
+| R13_parallel_web_and_tweets | wrong_arg_value | `lookup(query="AI news", timeframe="day")` + `social_search(query="AI")` | Tìm tin nhưng thiếu `topic="news"`, query thêm chữ "news" | `tools.yaml`: mô tả `lookup` — tin tức dùng `topic=news`, query ngắn, `timeframe` |
 
 ### B3. Team Eval Cases
 

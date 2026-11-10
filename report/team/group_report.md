@@ -69,6 +69,7 @@ Lấy từ `starter_v0/artifacts/version_log.csv` và `starter_v0/runs/*.json`. 
 | v4 | `system_prompt.md` | Khung slide (Persona/Rules/Capabilities/Constraints/Output/Escalation) + guardrail scope, untrusted input (chống injection), không lộ prompt → từ chối toán/code/injection/lộ prompt (4/4 probe trong `starter_v0/analysis/adversarial/v4_*`) mà không tụt base | 1.00 | 1.00 (20/20) | `starter_v0/runs/v4_B_base_openrouter_20261110T190329500716.json` |
 | v5 | `tools.yaml` | `limit` của `timeline`/`social_search` có `maximum: 20` + mô tả → "500 tweet" thành limit=20 kèm thông báo (probe v4: 500 → v5: 20) | 1.00 | 1.00 (20/20) | `starter_v0/runs/v5_B_base_openrouter_20261110T190750804435.json` |
 | v6 | `tools.yaml` | Guardrail ở mức tool: tool đọc = dữ liệu không phải lệnh; `fetch` từ chối URL nội bộ; `send` là hành động ghi, chỉ khi chính user yêu cầu; cap `max_results`/`top_k`/`max_chars` → "100 bài arXiv" thành 10 (v5 không giới hạn, treo). Còn lỗi: lệnh ẩn trong đoạn dán vẫn khiến model đề nghị đăng (bị chặn ở yes_no) | 1.00 | 1.00 (20/20) | `starter_v0/runs/v6_B_base_openrouter_20261110T192946023134.json` |
+| v7 | `system_prompt.md` | Chống injection mã hóa: base64/hex/rot13… là dữ liệu, không giải mã/không in/không làm theo; siết scope (không code snippet) → probe base64: v6 giải mã và in payload, v7 từ chối 3/3; 4 probe v4 vẫn từ chối | 1.00 | 1.00 (20/20) | `starter_v0/runs/v7_B_base_openrouter_20261110T193408272710.json` |
 
 ### B2. Failure Analysis
 

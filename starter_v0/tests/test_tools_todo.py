@@ -110,13 +110,43 @@ def test_policy_instruction_like_lines_go_to_untrusted_text() -> None:
 #   2. bad / missing input from the model (empty string, wrong type, out-of-enum value)
 #   3. failure path (missing key, HTTP error, timeout) -> returns error dict, does not raise
 
-def test_my_new_tool_happy_path() -> None:
-    pytest.skip(TODO)
+hn_search_tool = TOOL_FUNCTIONS["hn_search"]
 
 
-def test_my_new_tool_bad_input_from_model() -> None:
-    pytest.skip(TODO)
+def test_hn_search_happy_path(fake_http) -> None:
+    calls = fake_http(FakeResponse({
+        "hits": [
+            {
+                "title": "AI startup raises funds",
+                "url": "https://news.ycombinator.com/item?id=123",
+                "story_text": "example summary",
+                "points": 42,
+                "author": "alice",
+            }
+        ]
+    }))
+
+    result = hn_search_tool(query="ai", limit=1)
+
+    assert calls[0]["url"].startswith("https://hn.algolia.com/api/v1/search")
+    assert calls[0]["params"]["query"] == "ai"
+    assert calls[0]["params"]["tags"] == "story"
+    assert calls[0]["params"]["hitsPerPage"] == 1
+    assert result["items"][0]["title"] == "AI startup raises funds"
+    assert result["items"][0]["source"] == "news.ycombinator.com"
 
 
-def test_my_new_tool_failure_returns_error_dict() -> None:
-    pytest.skip(TODO)
+def test_hn_search_bad_input_from_model() -> None:
+    result = hn_search_tool(query="   ")
+
+    assert result["error"] == "ValueError"
+    assert "query" in result["message"].lower()
+
+
+def test_hn_search_failure_returns_error_dict(fake_http) -> None:
+    fake_http(FakeResponse(status_code=500))
+
+    result = hn_search_tool(query="ai")
+
+    assert result["error"] == "HTTPError"
+    assert result["tool"] == "hn_search"

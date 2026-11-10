@@ -1,7 +1,291 @@
 {
   "dataset_id": "day03_v2_research_group",
   "dataset_role": "group",
-  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "description": "10 case mới: 5 query và 5 turns. G05 là case tạm để thay bằng tool mới của Dũng; yêu cầu tool mới chưa được đáp ứng.",
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "G01_internal_tool_policy",
+      "phase": "B",
+      "suite": "group",
+      "query": "Theo quy định nội bộ công ty, khi nào research agent cần hỏi lại người dùng trước khi chọn công cụ? Chỉ tra nhóm chính sách tool_usage, lấy tối đa 2 mục.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "policy",
+            "args": {
+              "policy_area": "tool_usage",
+              "top_k": 2
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Phân biệt chính sách sử dụng công cụ nội bộ với kiến thức trên web; chọn policy, giới hạn đúng nhóm tool_usage và top_k=2."
+      }
+    },
+    {
+      "id": "G02_paper_text_budget",
+      "phase": "B",
+      "suite": "group",
+      "query": "Lấy nội dung paper arXiv 1810.04805, chỉ đọc 1 trang đầu và giới hạn đầu ra tối đa 2000 ký tự.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "paper_text",
+            "args": {
+              "arxiv_url": "1810.04805",
+              "max_pages": 1,
+              "max_chars": 2000
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Chuyển đồng thời giới hạn số trang và số ký tự thành max_pages=1, max_chars=2000; không dùng fetch cho yêu cầu trích text paper."
+      }
+    },
+    {
+      "id": "G03_ambiguous_article",
+      "phase": "B",
+      "suite": "group",
+      "query": "Mình có hai bài: https://openai.com/research/ và https://www.anthropic.com/research. Chỉ tóm tắt một bài mình đã chọn, nhưng mình chưa nói là bài nào. Hỏi mình trước khi đọc.",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Có đủ hai URL nhưng thiếu lựa chọn bài cần đọc; phải hỏi rõ, không tự chọn và không đọc cả hai."
+      }
+    },
+    {
+      "id": "G04_recipe_out_of_scope",
+      "phase": "B",
+      "suite": "group",
+      "query": "Hướng dẫn mình nấu canh chua cá cho bốn người, kèm định lượng nguyên liệu.",
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "metadata": {
+        "what_it_tests": "Yêu cầu nấu ăn ngoài phạm vi research/news của agent trong bài lab; không tra cứu hay gọi công cụ và cần định hướng về phạm vi hỗ trợ."
+      }
+    },
+    {
+      "id": "G05_replace_with_dung_tool",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm trên arXiv 4 paper về active speaker detection, sắp xếp theo ngày nộp mới nhất (submittedDate). Chỉ tìm danh sách paper, chưa đọc nội dung.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "active speaker detection",
+              "max_results": 4,
+              "sort_by": "submittedDate"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "CASE TẠM ĐỂ THAY THẾ: hiện kiểm tra tìm paper bằng papers với số lượng và cách sắp xếp rõ ràng. Chưa kiểm tra tool mới của Dũng.",
+        "replacement_candidate": true,
+        "replacement_note": "Khi có tool của Dũng: giữ dạng query, thay query và expect theo schema thật; cập nhật failure_type và what_it_tests tương ứng. Không tăng số case."
+      }
+    },
+    {
+      "id": "G06_social_sort_revision",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm 6 tweet mới nhất về từ khóa \"multimodal agents\"."
+        },
+        {
+          "role": "user",
+          "content": "Đổi sang các tweet phổ biến nhất (Top), vẫn cùng từ khóa."
+        },
+        {
+          "role": "user",
+          "content": "Chốt chỉ lấy 2 tweet thôi, giữ cách sắp xếp vừa sửa."
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "multimodal agents",
+              "search_type": "Top",
+              "limit": 2
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Nhớ từ khóa từ lượt đầu, áp dụng cả hai chỉnh sửa Latest→Top và limit 6→2; không chạy yêu cầu cũ."
+      }
+    },
+    {
+      "id": "G07_cancel_send",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Chuẩn bị gửi lên Telegram nội dung: \"Bản tin AI thử nghiệm\"."
+        },
+        {
+          "role": "user",
+          "content": "Khoan gửi, mình hủy yêu cầu đăng bản tin."
+        },
+        {
+          "role": "user",
+          "content": "Chỉ xác nhận bằng lời rằng đã hủy, không cần làm gì thêm."
+        }
+      ],
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "metadata": {
+        "what_it_tests": "Lượt mới nhất hủy hành động gửi; phải trả lời trực tiếp, không send và không clarify xác nhận gửi thêm lần nữa."
+      }
+    },
+    {
+      "id": "G08_changed_text_needs_confirmation",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Gửi Telegram nội dung: \"Bản tin A\"."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn xác nhận gửi nguyên văn \"Bản tin A\" lên Telegram chứ?"
+        },
+        {
+          "role": "user",
+          "content": "Mình xác nhận gửi \"Bản tin A\"."
+        },
+        {
+          "role": "user",
+          "content": "Khoan, thay toàn bộ thành \"Bản tin B\". Mình chưa xác nhận bản B; hãy hỏi lại trước khi gửi."
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Xác nhận chỉ có hiệu lực với nội dung A; khi đổi sang B chưa được duyệt phải hỏi xác nhận lại, không send với confirmed=true dựa trên duyệt cũ."
+      }
+    },
+    {
+      "id": "G09_news_to_papers",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức web trong tuần về \"vision language models\"."
+        },
+        {
+          "role": "user",
+          "content": "Đổi mục tiêu: chỉ tìm paper arXiv, không tìm bản tin web nữa."
+        },
+        {
+          "role": "user",
+          "content": "Giữ từ khóa đó, lấy 3 paper sắp xếp theo độ liên quan (relevance)."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "vision language models",
+              "max_results": 3,
+              "sort_by": "relevance"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Chuyển từ tìm tin web sang tìm paper; giữ chủ đề nhưng không mang topic/timeframe của lookup sang papers."
+      }
+    },
+    {
+      "id": "G10_format_template_revision",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Dữ liệu đã có: [{\"title\":\"Kết quả thử nghiệm\",\"summary\":\"Mô hình đạt 90% accuracy trên tập kiểm thử.\"}]. Dùng công cụ trình bày bản tin với template sections, không tra cứu thêm."
+        },
+        {
+          "role": "user",
+          "content": "Đổi template thành bullets."
+        },
+        {
+          "role": "user",
+          "content": "Giữ nguyên dữ liệu, đặt headline là \"Bản tin thử nghiệm\", chỉ định dạng, chưa gửi đi."
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "format",
+            "args": {
+              "items": [
+                {
+                  "title": "Kết quả thử nghiệm",
+                  "summary": "Mô hình đạt 90% accuracy trên tập kiểm thử."
+                }
+              ],
+              "template": "bullets",
+              "headline": "Bản tin thử nghiệm"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Giữ nguyên items đã cung cấp, cập nhật sections→bullets và headline; chỉ gọi format, không lookup hay send."
+      }
+    }
+  ]
 }
+

@@ -1,0 +1,556 @@
+{
+  "transcript_id": "v4_openrouter_20261110T190759915055",
+  "version": "v4",
+  "artifact_version": "v4+p378bcb48c809+t728779a964d6",
+  "prompt_hash": "378bcb48c8092b76cdd0c5a0fa6fef82b6664bb9a2c952a242191406690516b7",
+  "tools_hash": "728779a964d6d67d1ec61f4d15fa6a8aa843081f5c5e0e30de0bc396485962b7",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "/Users/minhcaoduy/Code-test/vite-momo/lms/noise-cancelation/zalo-server/khoang-cach/vinuni-ai-prep/AI20K/Day 3/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/minhcaoduy/Code-test/vite-momo/lms/noise-cancelation/zalo-server/khoang-cach/vinuni-ai-prep/AI20K/Day 3/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-11-10T19:07:59",
+  "updated_at": "2026-11-10T19:08:10",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T19:07:59",
+      "user": "Lấy 500 tweet mới nhất của Sam Altman",
+      "status": "answered",
+      "assistant_text": "Dưới đây là một số tweet mới nhất của Sam Altman:\n\n- [RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and better alignment.](https://x.com/sama/status/2118471941002842341) (Thu Nov 05 2026) - 53 retweets, 47500 views\n- [RT @thsottiaux: Day 25/ We are doubling all usage limits for all Pro 100/200/500 tiers and Business Premium, effective today.](https://x.com/sama/status/2117797818756952416) (Wed Nov 04 2026) - 2702 retweets, 42019 views\n- [People should always be in control of the future.](https://x.com/sama/status/2117794005165748448) (Wed Nov 04 2026) - 1020 retweets, 10652622 views\n- [RT @danintheory: We are announcing three new discoveries in mathematics, computer science, and physics about harmonic analysis.](https://x.com/sama/status/2114864981934329996) (Mon Oct 26 2026) - 1117 retweets, 48208 views\n- [6.1 Terra is here! It is good at a lot of things, but we are especially excited for this new era of computer use.](https://x.com/sama/status/2114818620782248024) (Mon Oct 26 2026) - 494 retweets, 1657573 views\n\nNếu bạn cần thêm thông tin hoặc tweet khác, hãy cho tôi biết!",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "timeline",
+              "args": {
+                "screenname": "sama",
+                "limit": 500
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "timeline",
+              "args": {
+                "screenname": "sama",
+                "limit": 500
+              },
+              "result": {
+                "tool": "get_user_tweets",
+                "screenname": "sama",
+                "items": [
+                  {
+                    "title": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and bett",
+                    "summary": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and better alignment. We’ve…",
+                    "url": "https://x.com/sama/status/2118471941002842341",
+                    "source": "@sama",
+                    "date": "Thu Nov 05 22:34:04 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 53,
+                      "views": "47500"
+                    }
+                  },
+                  {
+                    "title": "RT @thsottiaux: Day 25/",
+                    "summary": "RT @thsottiaux: Day 25/\n\nWe are doubling all usage limits for all Pro 100/200/500 tiers and Business Premium, effective today.\n\nWe heard yo…",
+                    "url": "https://x.com/sama/status/2117797818756952416",
+                    "source": "@sama",
+                    "date": "Wed Nov 04 01:55:21 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 2702,
+                      "views": "42019"
+                    }
+                  },
+                  {
+                    "title": "People should always be in control of the future.",
+                    "summary": "People should always be in control of the future.\n\nOpenAI is against the notion that it would be acceptable for people to be relegated to a role of doing things that “AI systems think makes sense to reward in humans”.\n\nPeople should not cede control of the future to superintelligence, and that requirement should ultimately constrain AI progress.",
+                    "url": "https://x.com/sama/status/2117794005165748448",
+                    "source": "@sama",
+                    "date": "Wed Nov 04 01:40:12 +0000 2026",
+                    "metrics": {
+                      "favorites": 20673,
+                      "retweets": 1020,
+                      "views": "10652622"
+                    }
+                  },
+                  {
+                    "title": "RT @danintheory: We are announcing three new discoveries in mathematics, computer science, and physics about harmonic an",
+                    "summary": "RT @danintheory: We are announcing three new discoveries in mathematics, computer science, and physics about harmonic analysis, complexity…",
+                    "url": "https://x.com/sama/status/2114864981934329996",
+                    "source": "@sama",
+                    "date": "Mon Oct 26 23:41:18 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 1117,
+                      "views": "48208"
+                    }
+                  },
+                  {
+                    "title": "6.1 Terra is here! It is good at a lot of things, but we are especially excited for this new era of computer use.",
+                    "summary": "6.1 Terra is here! It is good at a lot of things, but we are especially excited for this new era of computer use.",
+                    "url": "https://x.com/sama/status/2114818620782248024",
+                    "source": "@sama",
+                    "date": "Mon Oct 26 20:37:05 +0000 2026",
+                    "metrics": {
+                      "favorites": 10117,
+                      "retweets": 494,
+                      "views": "1657573"
+                    }
+                  },
+                  {
+                    "title": "I am very grateful Aleksander accepted our request to come take this on; the safety and security challenges in front of ",
+                    "summary": "I am very grateful Aleksander accepted our request to come take this on; the safety and security challenges in front of us as we confront superintelligence are immense, and he has an excellent set of skills to work on this.",
+                    "url": "https://x.com/sama/status/2112652656602923366",
+                    "source": "@sama",
+                    "date": "Tue Oct 20 21:10:19 +0000 2026",
+                    "metrics": {
+                      "favorites": 7301,
+                      "retweets": 253,
+                      "views": "1760221"
+                    }
+                  },
+                  {
+                    "title": "The back of the Navier-Stokes milestone shirt is the last line of the chain-of-thought from the solution: https://t.co/W",
+                    "summary": "The back of the Navier-Stokes milestone shirt is the last line of the chain-of-thought from the solution: https://t.co/W7mK8WmCz1",
+                    "url": "https://x.com/sama/status/2111139227761266699",
+                    "source": "@sama",
+                    "date": "Fri Oct 16 16:56:29 +0000 2026",
+                    "metrics": {
+                      "favorites": 11212,
+                      "retweets": 495,
+                      "views": "1264441"
+                    }
+                  },
+                  {
+                    "title": "Wow the new roadster looks quite amazing, good job @elonmusk",
+                    "summary": "Wow the new roadster looks quite amazing, good job @elonmusk",
+                    "url": "https://x.com/sama/status/2111131677351432197",
+                    "source": "@sama",
+                    "date": "Fri Oct 16 16:26:29 +0000 2026",
+                    "metrics": {
+                      "favorites": 65940,
+                      "retweets": 1877,
+                      "views": "7039124"
+                    }
+                  },
+                  {
+                    "title": "Very happy to see this from Nick!",
+                    "summary": "Very happy to see this from Nick!",
+                    "url": "https://x.com/sama/status/2111130577789493706",
+                    "source": "@sama",
+                    "date": "Fri Oct 16 16:22:07 +0000 2026",
+                    "metrics": {
+                      "favorites": 3820,
+                      "retweets": 142,
+                      "views": "904347"
+                    }
+                  },
+                  {
+                    "title": "ChatGPT can now generate a custom UI for you!",
+                    "summary": "ChatGPT can now generate a custom UI for you!",
+                    "url": "https://x.com/sama/status/2107924408597950702",
+                    "source": "@sama",
+                    "date": "Wed Oct 07 20:01:57 +0000 2026",
+                    "metrics": {
+                      "favorites": 12291,
+                      "retweets": 564,
+                      "views": "2169115"
+                    }
+                  },
+                  {
+                    "title": "Have been waiting for this one for a long time, and I would hate to have to go back to the old version of Chat!",
+                    "summary": "Have been waiting for this one for a long time, and I would hate to have to go back to the old version of Chat!",
+                    "url": "https://x.com/sama/status/2107924677801001381",
+                    "source": "@sama",
+                    "date": "Wed Oct 07 20:03:01 +0000 2026",
+                    "metrics": {
+                      "favorites": 1106,
+                      "retweets": 17,
+                      "views": "416958"
+                    }
+                  },
+                  {
+                    "title": "looking up at the stars with extra awe tonight.",
+                    "summary": "looking up at the stars with extra awe tonight.\n\n\"thy sea is so great and my boat is so small.\"",
+                    "url": "https://x.com/sama/status/2107691261776052633",
+                    "source": "@sama",
+                    "date": "Wed Oct 07 04:35:30 +0000 2026",
+                    "metrics": {
+                      "favorites": 12720,
+                      "retweets": 673,
+                      "views": "1991626"
+                    }
+                  },
+                  {
+                    "title": "thank you to the machines, and the structure of reality, for letting us understand a little more.",
+                    "summary": "thank you to the machines, and the structure of reality, for letting us understand a little more.",
+                    "url": "https://x.com/sama/status/2107691262795239805",
+                    "source": "@sama",
+                    "date": "Wed Oct 07 04:35:30 +0000 2026",
+                    "metrics": {
+                      "favorites": 3717,
+                      "retweets": 105,
+                      "views": "461080"
+                    }
+                  },
+                  {
+                    "title": "and thank you to the untold number of people who put in the technical work, brick by brick over the generations, to get ",
+                    "summary": "and thank you to the untold number of people who put in the technical work, brick by brick over the generations, to get us to the point where such a wonder is possible.",
+                    "url": "https://x.com/sama/status/2107691577015755196",
+                    "source": "@sama",
+                    "date": "Wed Oct 07 04:36:45 +0000 2026",
+                    "metrics": {
+                      "favorites": 3970,
+                      "retweets": 127,
+                      "views": "370799"
+                    }
+                  },
+                  {
+                    "title": "We are entering a new era of discovery now:",
+                    "summary": "We are entering a new era of discovery now:\n\nhttps://t.co/Ng8GquwN3r",
+                    "url": "https://x.com/sama/status/2107623610483720463",
+                    "source": "@sama",
+                    "date": "Wed Oct 07 00:06:41 +0000 2026",
+                    "metrics": {
+                      "favorites": 10944,
+                      "retweets": 954,
+                      "views": "2128409"
+                    }
+                  },
+                  {
+                    "title": "I am very uncomfortable about people trying to ascribe religious force or a surrender of human judgment to AI models, an",
+                    "summary": "I am very uncomfortable about people trying to ascribe religious force or a surrender of human judgment to AI models, and think it is a real safety issue.",
+                    "url": "https://x.com/sama/status/2106388373221118198",
+                    "source": "@sama",
+                    "date": "Sat Oct 03 14:18:17 +0000 2026",
+                    "metrics": {
+                      "favorites": 28980,
+                      "retweets": 1937,
+                      "views": "7264171"
+                    }
+                  },
+                  {
+                    "title": "The contrast between hanging up the last phone call of the day of high-stakes decisions and then a minute later walking ",
+                    "summary": "The contrast between hanging up the last phone call of the day of high-stakes decisions and then a minute later walking in the door to the pure love of small children who want to laugh and play and show you every discovery they made that day is the strangest and best thing I have ever experienced in life.",
+                    "url": "https://x.com/sama/status/2106189841813934140",
+                    "source": "@sama",
+                    "date": "Sat Oct 03 01:09:24 +0000 2026",
+                    "metrics": {
+                      "favorites": 22527,
+                      "retweets": 605,
+                      "views": "1675100"
+                    }
+                  },
+                  {
+                    "title": "There is some speculation about our partnership with Cerebras.",
+                    "summary": "There is some speculation about our partnership with Cerebras.\n\nCerebras is a close partner, and we have a deep engagement pushing on the frontiers of speed.",
+                    "url": "https://x.com/sama/status/2106147184693620924",
+                    "source": "@sama",
+                    "date": "Fri Oct 02 22:19:53 +0000 2026",
+                    "metrics": {
+                      "favorites": 8947,
+                      "retweets": 365,
+                      "views": "1962267"
+                    }
+                  },
+                  {
+                    "title": "dot is my favorite openai product so far!",
+                    "summary": "dot is my favorite openai product so far!\n\nit is amazing to me that each day it feels noticably better as it learns more of my workflow and style.\n\nhaving it do the stuff i don't like doing--and usually just builds up as a gravity well of dread--has me very happy.",
+                    "url": "https://x.com/sama/status/2106085986606403684",
+                    "source": "@sama",
+                    "date": "Fri Oct 02 18:16:43 +0000 2026",
+                    "metrics": {
+                      "favorites": 8722,
+                      "retweets": 336,
+                      "views": "1118253"
+                    }
+                  },
+                  {
+                    "title": "You should be able to use your AI subscription wherever you need:",
+                    "summary": "You should be able to use your AI subscription wherever you need:",
+                    "url": "https://x.com/sama/status/2105739098640298253",
+                    "source": "@sama",
+                    "date": "Thu Oct 01 19:18:18 +0000 2026",
+                    "metrics": {
+                      "favorites": 5160,
+                      "retweets": 175,
+                      "views": "1278719"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Dưới đây là một số tweet mới nhất của Sam Altman:\n\n- [RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and better alignment.](https://x.com/sama/status/2118471941002842341) (Thu Nov 05 2026) - 53 retweets, 47500 views\n- [RT @thsottiaux: Day 25/ We are doubling all usage limits for all Pro 100/200/500 tiers and Business Premium, effective today.](https://x.com/sama/status/2117797818756952416) (Wed Nov 04 2026) - 2702 retweets, 42019 views\n- [People should always be in control of the future.](https://x.com/sama/status/2117794005165748448) (Wed Nov 04 2026) - 1020 retweets, 10652622 views\n- [RT @danintheory: We are announcing three new discoveries in mathematics, computer science, and physics about harmonic analysis.](https://x.com/sama/status/2114864981934329996) (Mon Oct 26 2026) - 1117 retweets, 48208 views\n- [6.1 Terra is here! It is good at a lot of things, but we are especially excited for this new era of computer use.](https://x.com/sama/status/2114818620782248024) (Mon Oct 26 2026) - 494 retweets, 1657573 views\n\nNếu bạn cần thêm thông tin hoặc tweet khác, hãy cho tôi biết!",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "sama",
+            "limit": 500
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "sama",
+            "items": [
+              {
+                "title": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and bett",
+                "summary": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and better alignment. We’ve…",
+                "url": "https://x.com/sama/status/2118471941002842341",
+                "source": "@sama",
+                "date": "Thu Nov 05 22:34:04 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 53,
+                  "views": "47500"
+                }
+              },
+              {
+                "title": "RT @thsottiaux: Day 25/",
+                "summary": "RT @thsottiaux: Day 25/\n\nWe are doubling all usage limits for all Pro 100/200/500 tiers and Business Premium, effective today.\n\nWe heard yo…",
+                "url": "https://x.com/sama/status/2117797818756952416",
+                "source": "@sama",
+                "date": "Wed Nov 04 01:55:21 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 2702,
+                  "views": "42019"
+                }
+              },
+              {
+                "title": "People should always be in control of the future.",
+                "summary": "People should always be in control of the future.\n\nOpenAI is against the notion that it would be acceptable for people to be relegated to a role of doing things that “AI systems think makes sense to reward in humans”.\n\nPeople should not cede control of the future to superintelligence, and that requirement should ultimately constrain AI progress.",
+                "url": "https://x.com/sama/status/2117794005165748448",
+                "source": "@sama",
+                "date": "Wed Nov 04 01:40:12 +0000 2026",
+                "metrics": {
+                  "favorites": 20673,
+                  "retweets": 1020,
+                  "views": "10652622"
+                }
+              },
+              {
+                "title": "RT @danintheory: We are announcing three new discoveries in mathematics, computer science, and physics about harmonic an",
+                "summary": "RT @danintheory: We are announcing three new discoveries in mathematics, computer science, and physics about harmonic analysis, complexity…",
+                "url": "https://x.com/sama/status/2114864981934329996",
+                "source": "@sama",
+                "date": "Mon Oct 26 23:41:18 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 1117,
+                  "views": "48208"
+                }
+              },
+              {
+                "title": "6.1 Terra is here! It is good at a lot of things, but we are especially excited for this new era of computer use.",
+                "summary": "6.1 Terra is here! It is good at a lot of things, but we are especially excited for this new era of computer use.",
+                "url": "https://x.com/sama/status/2114818620782248024",
+                "source": "@sama",
+                "date": "Mon Oct 26 20:37:05 +0000 2026",
+                "metrics": {
+                  "favorites": 10117,
+                  "retweets": 494,
+                  "views": "1657573"
+                }
+              },
+              {
+                "title": "I am very grateful Aleksander accepted our request to come take this on; the safety and security challenges in front of ",
+                "summary": "I am very grateful Aleksander accepted our request to come take this on; the safety and security challenges in front of us as we confront superintelligence are immense, and he has an excellent set of skills to work on this.",
+                "url": "https://x.com/sama/status/2112652656602923366",
+                "source": "@sama",
+                "date": "Tue Oct 20 21:10:19 +0000 2026",
+                "metrics": {
+                  "favorites": 7301,
+                  "retweets": 253,
+                  "views": "1760221"
+                }
+              },
+              {
+                "title": "The back of the Navier-Stokes milestone shirt is the last line of the chain-of-thought from the solution: https://t.co/W",
+                "summary": "The back of the Navier-Stokes milestone shirt is the last line of the chain-of-thought from the solution: https://t.co/W7mK8WmCz1",
+                "url": "https://x.com/sama/status/2111139227761266699",
+                "source": "@sama",
+                "date": "Fri Oct 16 16:56:29 +0000 2026",
+                "metrics": {
+                  "favorites": 11212,
+                  "retweets": 495,
+                  "views": "1264441"
+                }
+              },
+              {
+                "title": "Wow the new roadster looks quite amazing, good job @elonmusk",
+                "summary": "Wow the new roadster looks quite amazing, good job @elonmusk",
+                "url": "https://x.com/sama/status/2111131677351432197",
+                "source": "@sama",
+                "date": "Fri Oct 16 16:26:29 +0000 2026",
+                "metrics": {
+                  "favorites": 65940,
+                  "retweets": 1877,
+                  "views": "7039124"
+                }
+              },
+              {
+                "title": "Very happy to see this from Nick!",
+                "summary": "Very happy to see this from Nick!",
+                "url": "https://x.com/sama/status/2111130577789493706",
+                "source": "@sama",
+                "date": "Fri Oct 16 16:22:07 +0000 2026",
+                "metrics": {
+                  "favorites": 3820,
+                  "retweets": 142,
+                  "views": "904347"
+                }
+              },
+              {
+                "title": "ChatGPT can now generate a custom UI for you!",
+                "summary": "ChatGPT can now generate a custom UI for you!",
+                "url": "https://x.com/sama/status/2107924408597950702",
+                "source": "@sama",
+                "date": "Wed Oct 07 20:01:57 +0000 2026",
+                "metrics": {
+                  "favorites": 12291,
+                  "retweets": 564,
+                  "views": "2169115"
+                }
+              },
+              {
+                "title": "Have been waiting for this one for a long time, and I would hate to have to go back to the old version of Chat!",
+                "summary": "Have been waiting for this one for a long time, and I would hate to have to go back to the old version of Chat!",
+                "url": "https://x.com/sama/status/2107924677801001381",
+                "source": "@sama",
+                "date": "Wed Oct 07 20:03:01 +0000 2026",
+                "metrics": {
+                  "favorites": 1106,
+                  "retweets": 17,
+                  "views": "416958"
+                }
+              },
+              {
+                "title": "looking up at the stars with extra awe tonight.",
+                "summary": "looking up at the stars with extra awe tonight.\n\n\"thy sea is so great and my boat is so small.\"",
+                "url": "https://x.com/sama/status/2107691261776052633",
+                "source": "@sama",
+                "date": "Wed Oct 07 04:35:30 +0000 2026",
+                "metrics": {
+                  "favorites": 12720,
+                  "retweets": 673,
+                  "views": "1991626"
+                }
+              },
+              {
+                "title": "thank you to the machines, and the structure of reality, for letting us understand a little more.",
+                "summary": "thank you to the machines, and the structure of reality, for letting us understand a little more.",
+                "url": "https://x.com/sama/status/2107691262795239805",
+                "source": "@sama",
+                "date": "Wed Oct 07 04:35:30 +0000 2026",
+                "metrics": {
+                  "favorites": 3717,
+                  "retweets": 105,
+                  "views": "461080"
+                }
+              },
+              {
+                "title": "and thank you to the untold number of people who put in the technical work, brick by brick over the generations, to get ",
+                "summary": "and thank you to the untold number of people who put in the technical work, brick by brick over the generations, to get us to the point where such a wonder is possible.",
+                "url": "https://x.com/sama/status/2107691577015755196",
+                "source": "@sama",
+                "date": "Wed Oct 07 04:36:45 +0000 2026",
+                "metrics": {
+                  "favorites": 3970,
+                  "retweets": 127,
+                  "views": "370799"
+                }
+              },
+              {
+                "title": "We are entering a new era of discovery now:",
+                "summary": "We are entering a new era of discovery now:\n\nhttps://t.co/Ng8GquwN3r",
+                "url": "https://x.com/sama/status/2107623610483720463",
+                "source": "@sama",
+                "date": "Wed Oct 07 00:06:41 +0000 2026",
+                "metrics": {
+                  "favorites": 10944,
+                  "retweets": 954,
+                  "views": "2128409"
+                }
+              },
+              {
+                "title": "I am very uncomfortable about people trying to ascribe religious force or a surrender of human judgment to AI models, an",
+                "summary": "I am very uncomfortable about people trying to ascribe religious force or a surrender of human judgment to AI models, and think it is a real safety issue.",
+                "url": "https://x.com/sama/status/2106388373221118198",
+                "source": "@sama",
+                "date": "Sat Oct 03 14:18:17 +0000 2026",
+                "metrics": {
+                  "favorites": 28980,
+                  "retweets": 1937,
+                  "views": "7264171"
+                }
+              },
+              {
+                "title": "The contrast between hanging up the last phone call of the day of high-stakes decisions and then a minute later walking ",
+                "summary": "The contrast between hanging up the last phone call of the day of high-stakes decisions and then a minute later walking in the door to the pure love of small children who want to laugh and play and show you every discovery they made that day is the strangest and best thing I have ever experienced in life.",
+                "url": "https://x.com/sama/status/2106189841813934140",
+                "source": "@sama",
+                "date": "Sat Oct 03 01:09:24 +0000 2026",
+                "metrics": {
+                  "favorites": 22527,
+                  "retweets": 605,
+                  "views": "1675100"
+                }
+              },
+              {
+                "title": "There is some speculation about our partnership with Cerebras.",
+                "summary": "There is some speculation about our partnership with Cerebras.\n\nCerebras is a close partner, and we have a deep engagement pushing on the frontiers of speed.",
+                "url": "https://x.com/sama/status/2106147184693620924",
+                "source": "@sama",
+                "date": "Fri Oct 02 22:19:53 +0000 2026",
+                "metrics": {
+                  "favorites": 8947,
+                  "retweets": 365,
+                  "views": "1962267"
+                }
+              },
+              {
+                "title": "dot is my favorite openai product so far!",
+                "summary": "dot is my favorite openai product so far!\n\nit is amazing to me that each day it feels noticably better as it learns more of my workflow and style.\n\nhaving it do the stuff i don't like doing--and usually just builds up as a gravity well of dread--has me very happy.",
+                "url": "https://x.com/sama/status/2106085986606403684",
+                "source": "@sama",
+                "date": "Fri Oct 02 18:16:43 +0000 2026",
+                "metrics": {
+                  "favorites": 8722,
+                  "retweets": 336,
+                  "views": "1118253"
+                }
+              },
+              {
+                "title": "You should be able to use your AI subscription wherever you need:",
+                "summary": "You should be able to use your AI subscription wherever you need:",
+                "url": "https://x.com/sama/status/2105739098640298253",
+                "source": "@sama",
+                "date": "Thu Oct 01 19:18:18 +0000 2026",
+                "metrics": {
+                  "favorites": 5160,
+                  "retweets": 175,
+                  "views": "1278719"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T19:08:10"
+    }
+  ]
+}

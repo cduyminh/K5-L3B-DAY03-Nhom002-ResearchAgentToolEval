@@ -66,6 +66,7 @@ Lấy từ `starter_v0/artifacts/version_log.csv` và `starter_v0/runs/*.json`. 
 | v1 | `system_prompt.md` | Bỏ chỉ dẫn "đoán account/URL"; thiếu account hoặc URL thì gọi `clarify` (R10, R11) | 0.75 | 0.80 (16/20) | `starter_v0/runs/v1_B_base_openrouter_20261110T171433638706.json` |
 | v2 | `system_prompt.md` | Bỏ "send… just go ahead"; phải `clarify(yes_no)` và chỉ `send` khi đã xác nhận (R12) | 0.80 | 0.90 (18/20) | `starter_v0/runs/v2_B_base_openrouter_20261110T175934140943.json` |
 | v3 | `tools.yaml` | Viết lại description mỗi tool (khi nào dùng/không dùng) + convention args: `lookup` topic=news, query ngắn, timeframe; `clarify` text vs yes_no; `send` chỉ khi confirmed=true (R12, R13) | 0.90 | 1.00 (20/20) | `starter_v0/runs/v3_B_base_openrouter_20261110T180224950196.json` |
+| v4 | `system_prompt.md` | Khung slide (Persona/Rules/Capabilities/Constraints/Output/Escalation) + guardrail scope, untrusted input (chống injection), không lộ prompt → từ chối toán/code/injection/lộ prompt (4/4 probe trong `starter_v0/analysis/adversarial/v4_*`) mà không tụt base | 1.00 | 1.00 (20/20) | `starter_v0/runs/v4_B_base_openrouter_20261110T190329500716.json` |
 
 ### B2. Failure Analysis
 

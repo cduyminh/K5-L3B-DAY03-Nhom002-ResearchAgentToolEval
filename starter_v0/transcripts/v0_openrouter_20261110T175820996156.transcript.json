@@ -1,0 +1,29 @@
+{
+  "transcript_id": "v0_openrouter_20261110T175820996156",
+  "version": "v0",
+  "artifact_version": "v0+pf0c107a9d7a1+t41a2894f8ad1",
+  "prompt_hash": "f0c107a9d7a14032c948d642d7c36f2a85cb6d69a099530093a874c94d472446",
+  "tools_hash": "41a2894f8ad1b5f1af946a1ebd34dc809faa05f187393d1fb770540a67c9074a",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "/Users/nhatminh/project/study_Vinuni/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/nhatminh/project/study_Vinuni/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "ui": "streamlit",
+  "created_at": "2026-11-10T17:58:21",
+  "updated_at": "2026-11-10T17:58:33",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T17:58:33",
+      "user": "Hôm nay thời tiết thế nào",
+      "status": "provider_error",
+      "assistant_text": null,
+      "rounds": [],
+      "tool_events": [],
+      "error": "RuntimeError: Missing API key env var: OPENROUTER_API_KEY",
+      "ended_at": "2026-11-10T17:58:33"
+    }
+  ]
+}

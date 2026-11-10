@@ -1,1 +1,2 @@
 version,author,changed_artifact,artifact_version,prompt_hash,tools_hash,reason,hypothesis,metric_before,metric_after,run_file
+v0,Hoàng Nhật Minh,baseline,v0+pf0c107a9d7a1+t41a2894f8ad1,f0c107a9d7a1,41a2894f8ad1,baseline (anthropic claude-opus-5-5; starter prompt/tools chưa sửa),Đo hành vi chưa tối ưu trước khi sửa,,0.75,runs/v0_B_base_anthropic_20261110T172857200899.json

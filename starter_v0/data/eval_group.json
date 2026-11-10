@@ -1,7 +1,7 @@
 {
   "dataset_id": "day03_v2_research_group",
   "dataset_role": "group",
-  "description": "10 case mới: 5 query và 5 turns. G05 là case tạm để thay bằng tool mới của Dũng; yêu cầu tool mới chưa được đáp ứng.",
+  "description": "10 case mới: 5 query và 5 turns",
   "allowed_failure_types": [
     "wrong_tool",
     "wrong_arg_value",

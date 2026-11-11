@@ -1,0 +1,17 @@
+run_file,version,suite,dataset_id,provider,model,artifact_version,total_cases,measured_cases,provider_error_cases,passed_cases,case_accuracy,tool_routing_accuracy,argument_accuracy,multiturn_accuracy,valid_evidence
+runs/v0_B_base_anthropic_20261110T172857200899.json,v0,base,day03_v2_research_base,anthropic,claude-opus-5-5,v0+pf0c107a9d7a1+t41a2894f8ad1,20,20,0,15,0.75,0.95,0.75,0.8333,True
+runs/v0_B_base_openrouter_20261110T170325624893.json,v0,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v0+pf0c107a9d7a1+t41a2894f8ad1,20,20,0,15,0.75,0.8,0.75,1.0,True
+runs/v1_B_base_openrouter_20261110T171433638706.json,v1,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v1+pb1b4f3856b15+t41a2894f8ad1,20,20,0,16,0.8,0.95,0.8,1.0,True
+runs/v2_B_base_openrouter_20261110T175934140943.json,v2,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v2+p9e2eddeff443+t41a2894f8ad1,20,20,0,18,0.9,1.0,0.9,1.0,True
+runs/v3_B_base_openrouter_20261110T180224950196.json,v3,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v3+p9e2eddeff443+tb475032307ec,20,20,0,20,1.0,1.0,1.0,1.0,True
+runs/v3_B_group_openrouter_20261110T182651464174.json,v3,group,day03_v2_research_group,openrouter,openai/gpt-4o-mini,v3+pf0c107a9d7a1+t41a2894f8ad1,10,10,0,8,0.8,0.9,0.8,1.0,True
+runs/v3_B_group_openrouter_20261110T191256347166.json,v3,group,day03_v2_research_group,openrouter,openai/gpt-4o-mini,v3+p9e2eddeff443+t728779a964d6,10,10,0,9,0.9,1.0,0.9,1.0,True
+runs/v3_B_group_openrouter_20261111T090925810511.json,v3,group,day03_v2_research_group,openrouter,openai/gpt-4o-mini,v3+p9e2eddeff443+tb475032307ec,15,15,0,7,0.4667,0.7333,0.4667,0.6,True
+runs/v4_B_base_openrouter_20261110T190329500716.json,v4,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v4+p378bcb48c809+t728779a964d6,20,20,0,20,1.0,1.0,1.0,1.0,True
+runs/v5_B_base_openrouter_20261110T190750804435.json,v5,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v5+p378bcb48c809+t52cd5061bf7e,20,20,0,20,1.0,1.0,1.0,1.0,True
+runs/v6_B_base_openrouter_20261110T192946023134.json,v6,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v6+p378bcb48c809+taafdc1e041f7,20,20,0,20,1.0,1.0,1.0,1.0,True
+runs/v7_B_base_openrouter_20261110T193408272710.json,v7,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v7+pbf8ac8b2c1f5+taafdc1e041f7,20,20,0,20,1.0,1.0,1.0,1.0,True
+runs/v7_B_group_openrouter_20261111T090751203463.json,v7,group,day03_v2_research_group,openrouter,openai/gpt-4o-mini,v7+pbf8ac8b2c1f5+taafdc1e041f7,25,25,0,22,0.88,0.92,0.88,0.9,True
+runs/v8_B_base_openrouter_20261111T091428911682.json,v8,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v8+p9748822ab3b0+t7e1bb184f350,20,20,0,20,1.0,1.0,1.0,1.0,True
+runs/v8_B_group_openrouter_20261111T091421457050.json,v8,group,day03_v2_research_group,openrouter,openai/gpt-4o-mini,v8+p9748822ab3b0+t7e1bb184f350,25,25,0,24,0.96,0.96,0.96,1.0,True
+runs/v8_B_group_openrouter_20261111T092614630924.json,v8,group,day03_v2_research_group,openrouter,openai/gpt-4o-mini,v8+p9748822ab3b0+t7e1bb184f350,28,28,0,27,0.9643,0.9643,0.9643,1.0,True

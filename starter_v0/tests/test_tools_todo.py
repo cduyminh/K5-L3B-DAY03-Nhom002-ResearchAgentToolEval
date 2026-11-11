@@ -151,3 +151,16 @@ def test_claim_evidence_matrix_malformed_evidence_returns_error_dict() -> None:
     assert result["tool"] == "claim_evidence_matrix"
     assert result["error"] == "ValueError"
     assert "citation" in result["message"]
+
+
+def test_send_confirmed_posts_once_and_returns_telegram_receipt(monkeypatch, fake_http) -> None:
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "123:fake")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "-100")
+    calls = fake_http(FakeResponse({"ok": True, "result": {"message_id": 7, "date": 1794365040,
+                                                            "chat": {"id": -100, "title": "Nhom002 Bản tin", "type": "group"}}}))
+    result = TOOL_FUNCTIONS["send"](text="Bản tin", confirmed=True)
+    assert len(calls) == 1 and calls[0]["url"].endswith("/sendMessage")
+    assert calls[0]["json"]["chat_id"] == "-100" and calls[0]["json"]["text"] == "Bản tin"
+    assert result["status"] == "sent"
+    assert result["telegram_receipt"] == {"message_id": 7, "date_unix": 1794365040,
+                                          "chat_title": "Nhom002 Bản tin", "chat_type": "group"}

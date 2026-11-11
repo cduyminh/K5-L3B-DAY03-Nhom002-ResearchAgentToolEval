@@ -26,7 +26,20 @@ def send_telegram(text: str = "", confirmed: bool = False) -> dict[str, Any]:
             timeout=TIMEOUT,
         )
         response.raise_for_status()
-        return {"tool": "send_telegram", "status": "sent"}
+        out: dict[str, Any] = {"tool": "send_telegram", "status": "sent"}
+        # Telegram's own receipt, so a reviewer can verify the post without seeing the private group.
+        try:
+            msg = (response.json() or {}).get("result") or {}
+            chat = msg.get("chat") or {}
+            out["telegram_receipt"] = {
+                "message_id": msg.get("message_id"),
+                "date_unix": msg.get("date"),
+                "chat_title": chat.get("title"),
+                "chat_type": chat.get("type"),
+            }
+        except Exception:  # receipt is optional; the post already succeeded
+            pass
+        return out
     except Exception as exc:
         return err("send_telegram", exc)
 

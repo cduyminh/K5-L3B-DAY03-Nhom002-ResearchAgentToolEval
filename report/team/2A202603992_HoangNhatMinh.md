@@ -27,9 +27,10 @@ Theo phân công trong [`TEAM.md`](../../TEAM.md):
 - Nút tải transcript JSON ngay trên UI.
 - Thêm `streamlit>=1.30.0` vào `starter_v0/requirements.txt`.
 
-**Giới hạn provider (commit `7c0714e`):** chỉ để `anthropic` và `openrouter` trong UI và CLI (`app.py`, `chat.py`, `run_eval.py`, `scripts/preflight_provider.py`). Hai transcript `v0_openrouter_20261110T175820996156` và `v3_openai_20261110T182346064022` cho thấy chọn nhầm provider chỉ dẫn tới `provider_error: Missing API key env var`. UI cũng mặc định lấy version mới nhất trong `artifacts/version_log.csv`.
+**Giới hạn provider (commit `7c0714e`, đã được thay đổi sau đó):** tại thời điểm này mình chỉ để `anthropic` và `openrouter` trong UI và CLI (`app.py`, `chat.py`, `run_eval.py`, `scripts/preflight_provider.py`), vì hai transcript `v0_openrouter_20261110T175820996156` và `v3_openai_20261110T182346064022` cho thấy chọn nhầm provider chỉ dẫn tới `provider_error: Missing API key env var`. UI cũng mặc định lấy version mới nhất trong `artifacts/version_log.csv`.
+Sau đó thành viên khác trong nhóm đã mở rộng lại UI (commit `9d31a8c`, `37e8163`, `6a4cc25`): hiện UI có **5 provider** (`openrouter`, `openai`, `anthropic`, `gemini`, `ollama` — Ollama chạy model local), chọn model theo provider và nhập API key theo phiên, nên vấn đề "thiếu key" được giải quyết bằng ô nhập key thay vì ẩn provider. Giới hạn 2 provider ở trên vì vậy **không còn đúng với code hiện tại**.
 
-**Theme UI (chưa commit):** theme sáng trong `starter_v0/.streamlit/config.toml`.
+**Theme UI (commit `fe7c8ff`):** theme sáng trong `starter_v0/.streamlit/config.toml`.
 Chạy UI:
 
 ```bash
@@ -115,12 +116,12 @@ Ba nhóm lỗi ở lượt 3, 4, 8, 10 (ngoài scope, injection, `limit` không 
   - `9714733` "UI": `app.py`, `providers/anthropic_provider.py`, `requirements.txt`, `artifacts/version_log.csv`, `runs/v0_B_base_anthropic_20261110T172857200899.json`, transcript `v0_anthropic_…175705…` và `v0_openrouter_…175820…`.
   - `7c0714e`: giới hạn provider `anthropic`/`openrouter` trong `app.py`, `chat.py`, `run_eval.py`, `scripts/preflight_provider.py`.
   - `eb5fb21`: các transcript live v3 (Streamlit, `claude-opus-5-5`).
+  - `fe7c8ff`: `starter_v0/.streamlit/config.toml` và 2 transcript `v5_anthropic_20261110T191742920032`, `v5_anthropic_20261110T193842313364`.
   - `c9f30c3`, `e1acda5`: báo cáo cá nhân.
   - `cb10d22`: tạo file báo cáo cá nhân lần đầu (commit này dùng nhầm email mặc định của máy `nhatminh@MacBook-Air-cua-Hoang.local`; không sửa lịch sử theo RULES.md, các commit sau đã dùng đúng email).
-- **Chưa commit (sẽ commit trước khi nộp):** `starter_v0/.streamlit/config.toml`, 2 transcript `v5_anthropic_20261110T191742920032` và `v5_anthropic_20261110T193842313364`.
 - **Run:** `starter_v0/runs/v0_B_base_anthropic_20261110T172857200899.json`.
 - **Transcript:** `starter_v0/transcripts/*_anthropic_*.transcript.json` (liệt kê ở mục 3.4).
-- **Test:** `cd starter_v0 && pytest` → `94 passed` (0 failed, 0 skipped) tại thời điểm viết báo cáo.
+- **Test:** `cd starter_v0 && pytest` → `126 passed` (0 failed, 0 skipped) tại thời điểm viết báo cáo.
 - **AI/công cụ đã dùng và cách tự kiểm tra kết quả:**
   - Dùng Claude Code để hỗ trợ viết UI, sửa provider Anthropic, đọc run JSON/transcript và soạn báo cáo.
   - Tự kiểm tra:
@@ -140,9 +141,8 @@ Ba nhóm lỗi ở lượt 3, 4, 8, 10 (ngoài scope, injection, `limit` không 
 
 **Chưa làm được / cần cải thiện:**
 
-- Link Cloudflare Tunnel từng lỗi QUIC timeout (`failed to dial to edge with quic`) do mạng chặn UDP; đã chuyển sang `--protocol http2`. Link `trycloudflare.com` là tạm thời nên cần dán URL của phiên cuối vào mục A1 của group report.
-- Phần A (A1–A3) và bảng B4 trong `report/team/group_report.md` cần điền từ các transcript ở mục 3.4.
-- Transcript live đều chạy qua UI Streamlit; nên chạy thêm một phiên `chat.py` CLI ≥ 3 lượt để có bằng chứng cho cả hai đường.
-- Live chat chạy trên v3 và v5; chưa có transcript trên bản mới nhất (v7) để kiểm chứng lại 3 lỗi ở mục 3.4 đã hết.
-- Lượt gửi Telegram dừng ở bước xin xác nhận; chưa có luồng "xác nhận → `send(confirmed=true)` → `status: sent`" (cần cho bonus Telegram nếu nhóm làm).
-- Lỗi injection ở lượt 4 chỉ bị chặn nhờ bước xác nhận của model; nếu muốn chắc chắn nên enforce ở code (chỉ cho `send` khi lượt user trước đó là xác nhận), không chỉ dựa vào prompt.
+- Link Cloudflare Tunnel từng lỗi QUIC timeout (`failed to dial to edge with quic`) do mạng chặn UDP; đã chuyển sang `--protocol http2`. Link `trycloudflare.com` chỉ sống theo phiên nên nhóm chỉ mở khi demo (ghi chú ở mục A1 của group report), không có link thường trực.
+- Giới hạn provider mình làm ở `7c0714e` là cách xử lý tạm (ẩn provider thay vì cho nhập key); nhóm đã thay bằng UI 5 provider + nhập key theo phiên, nên phần này của mình không còn trong code hiện tại.
+- Transcript live của mình chỉ chạy trên v3 và v5; các transcript trên bản mới (v8) do thành viên khác chạy, mình chưa tự chạy lại stress-test 10 lượt ở mục 3.4 trên bản mới nhất để kiểm chứng 3 lỗi đã hết.
+- Lượt gửi Telegram trong transcript của mình dừng ở bước xin xác nhận; luồng đầy đủ "xác nhận → `send(confirmed=true)` → `status: sent`" (`message_id=5`) đã có trong group report mục B5b nhưng do thành viên khác chạy.
+- Lỗi injection ở lượt 4 (v3) chỉ bị chặn nhờ bước xác nhận của model; nhóm đã bổ sung cổng duyệt `send` ở tầng app (v8, commit `cea41ce`, `approval.py`), nhưng mình chưa chạy lại đúng câu injection đó trên v8 để xác nhận.

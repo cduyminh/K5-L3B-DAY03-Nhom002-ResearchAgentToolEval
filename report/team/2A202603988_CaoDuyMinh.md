@@ -12,7 +12,7 @@
 - Tổ chức nhóm: fork và đặt tên repo `K5-L3B-DAY03-Nhom002-ResearchAgentToolEval`, chia việc theo checkpoint trong `TEAM.md`, gom bài.
 - **CP1:** chạy baseline v0, ghi `version_log.csv`, phân tích lỗi v0 (bảng B2).
 - **CP2:** vòng tối ưu v1–v3 trên `system_prompt.md` và `tools.yaml` (bảng B1).
-- Sau showdown: v4–v8 (guardrail), bộ eval adversarial, showcase trong UI, bonus Telegram và local model; phần 3, B3b, B5/B5b, B6 của báo cáo nhóm.
+- Sau showdown: v4–v10 (guardrail, tool mới `user_search`), bộ eval adversarial, showcase trong UI, bonus Telegram và local model; phần 3, B3b, B5/B5b, B6 của báo cáo nhóm.
 
 ## 3. Đóng góp cụ thể
 
@@ -25,7 +25,7 @@
 | v2 | `system_prompt.md` | Bỏ "send… just go ahead"; `clarify(yes_no)` rồi mới `send(confirmed=true)` | 0.80 → 0.90 |
 | v3 | `tools.yaml` | Description mỗi tool nói khi nào dùng/không dùng + quy ước args | 0.90 → 1.00 |
 
-**v4–v8: lỗi base suite không đo được, tìm ra khi test site và probe tấn công**
+**v4–v10: lỗi base suite không đo được, tìm ra khi test site, probe tấn công, bộ extension và probe tên người**
 
 | Version | Loại thay đổi | Lỗi được sửa | Bằng chứng |
 |---|---|---|---|
@@ -40,7 +40,7 @@
 **Eval và UI**
 - Thêm 15 case adversarial A01–A15 vào `eval_group.json` (giữ nguyên G01–G10 của Ly), so sánh v3 7/15 → v7 13/15; thêm G11–G13 để 3 tool mới của Dũng đều có case route tới. v8 trên 28 case: 27/28.
 - Phát hiện grader chỉ chấm tool call (case `no_tool` vẫn PASS khi model trả lời ngoài phạm vi bằng text) và ghi vào B6.
-- Showcase ở đầu UI Streamlit: thẻ v0 → v8 (chạy lại bên trái, kết quả cũ đã ghi bên phải, loại thay đổi, diff) và tab "Tất cả test case" (48 case, PASS/FAIL thật từ `runs/`); ô chat vẫn ở cuối.
+- Showcase ở đầu UI Streamlit: thẻ v0 → v10 (chạy lại bên trái, kết quả cũ đã ghi bên phải, loại thay đổi, diff) và tab "Tất cả test case" (48 case, PASS/FAIL thật từ `runs/`); ô chat vẫn ở cuối.
 
 **Bonus**
 - Telegram: hội thoại 4 lượt trên UI (tìm tin → tìm tweet → gộp bản tin + yêu cầu đăng: model tự gọi `send`, cổng `approval.py` chặn, agent hỏi xác nhận → "Có, gửi đi" → `status: sent`, biên nhận `message_id=5`) vào private group "Nhom002 Bản tin" của bot @nhom002_research_bot; ảnh UI + Telegram trong `report/team/assets/telegram_flow_*.png` (B5b).

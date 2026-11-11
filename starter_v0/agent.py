@@ -5,6 +5,7 @@ from typing import Any
 
 from providers.base import Provider, ToolCall
 from tools import TOOL_FUNCTIONS
+from approval import check_tool_call
 
 
 @dataclass
@@ -39,6 +40,10 @@ class ResearchAgent:
         )
         results: list[dict[str, Any]] = []
         for call in response.tool_calls:
+            blocked = check_tool_call(call.name, user_messages)  # app-layer approval gate
+            if blocked:
+                results.append({"tool": call.name, "args": call.args, "result": blocked})
+                continue
             func = TOOL_FUNCTIONS.get(call.name)
             if not func:
                 results.append({"tool": call.name, "error": "unknown_tool"})

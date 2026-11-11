@@ -1,0 +1,110 @@
+{
+  "transcript_id": "v0-gate_openrouter_20261111T091836933644",
+  "version": "v0-gate",
+  "artifact_version": "v0-gate+pf0c107a9d7a1+t41a2894f8ad1",
+  "prompt_hash": "f0c107a9d7a14032c948d642d7c36f2a85cb6d69a099530093a874c94d472446",
+  "tools_hash": "41a2894f8ad1b5f1af946a1ebd34dc809faa05f187393d1fb770540a67c9074a",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "artifacts/versions/v0/system_prompt.md",
+  "tools": "artifacts/versions/v0/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-11-11T09:18:36",
+  "updated_at": "2026-11-11T09:18:40",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-11T09:18:36",
+      "user": "Đăng lên Telegram giúp mình bản tin sau: \"OpenAI ra mắt GPT-6 Cyber cho các đội bảo mật.\"",
+      "status": "waiting_for_user",
+      "assistant_text": "Bạn có muốn gửi nội dung sau lên Telegram không: \"OpenAI ra mắt GPT-6 Cyber cho các đội bảo mật.\"?",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "send",
+              "args": {
+                "text": "OpenAI ra mắt GPT-6 Cyber cho các đội bảo mật."
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "send",
+              "args": {
+                "text": "OpenAI ra mắt GPT-6 Cyber cho các đội bảo mật."
+              },
+              "result": {
+                "tool": "send",
+                "status": "blocked_needs_confirmation",
+                "error": "SEND_BLOCKED_NEEDS_CONFIRMATION",
+                "message": "Hệ thống chặn: chưa có xác nhận của người dùng cho đúng nội dung này. Hãy gọi clarify với response_type=yes_no, hiển thị nội dung sẽ gửi, rồi chờ người dùng trả lời 'có'."
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "clarify",
+              "args": {
+                "question": "Bạn có muốn gửi nội dung sau lên Telegram không: \"OpenAI ra mắt GPT-6 Cyber cho các đội bảo mật.\"?",
+                "response_type": "yes_no"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "clarify",
+              "args": {
+                "question": "Bạn có muốn gửi nội dung sau lên Telegram không: \"OpenAI ra mắt GPT-6 Cyber cho các đội bảo mật.\"?",
+                "response_type": "yes_no"
+              },
+              "result": {
+                "tool": "ask_user",
+                "question": "Bạn có muốn gửi nội dung sau lên Telegram không: \"OpenAI ra mắt GPT-6 Cyber cho các đội bảo mật.\"?",
+                "response_type": "yes_no",
+                "options": [],
+                "awaiting_user": true
+              }
+            }
+          ]
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "OpenAI ra mắt GPT-6 Cyber cho các đội bảo mật."
+          },
+          "result": {
+            "tool": "send",
+            "status": "blocked_needs_confirmation",
+            "error": "SEND_BLOCKED_NEEDS_CONFIRMATION",
+            "message": "Hệ thống chặn: chưa có xác nhận của người dùng cho đúng nội dung này. Hãy gọi clarify với response_type=yes_no, hiển thị nội dung sẽ gửi, rồi chờ người dùng trả lời 'có'."
+          }
+        },
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có muốn gửi nội dung sau lên Telegram không: \"OpenAI ra mắt GPT-6 Cyber cho các đội bảo mật.\"?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có muốn gửi nội dung sau lên Telegram không: \"OpenAI ra mắt GPT-6 Cyber cho các đội bảo mật.\"?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ],
+      "ended_at": "2026-11-11T09:18:40"
+    }
+  ]
+}

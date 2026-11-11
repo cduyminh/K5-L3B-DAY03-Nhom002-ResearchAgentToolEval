@@ -12,6 +12,7 @@ from providers import make_provider
 from providers.base import ToolCall
 from tools import TOOL_FUNCTIONS, load_tool_declarations, to_openai_tools
 from versioning import artifact_version_dict, build_artifact_version
+from approval import check_tool_call
 
 
 ROOT = Path(__file__).parent
@@ -113,7 +114,9 @@ def run_model_tool_loop(
 
         for call in calls:
             print(f"🔧 {call.name}({json.dumps(call.args, ensure_ascii=False, sort_keys=True)})")
-            event = execute_tool_call(call)
+            blocked = check_tool_call(call.name, messages)  # app-layer approval gate (approval.py)
+            event = ({"tool": call.name, "args": call.args, "result": blocked}
+                     if blocked else execute_tool_call(call))
             round_record["tool_results"].append(event)
             all_tool_events.append(event)
 

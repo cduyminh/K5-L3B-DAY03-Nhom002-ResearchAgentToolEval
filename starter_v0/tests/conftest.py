@@ -34,6 +34,11 @@ class FakeResponse:
     def json(self) -> Any:
         return self._payload
 
+    def iter_content(self, chunk_size: int = 8192):
+        """For streamed downloads (paper_text)."""
+        if self.content:
+            yield self.content
+
     def raise_for_status(self) -> None:
         if self.status_code >= 400:
             raise requests.HTTPError(f"HTTP {self.status_code}")

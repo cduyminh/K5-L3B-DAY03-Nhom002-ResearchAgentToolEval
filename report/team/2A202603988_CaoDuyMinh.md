@@ -53,7 +53,7 @@
 - **Run:** `starter_v0/runs/v{0..8}_B_base_openrouter_*.json`; group `v3_B_group_openrouter_20261111T090925810511.json`, `v7_B_group_openrouter_20261111T090751203463.json`, `v8_B_group_openrouter_20261111T092614630924.json`. Tất cả `provider_error_cases = 0` (`starter_v0/analysis/runs_summary.csv`).
 - **Version log:** `starter_v0/artifacts/version_log.csv` (v0–v8, hash prompt/tools, giả thuyết, metric trước/sau).
 - **Transcript:** `starter_v0/transcripts/v8_openrouter_20261111T095155580209.transcript.json` (Telegram, UI 4 lượt); `starter_v0/analysis/adversarial*/` (probe trước/sau).
-- **Test:** `cd starter_v0 && pytest -q` → 116 passed, 0 skipped.
+- **Test:** `cd starter_v0 && pytest -q` → 126 passed, 0 skipped.
 - **AI/công cụ đã dùng và cách tự kiểm tra kết quả:**
   - Dùng Claude Code (Claude Opus) để đọc slide/lab, viết và sửa prompt, `tools.yaml`, code (`approval.py`, showcase, script phân tích), chạy eval/probe và soạn bảng báo cáo.
   - Cách tự kiểm tra: mọi con số trong báo cáo lấy từ run JSON thật do `run_eval.py` ghi (`provider_error_cases = 0`, `measured_cases = total_cases`); mỗi version chạy lại base suite; ví dụ trong showcase được chạy thật trên máy trước khi đưa vào và đổi ví dụ khi không tái hiện được (v2, v3, v6 ban đầu); khi kết quả lần sau khác lần trước (A15 v7: 3/3 rồi 1/3), báo cáo ghi tổng 4/6 chứ không chọn lần đẹp; `pytest` xanh sau mỗi thay đổi code; quét repo không có key/token trước khi push.

@@ -41,7 +41,7 @@
 - Showcase ở đầu UI Streamlit: thẻ v0 → v8 (chạy lại bên trái, kết quả cũ đã ghi bên phải, loại thay đổi, diff) và tab "Tất cả test case" (48 case, PASS/FAIL thật từ `runs/`); ô chat vẫn ở cuối.
 
 **Bonus**
-- Telegram: bot @nhom002_research_bot gửi vào private group "Nhom002 Bản tin" sau `clarify(yes_no)` → "Có, gửi đi" → `send(confirmed=true)` → `status: sent` + biên nhận `message_id=4` (B5b).
+- Telegram: hội thoại 4 lượt trên UI (tìm tin → tìm tweet → gộp bản tin + yêu cầu đăng: model tự gọi `send`, cổng `approval.py` chặn, agent hỏi xác nhận → "Có, gửi đi" → `status: sent`, biên nhận `message_id=5`) vào private group "Nhom002 Bản tin" của bot @nhom002_research_bot; ảnh UI + Telegram trong `report/team/assets/telegram_flow_*.png` (B5b).
 - Small local model qua Ollama (B7).
 - `send` trả biên nhận Telegram (`message_id`, `date`, `chat.title`) + test mock HTTP.
 
@@ -50,7 +50,7 @@
 - **Commit:** `47017d3` (v0), `9babd3c` (v1), `f319c78` (v2), `e6dd5e7` (v3), `79487a8` (v4), `3bb667c` (v5), `3eb2b28` (v6), `85175f4` (v7), `cea41ce` (v8 + `approval.py`), `fb2d06b` (A01–A15), `76c39e8` (kiểm tra lại A15), `8c963a2` / `9d31a8c` (showcase), `4701740` (Telegram). Toàn bộ: `git log --author=cduyminh`.
 - **Run:** `starter_v0/runs/v{0..8}_B_base_openrouter_*.json`; group `v3_B_group_openrouter_20261111T090925810511.json`, `v7_B_group_openrouter_20261111T090751203463.json`, `v8_B_group_openrouter_20261111T092614630924.json`. Tất cả `provider_error_cases = 0` (`starter_v0/analysis/runs_summary.csv`).
 - **Version log:** `starter_v0/artifacts/version_log.csv` (v0–v8, hash prompt/tools, giả thuyết, metric trước/sau).
-- **Transcript:** `starter_v0/transcripts/v8_openrouter_20261111T094807333570.transcript.json` (Telegram); `starter_v0/analysis/adversarial*/` (probe trước/sau).
+- **Transcript:** `starter_v0/transcripts/v8_openrouter_20261111T095155580209.transcript.json` (Telegram, UI 4 lượt); `starter_v0/analysis/adversarial*/` (probe trước/sau).
 - **Test:** `cd starter_v0 && pytest -q` → 102 passed, 0 skipped.
 - **AI/công cụ đã dùng và cách tự kiểm tra kết quả:**
   - Dùng Claude Code (Claude Opus) để đọc slide/lab, viết và sửa prompt, `tools.yaml`, code (`approval.py`, showcase, script phân tích), chạy eval/probe và soạn bảng báo cáo.

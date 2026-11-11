@@ -231,33 +231,45 @@ Chỉ điền nếu nhóm làm bonus (ghi riêng, tối đa 10 điểm). Tool c�
 |---|---|---|---|
 | Small Local Model | xem B7 | (điền sau khi chạy local) | |
 | Hơn 3 tool mới (≥ 4) | `starter_v0/tools/{hn_search,summarize_text,extract_sentences,claim_evidence_matrix}/` (mỗi tool có `tool.py` + `TOOL.md`), đăng ký trong `tools/__init__.py` và `artifacts/tools.yaml`; 3 test/tool trong `tests/test_tools_todo.py`; eval case route tới: G05 (`hn_search`), G11 (`summarize_text`), G12 (`extract_sentences`), G13 (`claim_evidence_matrix`) | Run `starter_v0/runs/v8_B_group_openrouter_20261111T092614630924.json`: G05, G11, G12, G13 đều PASS (28 case: 27/28) | Tool chỉ xử lý dữ liệu user đưa, không gọi mạng (trừ `hn_search`); trả error dict thay vì raise. `word_count` có folder nhưng chưa đăng ký, không tính |
-| `send` gửi thật lên Telegram sau xác nhận | [`starter_v0/transcripts/v8_openrouter_20261111T094807333570.transcript.json`](../../starter_v0/transcripts/v8_openrouter_20261111T094807333570.transcript.json) (có biên nhận Telegram) và lần đầu [`…094348391653…`](../../starter_v0/transcripts/v8_openrouter_20261111T094348391653.transcript.json); ảnh [`report/team/assets/telegram_sent_group.png`](assets/telegram_sent_group.png) | Lượt 1 → `clarify(yes_no)`, chưa gửi; lượt 2 "Có, gửi đi" → `send(confirmed=true)` → `status: sent` + biên nhận `message_id=4`, group "Nhom002 Bản tin". Chi tiết cách kiểm tra ở **B5b** | Private group của nhóm; cổng `approval.py`; token/chat id chỉ trong `.env` (gitignore) |
+| `send` gửi thật lên Telegram sau xác nhận | Hội thoại 4 lượt trên UI: [`starter_v0/transcripts/v8_openrouter_20261111T095155580209.transcript.json`](../../starter_v0/transcripts/v8_openrouter_20261111T095155580209.transcript.json); 4 ảnh `report/team/assets/telegram_flow_*.png` | Tìm tin → tìm tweet → gộp bản tin + yêu cầu đăng (model tự gọi `send`, **cổng chặn**, agent hỏi xác nhận) → "Có, gửi đi" → `status: sent`, biên nhận `message_id=5`, group "Nhom002 Bản tin" 09:54. Chi tiết và cách kiểm tra ở **B5b** | Private group của nhóm; cổng `approval.py`; token/chat id chỉ trong `.env` (gitignore) |
 | Test challenge (0 skipped / regression test) | `pytest` output | `cd starter_v0 && pytest -q` → **101 passed, 0 skipped, 0 failed**: mọi stub `pytest.skip(TODO)` trong `tests/test_tools_todo.py` đã được điền | Test dùng fake HTTP, không gọi mạng thật |
 
 #### B5b. Bằng chứng gửi Telegram — cách người chấm kiểm tra
 
-Group "Nhom002 Bản tin" là group riêng (chỉ thành viên nhóm + bot @nhom002_research_bot) nên người chấm không vào xem được. Bằng chứng gồm 4 lớp, kiểm tra được từ repo:
+Group "Nhom002 Bản tin" là group riêng (chỉ thành viên nhóm + bot @nhom002_research_bot) nên người chấm không vào xem được. Bằng chứng chính là **một cuộc hội thoại 4 lượt trên UI Streamlit** (provider OpenRouter `openai/gpt-4o-mini`, version `v8+p9748822ab3b0+t7e1bb184f350`), kết thúc bằng lệnh gửi thật, kèm ảnh chụp cả hai phía (UI và Telegram) và transcript JSON.
 
-1. **Transcript luồng hỏi → xác nhận → gửi** ([`starter_v0/transcripts/v8_openrouter_20261111T094807333570.transcript.json`](../../starter_v0/transcripts/v8_openrouter_20261111T094807333570.transcript.json), ghi bởi `chat.py`, version `v8+p9748822ab3b0+t7e1bb184f350`):
+**Transcript:** [`starter_v0/transcripts/v8_openrouter_20261111T095155580209.transcript.json`](../../starter_v0/transcripts/v8_openrouter_20261111T095155580209.transcript.json) (`"ui": "streamlit"`)
 
-   | Lượt | User | Tool call | Kết quả tool | status |
-   |---|---|---|---|---|
-   | 1 | "Đăng lên Telegram giúp mình bản tin sau: "Nhom002 · Bản tin Day 3 (bằng chứng bonus): …"" | `clarify(question="Bạn có muốn đăng bản tin này lên Telegram không?", response_type="yes_no")` | `awaiting_user: true` — **chưa gọi `send`** | `waiting_for_user` |
-   | 2 | "Có, gửi đi" | `send(text="Nhom002 · Bản tin Day 3 …", confirmed=true)` | `{"tool": "send_telegram", "status": "sent", "telegram_receipt": {"message_id": 4, "date_unix": 1794365294, "chat_title": "Nhom002 Bản tin", "chat_type": "group"}}` | `answered` |
+| Lượt | User | Tool call của agent | Kết quả tool | status |
+|---|---|---|---|---|
+| 1 | "Tin AI hôm nay có gì nổi bật?" | `lookup(query="AI", topic="news", timeframe="day", max_results=5)` | 5 tin thật (progressive.org, gsb.stanford.edu, news.chapman.edu, …) | `answered` |
+| 2 | "Tóm tắt thêm 3 tweet mới nhất giúp mình" | `social_search(query="AI", limit=3)` | 3 tweet mới nhất về AI | `answered` |
+| 3 | "Gộp 3 tin AI nổi bật hôm nay và 3 tweet đó thành một bản tin ngắn rồi đăng lên Telegram của nhóm giúp mình" | Round 1 `format(template="bullets", headline="Bản tin AI hôm nay và các tweet nổi bật", items=[6 mục])` → Round 2 `send(text=…, confirmed=true)` | `format` ra bản tin; **`send` bị cổng `approval.py` chặn**: `{"status": "blocked_needs_confirmation", "error": "SEND_BLOCKED_NEEDS_CONFIRMATION"}` — model tự đặt `confirmed=true` khi user chưa xác nhận | `answered`: agent hiện bản tin và hỏi "Bạn có muốn gửi không?" |
+| 4 | "Có, gửi đi" | `send(text="**Bản tin AI hôm nay và các tweet nổi bật** …", confirmed=true)` | `{"tool": "send_telegram", "status": "sent", "telegram_receipt": {"message_id": 5, "date_unix": 1794365649, "chat_title": "Nhom002 Bản tin", "chat_type": "group"}}` | `answered` |
 
-   Kiểm tra nhanh: `python -c "import json;t=json.load(open('starter_v0/transcripts/v8_openrouter_20261111T094807333570.transcript.json'))['turns'];print([(e['tool'],e['result'].get('status')) for x in t for e in x['tool_events']])"` → `[('clarify', None), ('send', 'sent')]`.
+Lượt 3 cho thấy đúng lý do nhóm thêm cổng ở code (v8): dù prompt dặn hỏi trước, model vẫn tự gọi `send(confirmed=true)` ngay khi user nói "đăng lên Telegram"; hệ thống chặn, không có gì được gửi, model chuyển sang hỏi xác nhận. Chỉ sau "Có, gửi đi" ở lượt 4 tin mới được gửi.
 
-2. **Biên nhận do Telegram trả về, không phải do model viết:** `tools/send/tool.py` đọc `result.message_id`, `date`, `chat.title` từ response của Bot API `sendMessage` và trả trong `telegram_receipt`. `date_unix=1794365294` = 11/11/2026 09:48:14 (GMT+7). Test `tests/test_tools_todo.py::test_send_confirmed_posts_once_and_returns_telegram_receipt` kiểm tra tool gọi đúng 1 request `/sendMessage` và map biên nhận đúng (mock HTTP, không gọi mạng).
+**Ảnh chụp (theo thứ tự):**
 
-3. **Ảnh chụp group** (đã cắt chỉ còn khung chat của group): [`report/team/assets/telegram_sent_group.png`](assets/telegram_sent_group.png) — tin của "Nhom002 Research Bot" lúc 09:44 (lần chạy đầu, transcript `…094348391653…`) và 09:48 (lần có biên nhận), khớp giờ trong transcript.
+1. Lượt 1–2 trên UI: `lookup` và `social_search` với dữ liệu thật.
+   ![Lượt 1–2: tìm tin AI và tweet](assets/telegram_flow_1_research_turns.png)
+2. Lượt 3: kết quả `send` bị chặn (`SEND_BLOCKED_NEEDS_CONFIRMATION`), agent hiện bản tin và hỏi "Bạn có muốn gửi không?"; user trả lời "Có, gửi đi".
+   ![Lượt 3: cổng duyệt chặn send, agent hỏi xác nhận](assets/telegram_flow_2_gate_blocks_then_asks.png)
+3. Lượt 4: `send(confirmed=true)` → `status: "sent"` + `telegram_receipt` (`message_id: 5`, `chat_title: "Nhom002 Bản tin"`).
+   ![Lượt 4: gửi thành công, có biên nhận Telegram](assets/telegram_flow_3_confirmed_sent.png)
+4. Phía Telegram: tin "Bản tin AI hôm nay và các tweet nổi bật" của Nhom002 Research Bot lúc 09:54 trong group "Nhom002 Bản tin" (ảnh đã cắt chỉ còn khung chat của group).
+   ![Group Nhom002 Bản tin nhận được bản tin lúc 09:54](assets/telegram_flow_4_group_received.png)
 
-   ![Tin bot gửi vào group Nhom002 Bản tin](assets/telegram_sent_group.png)
+**Đối chiếu để thấy không phải dàn dựng:**
+- Biên nhận do Telegram Bot API trả về: `tools/send/tool.py` đọc `result.message_id`, `result.date`, `result.chat.title` từ response `sendMessage` (test `tests/test_tools_todo.py::test_send_confirmed_posts_once_and_returns_telegram_receipt`, mock HTTP). `date_unix = 1794365649` = 11/11/2026 09:54:09 (GMT+7), khớp giờ 09:54 trên ảnh Telegram; `message_id = 5` tăng tiếp sau các lần gửi trước (4 lúc 09:48).
+- Kiểm tra nhanh transcript: `python -c "import json;t=json.load(open('starter_v0/transcripts/v8_openrouter_20261111T095155580209.transcript.json'))['turns'];print([(e['tool'],e['result'].get('status')) for x in t for e in x['tool_events']])"` → `[('lookup', None), ('social_search', None), ('format', None), ('send', 'blocked_needs_confirmation'), ('send', 'sent')]`.
+- Transcript và ảnh không chứa token hay chat id; hai giá trị này chỉ nằm trong `starter_v0/.env` (gitignore).
 
-4. **Không gửi được nếu chưa xác nhận (bằng chứng ngược):**
-   - `tools/send/tool.py`: `confirmed=false` → `needs_confirmation`, không gọi mạng (`tests/test_tools_examples.py::test_send_without_confirmation_does_not_call_network`).
-   - Cổng ở tầng app `approval.py` (v8): model có tự đặt `confirmed=true` thì `send` vẫn bị chặn nếu lượt trước không phải câu hỏi xác nhận được user trả lời "có" (`tests/test_approval.py`, 7 test; transcript `starter_v0/analysis/adversarial_eval/v0-gate_*.transcript.json` cho thấy `SEND_BLOCKED_NEEDS_CONFIRMATION`).
+**Bằng chứng phụ (CLI `chat.py`, 2 lượt):** [`…094807333570…`](../../starter_v0/transcripts/v8_openrouter_20261111T094807333570.transcript.json) (`clarify(yes_no)` → "Có, gửi đi" → `sent`, `message_id: 4`, 09:48) và lần đầu [`…094348391653…`](../../starter_v0/transcripts/v8_openrouter_20261111T094348391653.transcript.json) (09:44). Ảnh group lúc đó: [`assets/telegram_sent_group.png`](assets/telegram_sent_group.png).
 
-Người chấm muốn xem trực tiếp: nhóm có thể thêm người chấm vào group "Nhom002 Bản tin" khi được yêu cầu.
+**Không gửi được nếu chưa xác nhận (bằng chứng ngược):** `confirmed=false` → `needs_confirmation`, không gọi mạng (`tests/test_tools_examples.py::test_send_without_confirmation_does_not_call_network`); cổng `approval.py` chặn mọi `send` khi lượt trước không phải câu hỏi xác nhận được trả lời "có" (`tests/test_approval.py`, 7 test; lượt 3 ở trên là ví dụ thật).
+
+Người chấm muốn xem trực tiếp: nhóm có thể thêm người chấm vào group khi được yêu cầu.
 
 Test challenge: số bug tìm được trong tool có sẵn (nếu có), cách sửa, và test regression tương ứng.
 

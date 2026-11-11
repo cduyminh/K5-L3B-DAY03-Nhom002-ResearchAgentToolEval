@@ -4,6 +4,14 @@ import re
 from typing import Any
 
 
+def _as_int(value, default: int) -> int:
+    """Model input may be a non-numeric string; fall back instead of raising."""
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
 def summarize_text(text: str = "", max_sentences: int = 3) -> dict[str, Any]:
     if not isinstance(text, str):
         return {"tool": "summarize_text", "error": "TypeError", "message": "text must be a string"}
@@ -12,7 +20,7 @@ def summarize_text(text: str = "", max_sentences: int = 3) -> dict[str, Any]:
     if not sentences:
         return {"tool": "summarize_text", "summary": "", "sentence_count": 0}
 
-    limit = max(1, int(max_sentences or 3))
+    limit = max(1, _as_int(max_sentences or 3, 3))
     selected = sentences[:limit]
     return {
         "tool": "summarize_text",

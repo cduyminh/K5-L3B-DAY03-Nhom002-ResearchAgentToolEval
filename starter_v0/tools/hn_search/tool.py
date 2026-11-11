@@ -12,9 +12,11 @@ def hn_search(query: str = "", limit: int = 5) -> dict[str, Any]:
         if not isinstance(query, str) or not query.strip():
             raise ValueError("query is required")
 
-        hits_per_page = int(limit or 5)
-        if hits_per_page < 1:
-            hits_per_page = 1
+        try:
+            hits_per_page = int(limit or 5)
+        except (TypeError, ValueError):
+            hits_per_page = 5
+        hits_per_page = max(1, min(20, hits_per_page))  # same cap as timeline/social_search (v5)
 
         response = requests.get(
             "https://hn.algolia.com/api/v1/search",

@@ -217,7 +217,7 @@ def _all_cases() -> None:
     rec_cols = [v for v in versions if pick in idx[v]]
     if rec_cols:
         st.markdown("**Kết quả đã ghi trong run**")
-        show = [v for v in ("v0", "v3", "v7", "v8") if v in rec_cols] or rec_cols[-4:]
+        show = [v for v in ("v0", "v3", "v8", "v10") if v in rec_cols] or rec_cols[-4:]
         cols = st.columns(len(show))
         for i, v in enumerate(show):
             r = idx[v][pick]
@@ -252,7 +252,7 @@ def _all_cases() -> None:
 def render() -> None:
     st.markdown(CSS, unsafe_allow_html=True)
     st.markdown("<h1 class='sc-center'>🔎 Research Agent · Nhom002</h1>", unsafe_allow_html=True)
-    t1, t2 = st.tabs(["🧪 Hành trình v0 → v8", "📋 Tất cả test case"])
+    t1, t2 = st.tabs([f"🧪 Hành trình {CASES[0]['version']} → {CASES[-1]['version']}", "📋 Tất cả test case"])
     with t1:
         _journey()
     with t2:

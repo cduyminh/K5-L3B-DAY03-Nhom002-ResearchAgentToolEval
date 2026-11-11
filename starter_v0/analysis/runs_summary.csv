@@ -1,6 +1,9 @@
 run_file,version,suite,dataset_id,provider,model,artifact_version,total_cases,measured_cases,provider_error_cases,passed_cases,case_accuracy,tool_routing_accuracy,argument_accuracy,multiturn_accuracy,valid_evidence
 runs/v0_B_base_anthropic_20261110T172857200899.json,v0,base,day03_v2_research_base,anthropic,claude-opus-5-5,v0+pf0c107a9d7a1+t41a2894f8ad1,20,20,0,15,0.75,0.95,0.75,0.8333,True
 runs/v0_B_base_openrouter_20261110T170325624893.json,v0,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v0+pf0c107a9d7a1+t41a2894f8ad1,20,20,0,15,0.75,0.8,0.75,1.0,True
+runs/v10_B_base_openrouter_20261111T104922597195.json,v10,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v10+pe36f69bb580d+t6b52c27f390c,20,20,0,20,1.0,1.0,1.0,1.0,True
+runs/v10_B_extension_openrouter_20261111T104846687689.json,v10,extension,day03_v2_research_extension,openrouter,openai/gpt-4o-mini,v10+pe36f69bb580d+t6b52c27f390c,10,10,0,10,1.0,1.0,1.0,,True
+runs/v10_B_group_openrouter_20261111T104959069565.json,v10,group,day03_v2_research_group,openrouter,openai/gpt-4o-mini,v10+pe36f69bb580d+t6b52c27f390c,31,31,0,29,0.9355,0.9677,0.9355,1.0,True
 runs/v1_B_base_openrouter_20261110T171433638706.json,v1,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v1+pb1b4f3856b15+t41a2894f8ad1,20,20,0,16,0.8,0.95,0.8,1.0,True
 runs/v2_B_base_openrouter_20261110T175934140943.json,v2,base,day03_v2_research_base,openrouter,openai/gpt-4o-mini,v2+p9e2eddeff443+t41a2894f8ad1,20,20,0,18,0.9,1.0,0.9,1.0,True
 runs/v3-llama3b_B_base_ollama_20261111T101244991021.json,v3-llama3b,base,day03_v2_research_base,ollama,llama3.2:3b,v3-llama3b+p9e2eddeff443+tb475032307ec,20,20,0,5,0.25,0.4,0.25,0.3333,True

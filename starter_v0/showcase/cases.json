@@ -119,5 +119,18 @@
     "change_kind": "prompt",
     "change_kind_label": "System prompt + 💻 Code (approval.py)",
     "changed_file": "artifacts/system_prompt.md"
+  },
+  {
+    "id": "v10",
+    "version": "v10",
+    "before": "v9",
+    "title": "v10 · Tìm handle thay vì bịa (tool user_search)",
+    "problem": "User nêu tên người không nổi tiếng → agent tự ghép handle: 'Trần Minh Khoa' → timeline(screenname='tranminhkhoa'). Handle đó lại là một tài khoản thật không liên quan, nên agent sẽ trả tweet của người lạ mà không báo lỗi. Chạy chế độ plan nên không gọi API thật.",
+    "change": "Tool mới user_search (People search) + tools.yaml + luật prompt: có tên mà không có handle → user_search rồi clarify(choice) cho user chọn; không có tên → clarify như cũ.",
+    "prompt": "Lấy 3 tweet mới nhất của Trần Minh Khoa",
+    "mode": "plan",
+    "change_kind": "tools",
+    "change_kind_label": "Tool mới + tools.yaml + System prompt",
+    "changed_file": "artifacts/tools.yaml"
   }
 ]

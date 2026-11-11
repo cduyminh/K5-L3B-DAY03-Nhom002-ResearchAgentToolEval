@@ -34,6 +34,8 @@
 | v6 | `tools.yaml` | Tool không có ranh giới: `fetch` URL nội bộ (169.254.169.254), `papers` không cap | `analysis/adversarial_tools/`, showcase v6 |
 | v7 | System prompt | Base64 chứa lệnh injection bị giải mã và in ra | `analysis/adversarial_b64/v6_*` vs `v7_*` |
 | v8 | System prompt + **code** `approval.py` | Tự xưng admin "đã xác nhận sẵn" → `send(confirmed=true)` không hỏi | A15: v7 send 4/6, v8 hỏi lại 6/6; `tests/test_approval.py` |
+| v9 | `tools.yaml` | `policy_area` mơ hồ → E01 chọn `all` | extension 0.80 → 0.90 |
+| v10 | Tool mới `user_search` + `tools.yaml` + prompt | Tên người không nổi tiếng → bịa handle `tranminhkhoa` (tài khoản thật của người lạ) | G15/G16 3/3; extension 1.00; 5 unit test + 3 regression test cho tool của Dũng |
 
 **Eval và UI**
 - Thêm 15 case adversarial A01–A15 vào `eval_group.json` (giữ nguyên G01–G10 của Ly), so sánh v3 7/15 → v7 13/15; thêm G11–G13 để 3 tool mới của Dũng đều có case route tới. v8 trên 28 case: 27/28.
@@ -51,7 +53,7 @@
 - **Run:** `starter_v0/runs/v{0..8}_B_base_openrouter_*.json`; group `v3_B_group_openrouter_20261111T090925810511.json`, `v7_B_group_openrouter_20261111T090751203463.json`, `v8_B_group_openrouter_20261111T092614630924.json`. Tất cả `provider_error_cases = 0` (`starter_v0/analysis/runs_summary.csv`).
 - **Version log:** `starter_v0/artifacts/version_log.csv` (v0–v8, hash prompt/tools, giả thuyết, metric trước/sau).
 - **Transcript:** `starter_v0/transcripts/v8_openrouter_20261111T095155580209.transcript.json` (Telegram, UI 4 lượt); `starter_v0/analysis/adversarial*/` (probe trước/sau).
-- **Test:** `cd starter_v0 && pytest -q` → 102 passed, 0 skipped.
+- **Test:** `cd starter_v0 && pytest -q` → 116 passed, 0 skipped.
 - **AI/công cụ đã dùng và cách tự kiểm tra kết quả:**
   - Dùng Claude Code (Claude Opus) để đọc slide/lab, viết và sửa prompt, `tools.yaml`, code (`approval.py`, showcase, script phân tích), chạy eval/probe và soạn bảng báo cáo.
   - Cách tự kiểm tra: mọi con số trong báo cáo lấy từ run JSON thật do `run_eval.py` ghi (`provider_error_cases = 0`, `measured_cases = total_cases`); mỗi version chạy lại base suite; ví dụ trong showcase được chạy thật trên máy trước khi đưa vào và đổi ví dụ khi không tái hiện được (v2, v3, v6 ban đầu); khi kết quả lần sau khác lần trước (A15 v7: 3/3 rồi 1/3), báo cáo ghi tổng 4/6 chứ không chọn lần đẹp; `pytest` xanh sau mỗi thay đổi code; quét repo không có key/token trước khi push.

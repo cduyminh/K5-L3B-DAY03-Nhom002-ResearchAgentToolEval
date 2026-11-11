@@ -1,0 +1,919 @@
+{
+  "run_id": "v10_B_base_openrouter_20261111T104811675630",
+  "version": "v10",
+  "artifact_version": "v10+pe36f69bb580d+t6b52c27f390c",
+  "prompt_hash": "e36f69bb580d03d852ab5bfb2b6fd87e4b2f21d18a14f8b3f655c8b2f717d93f",
+  "tools_hash": "6b52c27f390cd3d9f3028700b201c7d4d263ed71b28fe0066f14f1efc2b2a3c0",
+  "phase": "B",
+  "suite": "base",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "/Users/minhcaoduy/Code-test/vite-momo/lms/noise-cancelation/zalo-server/khoang-cach/vinuni-ai-prep/AI20K/Day 3/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/minhcaoduy/Code-test/vite-momo/lms/noise-cancelation/zalo-server/khoang-cach/vinuni-ai-prep/AI20K/Day 3/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval/starter_v0/artifacts/tools.yaml",
+  "eval_cases": "/private/tmp/claude-501/-Users-minhcaoduy-Code-test-vite-momo-lms-noise-cancelation-zalo-server-khoang-cach-vinuni-ai-prep/8b320e4d-90e7-4023-bd8e-5d5489133fc9/scratchpad/r10g15.json",
+  "dataset_id": "day03_v2_research_base",
+  "dataset_role": "base",
+  "description": "Core eval cho research agent: routing đúng tool + đúng args, hỏi lại khi thiếu (ask_user), xác nhận trước khi gửi, và xử lý câu ngoài phạm vi / không cần tool. Chấm trên tool_calls + args (subset). KHÔNG sửa file này — chỉ thêm case vào eval_group.json.",
+  "generated_at": "2026-11-11T10:48:11",
+  "summary": {
+    "total_cases": 11,
+    "measured_cases": 11,
+    "provider_error_cases": 0,
+    "passed_cases": 11,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "R10_rep1",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu handle → ask_user, KHÔNG đoán bừa người nào."
+      },
+      "input": "Tóm tắt 5 tweet mới nhất giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "R10_rep2",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu handle → ask_user, KHÔNG đoán bừa người nào."
+      },
+      "input": "Tóm tắt 5 tweet mới nhất giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "R10_rep3",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu handle → ask_user, KHÔNG đoán bừa người nào."
+      },
+      "input": "Tóm tắt 5 tweet mới nhất giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "R10_rep4",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu handle → ask_user, KHÔNG đoán bừa người nào."
+      },
+      "input": "Tóm tắt 5 tweet mới nhất giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "R10_rep5",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu handle → ask_user, KHÔNG đoán bừa người nào."
+      },
+      "input": "Tóm tắt 5 tweet mới nhất giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn tóm tắt tweet của tài khoản nào?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G15_unknown_person_user_search_rep1",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Người không nổi tiếng, không có handle: phải tìm ứng viên bằng user_search (tool v10) thay vì tự ghép handle. v9 gọi timeline(screenname='tranminhkhoa') — một tài khoản thật không liên quan."
+      },
+      "input": "Lấy 3 tweet mới nhất của Trần Minh Khoa",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "user_search",
+            "args": {
+              "name": "Trần Minh Khoa"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "user_search",
+            "args": {
+              "name": "Trần Minh Khoa"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "user_search",
+          "args": {
+            "name": "Trần Minh Khoa"
+          },
+          "result": {
+            "tool": "user_search",
+            "query": "Trần Minh Khoa",
+            "count": 5,
+            "candidates": [
+              {
+                "screen_name": "tranminhha",
+                "name": "Tran Thi Minh Ha",
+                "followers_count": 2039,
+                "description": "AFP Hanoi bureau - Views here my own.",
+                "verified": false,
+                "profile_url": "https://x.com/tranminhha"
+              },
+              {
+                "screen_name": "MinhKhoaTrn1",
+                "name": "Minh Khoa Trần",
+                "followers_count": 312,
+                "description": "gay",
+                "verified": false,
+                "profile_url": "https://x.com/MinhKhoaTrn1"
+              },
+              {
+                "screen_name": "Mingkhwan559",
+                "name": "Trần Minh Khoa",
+                "followers_count": 126,
+                "description": "170cm_59kg_cent_boss",
+                "verified": false,
+                "profile_url": "https://x.com/Mingkhwan559"
+              },
+              {
+                "screen_name": "TrnMinhKhoa17",
+                "name": "Trần Minh Khoa",
+                "followers_count": 76,
+                "description": "Fusen",
+                "verified": false,
+                "profile_url": "https://x.com/TrnMinhKhoa17"
+              },
+              {
+                "screen_name": "TrnMinh20388774",
+                "name": "Trần Minh Khoa",
+                "followers_count": 70,
+                "description": "Kp làm quên nhé\nAi cao lanh đồng tháp lam wen nhe",
+                "verified": false,
+                "profile_url": "https://x.com/TrnMinh20388774"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G15_unknown_person_user_search_rep2",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Người không nổi tiếng, không có handle: phải tìm ứng viên bằng user_search (tool v10) thay vì tự ghép handle. v9 gọi timeline(screenname='tranminhkhoa') — một tài khoản thật không liên quan."
+      },
+      "input": "Lấy 3 tweet mới nhất của Trần Minh Khoa",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "user_search",
+            "args": {
+              "name": "Trần Minh Khoa"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "user_search",
+            "args": {
+              "name": "Trần Minh Khoa"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "user_search",
+          "args": {
+            "name": "Trần Minh Khoa"
+          },
+          "result": {
+            "tool": "user_search",
+            "query": "Trần Minh Khoa",
+            "count": 5,
+            "candidates": [
+              {
+                "screen_name": "tranminhha",
+                "name": "Tran Thi Minh Ha",
+                "followers_count": 2039,
+                "description": "AFP Hanoi bureau - Views here my own.",
+                "verified": false,
+                "profile_url": "https://x.com/tranminhha"
+              },
+              {
+                "screen_name": "MinhKhoaTrn1",
+                "name": "Minh Khoa Trần",
+                "followers_count": 312,
+                "description": "gay",
+                "verified": false,
+                "profile_url": "https://x.com/MinhKhoaTrn1"
+              },
+              {
+                "screen_name": "Mingkhwan559",
+                "name": "Trần Minh Khoa",
+                "followers_count": 126,
+                "description": "170cm_59kg_cent_boss",
+                "verified": false,
+                "profile_url": "https://x.com/Mingkhwan559"
+              },
+              {
+                "screen_name": "TrnMinhKhoa17",
+                "name": "Trần Minh Khoa",
+                "followers_count": 76,
+                "description": "Fusen",
+                "verified": false,
+                "profile_url": "https://x.com/TrnMinhKhoa17"
+              },
+              {
+                "screen_name": "TrnMinh20388774",
+                "name": "Trần Minh Khoa",
+                "followers_count": 70,
+                "description": "Kp làm quên nhé\nAi cao lanh đồng tháp lam wen nhe",
+                "verified": false,
+                "profile_url": "https://x.com/TrnMinh20388774"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G15_unknown_person_user_search_rep3",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Người không nổi tiếng, không có handle: phải tìm ứng viên bằng user_search (tool v10) thay vì tự ghép handle. v9 gọi timeline(screenname='tranminhkhoa') — một tài khoản thật không liên quan."
+      },
+      "input": "Lấy 3 tweet mới nhất của Trần Minh Khoa",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "user_search",
+            "args": {
+              "name": "Trần Minh Khoa"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "user_search",
+            "args": {
+              "name": "Trần Minh Khoa"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "user_search",
+          "args": {
+            "name": "Trần Minh Khoa"
+          },
+          "result": {
+            "tool": "user_search",
+            "query": "Trần Minh Khoa",
+            "count": 5,
+            "candidates": [
+              {
+                "screen_name": "tranminhha",
+                "name": "Tran Thi Minh Ha",
+                "followers_count": 2039,
+                "description": "AFP Hanoi bureau - Views here my own.",
+                "verified": false,
+                "profile_url": "https://x.com/tranminhha"
+              },
+              {
+                "screen_name": "MinhKhoaTrn1",
+                "name": "Minh Khoa Trần",
+                "followers_count": 312,
+                "description": "gay",
+                "verified": false,
+                "profile_url": "https://x.com/MinhKhoaTrn1"
+              },
+              {
+                "screen_name": "Mingkhwan559",
+                "name": "Trần Minh Khoa",
+                "followers_count": 126,
+                "description": "170cm_59kg_cent_boss",
+                "verified": false,
+                "profile_url": "https://x.com/Mingkhwan559"
+              },
+              {
+                "screen_name": "TrnMinhKhoa17",
+                "name": "Trần Minh Khoa",
+                "followers_count": 76,
+                "description": "Fusen",
+                "verified": false,
+                "profile_url": "https://x.com/TrnMinhKhoa17"
+              },
+              {
+                "screen_name": "TrnMinh20388774",
+                "name": "Trần Minh Khoa",
+                "followers_count": 70,
+                "description": "Kp làm quên nhé\nAi cao lanh đồng tháp lam wen nhe",
+                "verified": false,
+                "profile_url": "https://x.com/TrnMinh20388774"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G16_pick_handle_then_timeline_rep1",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Sau khi user chọn ứng viên từ user_search: gọi timeline với đúng handle user chọn (bỏ @), giữ limit=3 từ lượt đầu."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 3 tweet mới nhất của Trần Minh Khoa"
+        },
+        {
+          "role": "assistant",
+          "content": "Mình tìm thấy vài tài khoản tên Trần Minh Khoa: @MinhKhoaTrn1 (Minh Khoa Trần, 312 followers), @Mingkhwan559 (Trần Minh Khoa, 126 followers). Bạn muốn xem tài khoản nào?"
+        },
+        {
+          "role": "user",
+          "content": "Tài khoản @Mingkhwan559 nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "Mingkhwan559",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "Mingkhwan559",
+              "limit": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "Mingkhwan559",
+            "limit": 3
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "Mingkhwan559",
+            "items": [
+              {
+                "title": "RT @LeAnhKien: Good night!😈 🥒 https://t.co/LklQAyOkOS",
+                "summary": "RT @LeAnhKien: Good night!😈 🥒 https://t.co/LklQAyOkOS",
+                "url": "https://x.com/Mingkhwan559/status/1730606793561444695",
+                "source": "@Mingkhwan559",
+                "date": "Fri Dec 01 15:16:27 +0000 2023",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 70,
+                  "views": "1"
+                }
+              },
+              {
+                "title": "RT @_nasnu_: 🫨🤪 https://t.co/kmastZmYJt",
+                "summary": "RT @_nasnu_: 🫨🤪 https://t.co/kmastZmYJt",
+                "url": "https://x.com/Mingkhwan559/status/1729102181763313766",
+                "source": "@Mingkhwan559",
+                "date": "Mon Nov 27 11:37:39 +0000 2023",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 98,
+                  "views": null
+                }
+              },
+              {
+                "title": "RT @BillkunV: 2 vk ck gủ qua some , thằng ck thì muốn bú cặc , con vk thì muốn bị đụ , rồi ok chìu tất như vậy cả 2 vkck",
+                "summary": "RT @BillkunV: 2 vk ck gủ qua some , thằng ck thì muốn bú cặc , con vk thì muốn bị đụ , rồi ok chìu tất như vậy cả 2 vkck điều đx bú cặc và…",
+                "url": "https://x.com/Mingkhwan559/status/1729100674422718683",
+                "source": "@Mingkhwan559",
+                "date": "Mon Nov 27 11:31:40 +0000 2023",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 162,
+                  "views": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G16_pick_handle_then_timeline_rep2",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Sau khi user chọn ứng viên từ user_search: gọi timeline với đúng handle user chọn (bỏ @), giữ limit=3 từ lượt đầu."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 3 tweet mới nhất của Trần Minh Khoa"
+        },
+        {
+          "role": "assistant",
+          "content": "Mình tìm thấy vài tài khoản tên Trần Minh Khoa: @MinhKhoaTrn1 (Minh Khoa Trần, 312 followers), @Mingkhwan559 (Trần Minh Khoa, 126 followers). Bạn muốn xem tài khoản nào?"
+        },
+        {
+          "role": "user",
+          "content": "Tài khoản @Mingkhwan559 nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "Mingkhwan559",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "Mingkhwan559",
+              "limit": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "Mingkhwan559",
+            "limit": 3
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "Mingkhwan559",
+            "items": [
+              {
+                "title": "RT @LeAnhKien: Good night!😈 🥒 https://t.co/LklQAyOkOS",
+                "summary": "RT @LeAnhKien: Good night!😈 🥒 https://t.co/LklQAyOkOS",
+                "url": "https://x.com/Mingkhwan559/status/1730606793561444695",
+                "source": "@Mingkhwan559",
+                "date": "Fri Dec 01 15:16:27 +0000 2023",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 70,
+                  "views": "1"
+                }
+              },
+              {
+                "title": "RT @_nasnu_: 🫨🤪 https://t.co/kmastZmYJt",
+                "summary": "RT @_nasnu_: 🫨🤪 https://t.co/kmastZmYJt",
+                "url": "https://x.com/Mingkhwan559/status/1729102181763313766",
+                "source": "@Mingkhwan559",
+                "date": "Mon Nov 27 11:37:39 +0000 2023",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 98,
+                  "views": null
+                }
+              },
+              {
+                "title": "RT @BillkunV: 2 vk ck gủ qua some , thằng ck thì muốn bú cặc , con vk thì muốn bị đụ , rồi ok chìu tất như vậy cả 2 vkck",
+                "summary": "RT @BillkunV: 2 vk ck gủ qua some , thằng ck thì muốn bú cặc , con vk thì muốn bị đụ , rồi ok chìu tất như vậy cả 2 vkck điều đx bú cặc và…",
+                "url": "https://x.com/Mingkhwan559/status/1729100674422718683",
+                "source": "@Mingkhwan559",
+                "date": "Mon Nov 27 11:31:40 +0000 2023",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 162,
+                  "views": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G16_pick_handle_then_timeline_rep3",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Sau khi user chọn ứng viên từ user_search: gọi timeline với đúng handle user chọn (bỏ @), giữ limit=3 từ lượt đầu."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 3 tweet mới nhất của Trần Minh Khoa"
+        },
+        {
+          "role": "assistant",
+          "content": "Mình tìm thấy vài tài khoản tên Trần Minh Khoa: @MinhKhoaTrn1 (Minh Khoa Trần, 312 followers), @Mingkhwan559 (Trần Minh Khoa, 126 followers). Bạn muốn xem tài khoản nào?"
+        },
+        {
+          "role": "user",
+          "content": "Tài khoản @Mingkhwan559 nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "Mingkhwan559",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "Mingkhwan559",
+              "limit": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "Mingkhwan559",
+            "limit": 3
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "Mingkhwan559",
+            "items": [
+              {
+                "title": "RT @LeAnhKien: Good night!😈 🥒 https://t.co/LklQAyOkOS",
+                "summary": "RT @LeAnhKien: Good night!😈 🥒 https://t.co/LklQAyOkOS",
+                "url": "https://x.com/Mingkhwan559/status/1730606793561444695",
+                "source": "@Mingkhwan559",
+                "date": "Fri Dec 01 15:16:27 +0000 2023",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 70,
+                  "views": "1"
+                }
+              },
+              {
+                "title": "RT @_nasnu_: 🫨🤪 https://t.co/kmastZmYJt",
+                "summary": "RT @_nasnu_: 🫨🤪 https://t.co/kmastZmYJt",
+                "url": "https://x.com/Mingkhwan559/status/1729102181763313766",
+                "source": "@Mingkhwan559",
+                "date": "Mon Nov 27 11:37:39 +0000 2023",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 98,
+                  "views": null
+                }
+              },
+              {
+                "title": "RT @BillkunV: 2 vk ck gủ qua some , thằng ck thì muốn bú cặc , con vk thì muốn bị đụ , rồi ok chìu tất như vậy cả 2 vkck",
+                "summary": "RT @BillkunV: 2 vk ck gủ qua some , thằng ck thì muốn bú cặc , con vk thì muốn bị đụ , rồi ok chìu tất như vậy cả 2 vkck điều đx bú cặc và…",
+                "url": "https://x.com/Mingkhwan559/status/1729100674422718683",
+                "source": "@Mingkhwan559",
+                "date": "Mon Nov 27 11:31:40 +0000 2023",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 162,
+                  "views": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

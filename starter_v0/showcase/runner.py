@@ -21,7 +21,11 @@ VERSIONS_DIR = ROOT / "artifacts" / "versions"
 
 
 def available_versions() -> list[str]:
-    return sorted(p.name for p in VERSIONS_DIR.iterdir() if (p / "system_prompt.md").exists())
+    import re
+
+    names = [p.name for p in VERSIONS_DIR.iterdir() if (p / "system_prompt.md").exists()]
+    # natural order: v2 < v9 < v10 (plain string sort would put v10 before v9)
+    return sorted(names, key=lambda n: [int(t) if t.isdigit() else t for t in re.split(r"(\d+)", n)])
 
 
 def _safe_execute(call):

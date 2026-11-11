@@ -480,5 +480,46 @@
       "seconds": 1.6,
       "ran_at": "2026-11-11 09:33:42"
     }
+  },
+  "v10": {
+    "v9": {
+      "version": "v9",
+      "artifact_version": "v9+p9748822ab3b0+td8db5f1aa96e",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "mode": "plan",
+      "status": "plan_only",
+      "assistant_text": "",
+      "tool_calls": [
+        {
+          "name": "timeline",
+          "args": {
+            "screenname": "tranminhkhoa",
+            "limit": 3
+          }
+        }
+      ],
+      "seconds": 1.9,
+      "ran_at": "2026-11-11 10:50:44"
+    },
+    "v10": {
+      "version": "v10",
+      "artifact_version": "v10+pe36f69bb580d+t6b52c27f390c",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "mode": "plan",
+      "status": "plan_only",
+      "assistant_text": "",
+      "tool_calls": [
+        {
+          "name": "user_search",
+          "args": {
+            "name": "Trần Minh Khoa"
+          }
+        }
+      ],
+      "seconds": 1.1,
+      "ran_at": "2026-11-11 10:50:45"
+    }
   }
 }

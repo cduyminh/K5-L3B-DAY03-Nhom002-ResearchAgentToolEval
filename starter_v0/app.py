@@ -27,11 +27,12 @@ from chat import (
 from providers import make_provider
 from tools import load_tool_declarations, to_openai_tools
 from versioning import artifact_version_dict, build_artifact_version
+from showcase.ui import render as render_showcase
 
 PROVIDERS = ["anthropic", "openrouter"]
 TRANSCRIPTS_DIR = ROOT / "transcripts"
 
-st.set_page_config(page_title="Research Agent Chat", page_icon="🔎", layout="wide")
+st.set_page_config(page_title="Research Agent · Nhom002", page_icon="🔎", layout="wide")
 
 
 def latest_logged_version() -> str:
@@ -157,7 +158,8 @@ with st.sidebar:
             use_container_width=True,
         )
 
-st.title("🔎 Research Agent Chat")
+# Test cases front and center; the chat history and st.chat_input stay below (input pinned at the bottom).
+render_showcase()
 
 for past_turn in transcript["turns"]:
     render_turn(past_turn)

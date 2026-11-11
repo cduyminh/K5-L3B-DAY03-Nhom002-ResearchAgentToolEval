@@ -31,10 +31,14 @@ def main() -> None:
         runs = {}
         for v in dict.fromkeys([case["before"], case["version"], latest]):
             print(f"{case['id']}: running {v} ...", flush=True)
-            runs[v] = run_case(v, case["prompt"], mode=case["mode"])
+            runs[v] = run_case(v, case["prompt"], mode=case["mode"], tool_choice=case.get("tool_choice"))
             r = runs[v]
             print(f"   tools={[(c['name'], c['args']) for c in r['tool_calls']]}")
             print(f"   text={(r['assistant_text'] or '')[:160]!r}")
+        bad = [v for v, r in runs.items() if r.get("status") == "error"]
+        if bad:
+            print(f"   NOT saved: provider/runtime error on {bad}; keeping the previous recording for {case['id']}")
+            continue
         recorded[case["id"]] = runs
     out_path.write_text(json.dumps(recorded, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     print("saved showcase/recorded.json")

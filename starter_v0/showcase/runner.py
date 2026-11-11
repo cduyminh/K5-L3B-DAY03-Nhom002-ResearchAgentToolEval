@@ -34,14 +34,18 @@ def _safe_execute(call):
 _ORIGINAL_EXECUTE = chat.execute_tool_call
 
 
-def run_case(version: str, prompt: str, *, mode: str = "full", provider_name: str = "openrouter",
-             model: str | None = None, max_tool_rounds: int = 3) -> dict[str, Any]:
+def run_case(version: str, prompt: str | list[str], *, mode: str = "full", provider_name: str = "openrouter",
+             model: str | None = None, max_tool_rounds: int = 3, tool_choice: Any | None = None) -> dict[str, Any]:
+    """mode: "full" = chat loop (send stubbed); "plan" = first decision only, no tool runs;
+    "eval" = exactly what run_eval does (one model call, tool_choice as given, tools run via agent.py,
+    which has the send approval gate)."""
     vdir = VERSIONS_DIR / version
     sp, tp = vdir / "system_prompt.md", vdir / "tools.yaml"
     provider = make_provider(provider_name)
     tools = to_openai_tools(load_tool_declarations(tp))
-    messages = [{"role": "system", "content": sp.read_text(encoding="utf-8")},
-                {"role": "user", "content": prompt}]
+    turns = [prompt] if isinstance(prompt, str) else list(prompt)
+    user_messages = [{"role": "user", "content": t} for t in turns]
+    messages = [{"role": "system", "content": sp.read_text(encoding="utf-8")}, *user_messages]
     started = time.time()
     out: dict[str, Any] = {
         "version": version,
@@ -51,8 +55,16 @@ def run_case(version: str, prompt: str, *, mode: str = "full", provider_name: st
         "mode": mode,
     }
     try:
-        if mode == "plan":
-            resp = provider.complete(messages, tools, model=model, temperature=0.0)
+        if mode == "eval":
+            from agent import ResearchAgent
+
+            run = ResearchAgent(provider, system_prompt=messages[0]["content"], tools=tools, model=model) \
+                .run(user_messages, tool_choice=tool_choice)
+            out.update(status="eval", assistant_text=run.text or "",
+                       tool_calls=[{"name": c.name, "args": c.args} for c in run.tool_calls],
+                       tool_results=run.tool_results)
+        elif mode == "plan":
+            resp = provider.complete(messages, tools, model=model, temperature=0.0, tool_choice=tool_choice)
             out.update(status="plan_only", assistant_text=resp.text or "",
                        tool_calls=[{"name": c.name, "args": c.args} for c in resp.tool_calls])
         else:

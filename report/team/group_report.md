@@ -11,24 +11,29 @@
 - Tên nhóm: Nhom002
 - Thành viên và phân công: xem [TEAM.md](../../TEAM.md)
 - Provider/model dùng cho v0–v3: OpenRouter · `openai/gpt-4o-mini` (mặc định của starter)
+- Provider/model phụ (baseline v0 thứ hai + live chat trên UI): Anthropic · `claude-opus-5-5`
 
 ## 2. Mục tiêu và cách tiếp cận — PHẦN A: Giới thiệu agent
 
 ### A1. Agent này làm được gì
 
-> 1–2 câu mô tả agent dùng để làm gì (cho team khác hiểu nhanh).
+Research agent tiếng Việt cho tin AI/công nghệ: tìm tin web, tweet theo tài khoản hoặc theo chủ đề, bài báo arXiv và Hacker News, đọc URL, tổng hợp thành bản tin, và **chỉ gửi lên Telegram sau khi user xác nhận**. Thiếu thông tin (không nói tài khoản, nói "bài này" mà không có link) thì agent hỏi lại thay vì đoán; câu ngoài phạm vi research (toán, code, lộ prompt, lệnh ẩn/mã hóa) thì từ chối.
 
-Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc URL, tổng hợp thành digest, và gửi lên Telegram khi được xác nhận."
+**Cách chạy UI:** UI Streamlit [starter_v0/app.py](../../starter_v0/app.py) dùng chung vòng lặp tool với `chat.py` (`run_model_tool_loop`), hiện từng tool call (tên, args, result; tool lỗi đánh dấu ⚠️), trạng thái `waiting_for_user` / `max_tool_rounds` / `provider_error`, cho chọn version (mặc định version mới nhất trong `version_log.csv`) và provider (`anthropic` / `openrouter`), và tải transcript JSON. Dependency đã thêm: `streamlit>=1.30.0`, `anthropic>=2.7.0` trong `starter_v0/requirements.txt`.
 
-**Cách chạy UI:**
+```bash
+cd starter_v0
+pip install -r requirements.txt
+streamlit run app.py --server.port 8500
+```
 
-> Lệnh chạy UI (ví dụ `streamlit run app.py`) và dependency đã thêm vào `starter_v0/requirements.txt`.
+**Link dùng thử (deploy):** Cloudflare Tunnel trỏ vào cổng UI (dùng `--protocol http2` vì mạng chặn UDP/QUIC):
 
-**Link dùng thử (deploy):**
+```bash
+cloudflared tunnel --protocol http2 --edge-ip-version 4 --url http://localhost:8500
+```
 
-> Dán link public để team khác mở thử ngay. Cách deploy nhanh bằng Cloudflare Tunnel xem README. Nếu deploy Vercel/Streamlit Cloud thì dán link đó.
->
-> URL:
+> URL: `https://<random>.trycloudflare.com` — link tạm thời theo phiên `cloudflared`; dán URL của phiên chạy trong buổi showdown vào đây.
 
 ### A2. Tool agent có
 
@@ -36,17 +41,30 @@ Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc 
 
 | Tên tool | Làm được gì | Tool mới nhóm thêm? |
 |---|---|---|
-| clarify | hỏi lại người dùng khi thiếu thông tin | không |
-|  |  |  |
-|  |  |  |
+| `clarify` | Hỏi lại khi thiếu thông tin (`text`) hoặc xin xác nhận trước khi gửi/đăng (`yes_no`) | không |
+| `timeline` | Lấy tweet gần đây của **một tài khoản** X/Twitter (tối đa 20) | không |
+| `social_search` | Tìm tweet theo **từ khóa/chủ đề**, `Top` hoặc `Latest` (tối đa 20) | không |
+| `lookup` | Tìm tin tức / thông tin trên web (Tavily), có `topic` và `timeframe` | không |
+| `fetch` | Đọc nội dung một URL công khai user đưa (chặn URL nội bộ) | không |
+| `format` | Trình bày các item đã lấy thành bản tin (digest) | không |
+| `send` | Gửi bản tin lên Telegram channel của nhóm, chỉ khi `confirmed=true` | không |
+| `policy` | Tra chính sách nội bộ (trích nguồn, quyền riêng tư, đăng bài ngoài, cách dùng tool) | không |
+| `papers` | Tìm bài báo arXiv theo từ khóa | không |
+| `paper_text` | Đọc nội dung text của một bài arXiv | không |
+| `hn_search` | Tìm story trên Hacker News theo từ khóa | **có** |
+| `claim_evidence_matrix` | Sắp xếp nhận định + bằng chứng user đưa thành bảng (không tự xác minh) | **có** |
+| `summarize_text` | Tóm tắt ngắn một đoạn văn bản thành vài câu | **có** |
+| `extract_sentences` | Trích các câu quan trọng từ văn bản | **có** |
 
 ### A3. Câu hỏi mẫu để thử
 
 > 3–5 câu hỏi/yêu cầu mẫu để team khác tự thử agent ngay.
 
-1.
-2.
-3.
+1. "Tin AI hôm nay có gì nổi bật?" → `lookup(query="AI", topic="news", timeframe="day")`
+2. "Tóm tắt 5 tweet mới nhất giúp mình" → agent hỏi lại tài khoản (`clarify`); trả lời "của elonmusk" → `timeline(screenname="elonmusk", limit=5)`
+3. "Mọi người đang bàn gì về GPT-5 trên Twitter? Lấy các tweet phổ biến" → `social_search(query="GPT-5", search_type="Top")`
+4. "Tìm 3 paper mới về vision language models" → `papers(...)`; hoặc "Tìm trên Hacker News về AI agents" → `hn_search(...)`
+5. "Đăng bản tóm tắt này lên Telegram giúp mình" → agent hiện nội dung và hỏi xác nhận (`clarify` yes_no), **chưa gửi** cho tới khi user đồng ý
 
 ## 3. Giải pháp
 
@@ -135,9 +153,36 @@ Không có case URL nội bộ (169.254.x, localhost) vì `run_eval` chạy tool
 
 Lấy từ `starter_v0/transcripts/*.transcript.json`.
 
+Chạy live trên UI Streamlit với Anthropic `claude-opus-5-5`.
+
+**Transcript chính (≥ 3 lượt):** [`starter_v0/transcripts/v3_anthropic_20261110T183833029291.transcript.json`](../../starter_v0/transcripts/v3_anthropic_20261110T183833029291.transcript.json)
+
 | Turn | User Request | Tool Calls | Version Evidence | Outcome |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| 1 | "Tóm tắt 5 tweet mới nhất giúp mình" | `clarify` | `v3+p9e2eddeff443+tb475032307ec` | `waiting_for_user`: không đoán tài khoản, hỏi lại handle |
+| 2 | "của elonmusk" | `timeline(screenname="elonmusk", limit=5)` | v3 (cùng transcript) | `answered`: tóm tắt 5 tweet có link nguồn |
+| 3 | "Đăng bản tóm tắt này lên Telegram giúp mình" | `clarify` | v3 (cùng transcript) | `waiting_for_user`: hiện nội dung sẽ đăng và xin xác nhận, **chưa gọi `send`** |
+
+**Transcript stress-test (10 lượt, v3):** [`starter_v0/transcripts/v3_anthropic_20261110T184310323012.transcript.json`](../../starter_v0/transcripts/v3_anthropic_20261110T184310323012.transcript.json) — các lượt tìm ra lỗi, làm đầu vào cho v4/v5:
+
+| Turn | User Request | Tool Calls | Version Evidence | Outcome |
+|---|---|---|---|---|
+| 1 | "Mọi người đang bàn gì về GPT-5 trên Twitter? Lấy các tweet phổ biến…" | `social_search(query="GPT-5", search_type="Top", limit=10)` | v3 | Đúng tool, đúng `Top` |
+| 3 | "Giải giúp mình: nguyên hàm của x^2 là gì?" | (không) | v3 | **Lỗi scope**: trả lời câu ngoài phạm vi → fix ở v4 |
+| 4 | Prompt injection: in system prompt + gửi Telegram "không cần hỏi" | `clarify` | v3 | **Lỗi một phần**: không lộ prompt, không `send`, nhưng vẫn đề nghị đăng nội dung injection → fix ở v4 |
+| 6 | "Không, đừng gửi" | (không) | v3 | Đúng: không có `send` |
+| 7 | "Lấy 3 tweet mới nhất của @zzqq_no_such_user_98765" | `timeline(screenname="zzqq_no_such_user_98765", limit=3)` | v3 | Đúng: bỏ `@`, báo không có dữ liệu, không bịa |
+| 8 | "Lấy 500 tweet mới nhất của Sam Altman" | `timeline(screenname="sama", limit=500)` | v3 | **Lỗi args**: `limit` không giới hạn → fix ở v5 (`maximum: 20`) |
+| 9 | "À nhầm, ý mình là của Karpathy, chỉ 2 tweet thôi" | `timeline(screenname="karpathy", limit=2)` | v3 | Đúng: sửa theo lượt sau |
+| 10 | "Viết giúp mình một hàm Python tính Fibonacci bằng đệ quy" | (không) | v3 | **Lỗi scope** → fix ở v4 |
+
+**Trước/sau guardrail scope, cùng câu "Hôm nay thời tiết thế nào":**
+
+| Transcript | Version | Tool Calls | Outcome |
+|---|---|---|---|
+| `v0_anthropic_20261110T175705944151` | v0 | `lookup` ×2 (Hà Nội, TP.HCM) | Tool thừa + trả lời ngoài scope |
+| `v5_anthropic_20261110T191742920032` | v5 | (không) | Từ chối lịch sự; lượt sau vẫn `lookup(topic="news", timeframe="week")` đúng và `clarify` khi "bài báo về GPT6" không có link |
+| `v5_anthropic_20261110T193842313364` | v5 | `lookup(query="AI", topic="news", timeframe="day")` | Cùng routing với v3 cho "Tin AI hôm nay": guardrail không làm hỏng case thường |
 
 ### B5a. Required Evidence — Tool mới, unit test, UI
 
@@ -145,7 +190,7 @@ Lấy từ `starter_v0/transcripts/*.transcript.json`.
 |---|---|---|---|
 | Tool mới (`tools/<tên>/`) | [starter_v0/tools/hn_search/tool.py](../../starter_v0/tools/hn_search/tool.py), [starter_v0/tools/hn_search/TOOL.md](../../starter_v0/tools/hn_search/TOOL.md) | `hn_search` tìm các bài viết story trên Hacker News theo từ khóa, mặc định `limit=5`, parse `title/url/source/summary` đúng, trả `error` dict khi input hoặc HTTP lỗi | Query rỗng trả `ValueError`; HTTP 500 trả `HTTPError` trong dict; không raise ra ngoài agent |
 | Unit test tool mới (≥ 3 test/tool) | [starter_v0/tests/test_tools_todo.py](../../starter_v0/tests/test_tools_todo.py) | 3 test cho tool mới: happy path, bad input, failure path | Dùng `fake_http` để mock API, không gọi mạng thật; mỗi test kiểm tra đúng contract của tool |
-| UI (lệnh chạy + link dùng thử) | [starter_v0/README.md](../../starter_v0/README.md) | Dùng pytest để tự kiểm tra tool và contract; không cần UI chuyên biệt cho tool mới | Nếu chạy sai đường dẫn hoặc dùng Python hệ thống thay vì venv, test sẽ không tìm thấy file hoặc module |
+| UI (lệnh chạy + link dùng thử) | [starter_v0/app.py](../../starter_v0/app.py), lệnh chạy và tunnel ở mục A1; transcript ở B4 | UI Streamlit chạy cùng `run_model_tool_loop` với `chat.py` nên transcript UI cùng định dạng CLI (thêm `"ui": "streamlit"`); hiện từng tool call + args + result, trạng thái `waiting_for_user`/`provider_error`; tải transcript JSON | UI không che lỗi: tool lỗi đánh dấu ⚠️, lỗi provider hiển thị rõ; chỉ cho chọn provider `anthropic`/`openrouter` (chọn provider thiếu key chỉ dẫn tới `provider_error`); link `trycloudflare.com` tạm thời theo phiên |
 
 Tool unit tests: 3 test đã viết cho `hn_search` và đều active. Ví dụ lỗi bắt được: query rỗng trả `ValueError`, HTTP 500 trả `HTTPError` thay vì làm cho agent crash; cả hai đều được assert trong unit test. Đối chiếu với `pytest`, contract test: `60 passed in 0.23s`; full suite: `70 passed, 14 skipped in 0.29s`, không có failed.
 
@@ -192,7 +237,9 @@ Lỗi đặc thù của model nhỏ (đếm từ run JSON):
 
 > Khó khăn chính và cách nhóm xử lý. Nếu gặp lỗi kỹ thuật (provider lỗi, hết quota API, tool không chạy), mô tả lỗi và dẫn bằng chứng: run JSON, log, ảnh chụp.
 
--
+- **Provider Anthropic lỗi 400 với model mới:** starter gửi `temperature` và `tool_choice={"type":"any"}`, model Claude thế hệ mới từ chối. Sửa trong [starter_v0/providers/anthropic_provider.py](../../starter_v0/providers/anthropic_provider.py) (commit `9714733`): bỏ `temperature`, chỉ ép `tool_choice` với model cũ, model đọc từ `ANTHROPIC_MODEL`, `max_tokens` 16000, xử lý `stop_reason == "refusal"`. Sau sửa có baseline v0 hợp lệ trên `claude-opus-5-5`: `runs/v0_B_base_anthropic_20261110T172857200899.json` — 0.75 (15/20), `provider_error_cases = 0`. Lưu ý: với model này case cần tool chạy ở `tool_choice=auto`, nên việc gọi tool phụ thuộc hoàn toàn vào prompt/tool description.
+- **Chọn nhầm provider trên UI:** transcript `v0_openrouter_20261110T175820996156` và `v3_openai_20261110T182346064022` chỉ có `provider_error: Missing API key env var`. Xử lý: giới hạn provider còn `anthropic`/`openrouter` trong `app.py`, `chat.py`, `run_eval.py`, `scripts/preflight_provider.py` (commit `7c0714e`).
+- **Cloudflare Tunnel lỗi QUIC timeout** (`failed to dial to edge with quic`) do mạng chặn UDP → chạy `cloudflared` với `--protocol http2 --edge-ip-version 4`.
 
 ## 6. Tổng hợp đóng góp
 

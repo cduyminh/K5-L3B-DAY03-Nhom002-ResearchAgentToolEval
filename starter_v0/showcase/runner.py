@@ -57,9 +57,12 @@ def run_case(version: str, prompt: str | list[str], *, mode: str = "full", provi
     try:
         if mode == "eval":
             from agent import ResearchAgent
+            from run_eval import case_messages
 
+            # identical to run_eval: multi-turn cases are packed into one user message
+            case = {"turns": user_messages} if len(user_messages) > 1 else {"query": turns[0]}
             run = ResearchAgent(provider, system_prompt=messages[0]["content"], tools=tools, model=model) \
-                .run(user_messages, tool_choice=tool_choice)
+                .run(case_messages(case), tool_choice=tool_choice)
             out.update(status="eval", assistant_text=run.text or "",
                        tool_calls=[{"name": c.name, "args": c.args} for c in run.tool_calls],
                        tool_results=run.tool_results)

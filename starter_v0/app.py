@@ -29,7 +29,38 @@ from tools import load_tool_declarations, to_openai_tools
 from versioning import artifact_version_dict, build_artifact_version
 from showcase.ui import render as render_showcase
 
-PROVIDERS = ["anthropic", "openrouter"]
+PROVIDERS = ["openrouter", "openai", "anthropic", "gemini", "ollama"]
+PROVIDER_LABELS = {
+    "openrouter": "OpenRouter (cloud, nhiều model)",
+    "openai": "OpenAI",
+    "anthropic": "Anthropic (Claude)",
+    "gemini": "Google Gemini",
+    "ollama": "Ollama (model local, miễn phí)",
+}
+# Suggested models; any other model id can be typed in via "Khác (tự nhập)".
+MODEL_OPTIONS = {
+    "openrouter": ["openai/gpt-4o-mini", "anthropic/claude-sonnet-5-5", "google/gemini-3.8-flash", "qwen/qwen-2.5-7b-instruct"],
+    "openai": ["gpt-4o-mini", "gpt-4o"],
+    "anthropic": ["claude-opus-5-5", "claude-sonnet-5-5", "claude-haiku-5-5"],
+    "gemini": ["gemini-3.8-flash"],
+    "ollama": [],  # filled from the local Ollama server
+}
+KEY_ENV = {"openrouter": "OPENROUTER_API_KEY", "openai": "OPENAI_API_KEY", "anthropic": "ANTHROPIC_API_KEY", "gemini": "GEMINI_API_KEY"}
+OTHER_MODEL = "Khác (tự nhập)…"
+
+
+def ollama_models() -> tuple[list[str], str | None]:
+    """Models installed on the local Ollama server, or an error message."""
+    import os
+
+    import requests
+
+    base = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1").rsplit("/v1", 1)[0]
+    try:
+        tags = requests.get(f"{base}/api/tags", timeout=2).json().get("models", [])
+        return [m["name"] for m in tags], None
+    except Exception as exc:  # server not running
+        return [], f"Không kết nối được Ollama ({base}): chạy `ollama serve` rồi tải model, ví dụ `ollama pull qwen2.5:7b`. Lỗi: {type(exc).__name__}"
 TRANSCRIPTS_DIR = ROOT / "transcripts"
 
 st.set_page_config(page_title="Research Agent · Nhom002", page_icon="🔎", layout="wide")
@@ -48,11 +79,11 @@ def latest_logged_version() -> str:
 
 
 # ---------------------------------------------------------------- session setup
-def new_session(provider_name: str, model: str, version: str, history_window: int, max_tool_rounds: int) -> None:
+def new_session(provider_name: str, model: str, version: str, history_window: int, max_tool_rounds: int, api_key: str = "") -> None:
     system_prompt_path = ARTIFACTS_DIR / "system_prompt.md"
     tools_path = ARTIFACTS_DIR / "tools.yaml"
 
-    provider = make_provider(provider_name)
+    provider = make_provider(provider_name, api_key=api_key or None)  # key stays in memory for this session only
     selected_model = model or getattr(provider, "default_model", None)
     artifact_version = build_artifact_version(version, system_prompt_path, tools_path)
 
@@ -127,8 +158,25 @@ def render_turn(turn: dict[str, Any]) -> None:
 # ---------------------------------------------------------------- sidebar
 with st.sidebar:
     st.header("⚙️ Cấu hình")
-    provider_name = st.selectbox("Provider", PROVIDERS, index=0)
-    model = st.text_input("Model (để trống = default của provider)", value="")
+    provider_name = st.selectbox("Provider", PROVIDERS, index=0, format_func=lambda p: PROVIDER_LABELS.get(p, p))
+    options = list(MODEL_OPTIONS.get(provider_name, []))
+    if provider_name == "ollama":
+        options, ollama_err = ollama_models()
+        if ollama_err:
+            st.warning(ollama_err)
+        elif not options:
+            st.warning("Ollama đang chạy nhưng chưa có model nào: `ollama pull qwen2.5:7b`.")
+    picked = st.selectbox("Model", options + [OTHER_MODEL], index=0, key=f"model_{provider_name}")
+    model = st.text_input("Model id", value="", placeholder="vd openai/gpt-4o hoặc llama3.1:8b") if picked == OTHER_MODEL else picked
+    api_key = ""
+    if provider_name != "ollama":
+        api_key = st.text_input(
+            f"API key (để trống = dùng {KEY_ENV[provider_name]} trong .env)",
+            value="", type="password", key=f"key_{provider_name}",
+            help="Key chỉ giữ trong bộ nhớ của phiên này, không ghi vào transcript, file hay biến môi trường.",
+        )
+    else:
+        st.caption("Model local chạy trên máy này, không cần API key.")
     version = st.text_input("Version label", value=latest_logged_version())
     history_window = st.number_input("History window (cặp user/assistant)", 0, 50, 5)
     max_tool_rounds = st.number_input("Max tool rounds", 1, 20, 4)
@@ -136,7 +184,7 @@ with st.sidebar:
 
 if start or "transcript" not in st.session_state:
     try:
-        new_session(provider_name, model.strip(), version.strip() or "v0", int(history_window), int(max_tool_rounds))
+        new_session(provider_name, (model or "").strip(), version.strip() or "v0", int(history_window), int(max_tool_rounds), api_key.strip())
     except Exception as exc:
         st.error(f"Không khởi tạo được provider: {type(exc).__name__}: {exc}")
         st.stop()

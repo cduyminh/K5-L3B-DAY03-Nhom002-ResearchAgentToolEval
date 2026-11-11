@@ -22,6 +22,7 @@ class OpenAIProvider:
         self.api_key_default = api_key_default
         self.base_url = base_url
         self.default_model = default_model
+        self.api_key: str | None = None  # optional per-session key (Streamlit UI); falls back to env
 
     def complete(
         self,
@@ -37,7 +38,7 @@ class OpenAIProvider:
         except ImportError as exc:
             raise RuntimeError("Install live provider dependency first: pip install openai") from exc
 
-        api_key = os.getenv(self.api_key_env) or self.api_key_default
+        api_key = self.api_key or os.getenv(self.api_key_env) or self.api_key_default
         if not api_key:
             raise RuntimeError(f"Missing API key env var: {self.api_key_env}")
 

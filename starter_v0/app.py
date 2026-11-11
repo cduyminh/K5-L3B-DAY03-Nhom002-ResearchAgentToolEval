@@ -180,11 +180,23 @@ with st.sidebar:
     version = st.text_input("Version label", value=latest_logged_version())
     history_window = st.number_input("History window (cặp user/assistant)", 0, 50, 5)
     max_tool_rounds = st.number_input("Max tool rounds", 1, 20, 4)
-    start = st.button("🆕 New chat (áp dụng cấu hình)", use_container_width=True)
+    start = st.button("🆕 New chat (xóa hội thoại)", use_container_width=True)
+    st.caption("Đổi provider / model / key / version là áp dụng ngay (bắt đầu chat mới).")
 
-if start or "transcript" not in st.session_state:
+# Apply sidebar changes right away: any change of provider/model/key/version/limits starts a new session.
+import hashlib
+
+_config_sig = (
+    provider_name, (model or "").strip(), version.strip() or "v0", int(history_window), int(max_tool_rounds),
+    hashlib.sha256(api_key.strip().encode()).hexdigest()[:12],  # only a hash of the key is kept for comparison
+)
+_changed = "transcript" in st.session_state and st.session_state.get("config_sig") != _config_sig
+if start or _changed or "transcript" not in st.session_state:
     try:
         new_session(provider_name, (model or "").strip(), version.strip() or "v0", int(history_window), int(max_tool_rounds), api_key.strip())
+        st.session_state.config_sig = _config_sig
+        if _changed and not start:
+            st.toast(f"Đã áp dụng: {PROVIDER_LABELS.get(provider_name, provider_name)} · {(model or 'model mặc định')} — bắt đầu chat mới")
     except Exception as exc:
         st.error(f"Không khởi tạo được provider: {type(exc).__name__}: {exc}")
         st.stop()

@@ -42,7 +42,7 @@
 
 **Bonus**
 - Telegram: hội thoại 4 lượt trên UI (tìm tin → tìm tweet → gộp bản tin + yêu cầu đăng: model tự gọi `send`, cổng `approval.py` chặn, agent hỏi xác nhận → "Có, gửi đi" → `status: sent`, biên nhận `message_id=5`) vào private group "Nhom002 Bản tin" của bot @nhom002_research_bot; ảnh UI + Telegram trong `report/team/assets/telegram_flow_*.png` (B5b).
-- Small local model qua Ollama (B7).
+- Small local model qua Ollama (B7): qwen2.5:7b và llama3.2:3b trên base suite với prompt/tools v3 (0.85 / 0.25); 2 vòng tối ưu prompt local: v4-local (ví dụ dạng `tool(args)`: qwen 0.70 vì chép lời gọi thành text, llama 0.60) và v5-local (ví dụ bằng lời: qwen 0.90, llama 0.55); prompt v5-local chạy ngược trên cloud vẫn 1.00.
 - `send` trả biên nhận Telegram (`message_id`, `date`, `chat.title`) + test mock HTTP.
 
 ## 4. Bằng chứng

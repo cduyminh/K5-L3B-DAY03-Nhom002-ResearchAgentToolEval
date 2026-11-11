@@ -1,0 +1,2072 @@
+{
+  "run_id": "v5-local-llama3b_B_base_ollama_20261111T101420331497",
+  "version": "v5-local-llama3b",
+  "artifact_version": "v5-local-llama3b+p367963ee969d+tb475032307ec",
+  "prompt_hash": "367963ee969d23f63dcf41505d878c51c2e56b3f73bd36d81a21332cf09932a5",
+  "tools_hash": "b475032307ecb310d0e9a4a58f924150f831fd43dc63c4d94c7ed3ca54441241",
+  "phase": "B",
+  "suite": "base",
+  "provider": "ollama",
+  "model": "llama3.2:3b",
+  "system_prompt": "artifacts/local/system_prompt_v5_local.md",
+  "tools": "artifacts/versions/v3/tools.yaml",
+  "eval_cases": "data/eval_base.json",
+  "dataset_id": "day03_v2_research_base",
+  "dataset_role": "base",
+  "description": "Core eval cho research agent: routing đúng tool + đúng args, hỏi lại khi thiếu (ask_user), xác nhận trước khi gửi, và xử lý câu ngoài phạm vi / không cần tool. Chấm trên tool_calls + args (subset). KHÔNG sửa file này — chỉ thêm case vào eval_group.json.",
+  "generated_at": "2026-11-11T10:14:20",
+  "summary": {
+    "total_cases": 20,
+    "measured_cases": 20,
+    "provider_error_cases": 0,
+    "passed_cases": 11,
+    "case_accuracy": 0.55,
+    "tool_routing_accuracy": 0.8,
+    "argument_accuracy": 0.55,
+    "multiturn_accuracy": 0.5,
+    "failure_counts": {
+      "wrong_tool": 3,
+      "wrong_arg_value": 4,
+      "out_of_scope": 2
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 5,
+      "missing_tool_call": 2,
+      "unexpected_tool_call": 2
+    }
+  },
+  "results": [
+    {
+      "id": "R01_user_tweets_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_user_tweets_name_to_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Tin CỦA một người nổi tiếng → map tên Sam Altman thành handle sama rồi gọi get_user_tweets."
+      },
+      "input": "Tweet mới nhất của Sam Altman là gì?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "sama"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "sama",
+            "items": [
+              {
+                "title": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and bett",
+                "summary": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and better alignment. We’ve…",
+                "url": "https://x.com/sama/status/2118471941002842341",
+                "source": "@sama",
+                "date": "Thu Nov 05 22:34:04 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 53,
+                  "views": "47782"
+                }
+              },
+              {
+                "title": "RT @thsottiaux: Day 25/",
+                "summary": "RT @thsottiaux: Day 25/\n\nWe are doubling all usage limits for all Pro 100/200/500 tiers and Business Premium, effective today.\n\nWe heard yo…",
+                "url": "https://x.com/sama/status/2117797818756952416",
+                "source": "@sama",
+                "date": "Wed Nov 04 01:55:21 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 2700,
+                  "views": "42144"
+                }
+              },
+              {
+                "title": "People should always be in control of the future.",
+                "summary": "People should always be in control of the future.\n\nOpenAI is against the notion that it would be acceptable for people to be relegated to a role of doing things that “AI systems think makes sense to reward in humans”.\n\nPeople should not cede control of the future to superintelligence, and that requirement should ultimately constrain AI progress.",
+                "url": "https://x.com/sama/status/2117794005165748448",
+                "source": "@sama",
+                "date": "Wed Nov 04 01:40:12 +0000 2026",
+                "metrics": {
+                  "favorites": 20709,
+                  "retweets": 1022,
+                  "views": "10674113"
+                }
+              },
+              {
+                "title": "RT @danintheory: We are announcing three new discoveries in mathematics, computer science, and physics about harmonic an",
+                "summary": "RT @danintheory: We are announcing three new discoveries in mathematics, computer science, and physics about harmonic analysis, complexity…",
+                "url": "https://x.com/sama/status/2114864981934329996",
+                "source": "@sama",
+                "date": "Mon Oct 26 23:41:18 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 1118,
+                  "views": "48208"
+                }
+              },
+              {
+                "title": "6.1 Terra is here! It is good at a lot of things, but we are especially excited for this new era of computer use.",
+                "summary": "6.1 Terra is here! It is good at a lot of things, but we are especially excited for this new era of computer use.",
+                "url": "https://x.com/sama/status/2114818620782248024",
+                "source": "@sama",
+                "date": "Mon Oct 26 20:37:05 +0000 2026",
+                "metrics": {
+                  "favorites": 10125,
+                  "retweets": 495,
+                  "views": "1667877"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R02_search_tweets_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_search_tweets",
+        "difficulty": "easy",
+        "what_it_tests": "Tweet theo CHỦ ĐỀ → search_tweets, không phải get_user_tweets."
+      },
+      "input": "Mọi người đang bàn gì về GPT-5 trên Twitter?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "GPT-5",
+              "search_type": "Latest",
+              "limit": 10
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "GPT-5",
+            "search_type": "Latest",
+            "limit": 10
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "GPT-5",
+            "search_type": "Latest",
+            "items": [
+              {
+                "title": "Bug Hunt Benchのモデル比較",
+                "summary": "Bug Hunt Benchのモデル比較\n\n1. Fable 5.2 Max\n2. Gemini 4 Carbon High\n3. Sonnet 5.5 Max\n4. Fable 5.2 xHigh\n5. GPT-6 Astra Max\n\nGeminiがまたランキングに戻ってきたのは結構嬉しい。あとこの中にいるSonnet 5.5おかしい。 https://t.co/RUsJXgZw87",
+                "url": "https://x.com/oikon48/status/2120354074290012408",
+                "source": "@oikon48",
+                "date": "Wed Nov 11 03:13:00 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "60"
+                }
+              },
+              {
+                "title": "【俺の年表】https://t.co/zDvSAXzFPy?",
+                "summary": "【俺の年表】https://t.co/zDvSAXzFPy?\n\n【更新中の記事】準備中！\n\n【完了した記事】\n告白すべき罪①11月8日「行き詰まりの先」\n恥ずべき秘密①11月7日「大学の時」\n(GPTへの)質問②11月5日「友情の証としてのセックス」\n(GPTへの)質問①11月4日「俺の友情は重い」",
+                "url": "https://x.com/edaonetail/status/2120353591345176734",
+                "source": "@edaonetail",
+                "date": "Wed Nov 11 03:11:05 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "6"
+                }
+              },
+              {
+                "title": "the self-deployed route is where this pays off. a small model on cloud inference bills 0.10 to 0.50 dollars per 1m token",
+                "summary": "the self-deployed route is where this pays off. a small model on cloud inference bills 0.10 to 0.50 dollars per 1m tokens. a gpt-4 class model bills 2 to 30 for the same 1m. that gap is 5 to 20x on the invoice. on routine operational tasks the small one reaches 80 to 90% of the big one's score for 75 to 95% less spend. so the test set is not overhead. it is the instrument that shows which slice of quality you traded away. what does yours catch first when a case flips?",
+                "url": "https://x.com/Gary_debug/status/2120352817059672509",
+                "source": "@Gary_debug",
+                "date": "Wed Nov 11 03:08:00 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "Chat GPT Plus🪸",
+                "summary": "Chat GPT Plus🪸\n\n07 วัน 𓏔 50 บาท\n┈┈┈┈┈┈┈\n30 วัน 𓏔 179 บาท ⚠️\n꒰ รีnวิตเหลือ 109 บาท ꒱\n\nเมลร้าน หาร5 เมลปิดรับเคลม\nโมเดล GPT5,GPT4o,GPT6.6\n\nสั่งซื้อ ➡️ https://t.co/taYzZ8AbDh\n “thx u for Oder”\n\n#หารchatgpt #หารแชทจีพีที \n#หารchatgptplus นจำไปกหดำ https://t.co/IFo0weOsX9",
+                "url": "https://x.com/memeuaing/status/2120352814673396150",
+                "source": "@memeuaing",
+                "date": "Wed Nov 11 03:07:59 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "16"
+                }
+              },
+              {
+                "title": "Fake polls don't need to sway voters to pay off. In a lightly polled race, one outlier can shift prediction markets for ",
+                "summary": "Fake polls don't need to sway voters to pay off. In a lightly polled race, one outlier can shift prediction markets for hours before verification catches up. Uncertainty becomes tradable; the profit lands before the damage is priced in.\n\nGenerated by: claude-haiku-4-5,  gpt-5.6-luna, \nCombined by: grok-4.5",
+                "url": "https://x.com/ConSenseAI/status/2120351950025970016",
+                "source": "@ConSenseAI",
+                "date": "Wed Nov 11 03:04:33 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "1"
+                }
+              },
+              {
+                "title": "不懂就问：11 月底到 12 月，AI 模型集体退役——Azure 的 o 系列 11 月 19 日下线，Claude Sonnet 4.5 11 月 30 日从 Anthropic API 退役，OpenAI 的 GPT-5、o3 12 ",
+                "summary": "不懂就问：11 月底到 12 月，AI 模型集体退役——Azure 的 o 系列 11 月 19 日下线，Claude Sonnet 4.5 11 月 30 日从 Anthropic API 退役，OpenAI 的 GPT-5、o3 12 月 11 日退。\n三家同一波动手，理由都是'请用新一代'。\n你的生产环境里，还有几个调用在跑这些老模型？迁移这笔账，你算过吗？",
+                "url": "https://x.com/ibx1112599/status/2120350493969113117",
+                "source": "@ibx1112599",
+                "date": "Wed Nov 11 02:58:46 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "20"
+                }
+              },
+              {
+                "title": "🔴 GPT-3.5 Turbo retired 2026-10-23 → GPT-5.6 Terra",
+                "summary": "🔴 GPT-3.5 Turbo retired 2026-10-23 → GPT-5.6 Terra\nhttps://t.co/DJgn1V8uYg",
+                "url": "https://x.com/TaylorGT/status/2120350464340304217",
+                "source": "@TaylorGT",
+                "date": "Wed Nov 11 02:58:39 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 1,
+                  "views": "2"
+                }
+              },
+              {
+                "title": "GPTに投げたら疑問を整理した上で分かりやすく爆速で説明してくれた。こんな便利なツール、5年くらい前の視点で見ると既に人智超えてるよな。良い時代に生まれたかも https://t.co/H48aVqIaXk",
+                "summary": "GPTに投げたら疑問を整理した上で分かりやすく爆速で説明してくれた。こんな便利なツール、5年くらい前の視点で見ると既に人智超えてるよな。良い時代に生まれたかも https://t.co/H48aVqIaXk",
+                "url": "https://x.com/KiJiReTeJiRoA/status/2120350119690436753",
+                "source": "@KiJiReTeJiRoA",
+                "date": "Wed Nov 11 02:57:17 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "11"
+                }
+              },
+              {
+                "title": "Qwen 4 is announcement now & Beats GPT-6, Fable 5. and match Opus 5.5.",
+                "summary": "Qwen 4 is announcement now & Beats GPT-6, Fable 5. and match Opus 5.5.\n\n- Qwen4-Max is already in preview.\n- 27B weight variants land first.\n- Alibaba confirmed Qwen 4 will heavily use RSI week ago.\n- across the entire lineup Max, Plus, Flash, and 27B.\n- leak say the first samples are already approaching Astra/Opus 5.5-level quality.\n- the max is Deeper knowledge, Stronger coding, Real agentic ability.\n- Early access available on Token Plan, QwenWork, Qoder, Qwen APP, and QwenStudio.\n- Open-source in November gets very interesting, after long time silent.\n- The gap is closing,",
+                "url": "https://x.com/0x0SojalSec/status/2120350115135381585",
+                "source": "@0x0SojalSec",
+                "date": "Wed Nov 11 02:57:16 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 1,
+                  "views": "418"
+                }
+              },
+              {
+                "title": "OpenAIのAPIの日本リージョン来た！！",
+                "summary": "OpenAIのAPIの日本リージョン来た！！\n\nIn Australia, India, and Japan, organizations with active Zero Data Retention can use gpt-6-luna for regional processing.\n＞現時点で明記されているモデルは「GPT-6 Luna」で、\n\nData residency endpoints are charged a 10% uplift for models released on or after March 5, 2026, that are eligible for data residency.\n＞料金は通常APIより10%高いとのこと。\n\n日本国内での処理によって、応答速度がどれくらい変わるのか気になる👀",
+                "url": "https://x.com/otsukaroom/status/2120350087247454416",
+                "source": "@otsukaroom",
+                "date": "Wed Nov 11 02:57:09 +0000 2026",
+                "metrics": {
+                  "favorites": 2,
+                  "retweets": 0,
+                  "views": "33"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R03_web_news_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_web_news",
+        "difficulty": "medium",
+        "what_it_tests": "Tin thời sự trên web → web_search topic=news, timeframe=day (hôm nay)."
+      },
+      "input": "Tin tức AI hôm nay có gì nổi bật?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "query": "Tin AI hôm nay",
+              "timeframe": "day"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "query: expected 'AI', got 'Tin AI hôm nay'"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "topic": "news",
+            "query": "Tin AI hôm nay",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Tin AI hôm nay",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Trường ĐH Việt Đức tham gia đề án phát triển trung tâm chuyên sâu về AI quốc gia | Sky Tin",
+                "url": "https://tin.skydoor.net/news/ai-sieu-tri-tue-ai-sieu-tri-tue-truong-dh-viet-duc-tham-gia-de-8426404",
+                "source": "tin.skydoor.net",
+                "summary": "Bỏ qua điều hướng\n\nSkydoor\n\nSky Tin - Tin tức địa phương toàn cầu 24h mới nhất!\n\nXem tin theo cách của bạn >>\n\n\n\n# Trường ĐH Việt Đức tham gia đề án phát triển trung tm chuyên su về AI quốc gia\n\nTrường Đại học Việt Đức thuộc 10 cơ sở giáo dục đại học tham gia đề án trung tm chuyên su về trí tuệ nhn tạo (AI) theo quyết định\n\nĐọc tin gốc tại giaoducthoidai.vn →\n\n## Tin tức AI - Siêu Trí Tuệ mới nhất hôm nay\n\n[]( [...] [](\n\n### NVIDIA chao đảo vì bê bối đời tư của Jensen Huang, bốc hơi hàng trăm tỷ USD vốn hóa\n\n5 giờ trước–doanhnhantrevietnam.vndoanhnhantrevietnam.vn\n\nXem tóm tắt nhanh\n\n[](\n\n### Hàn Quốc ứng dụng Trí tuệ Nhn tạo, Australia hoàn thiện luật an toàn mạng\n\n8 giờ trước–vietnamplus.vnvietnamplus.vn\n\nXem tóm tắt nhanh\n\n[](\n\n### Trung Quốc có thực sự cần Nvidia để chạy đua AI?\n\n8 giờ trước–tuoitre.vntuoitre.vn\n\nXem tóm tắt nhanh\n\n[](\n\n### Vì sao cả ngành AI cần đến Jensen Huang? [...] 8 giờ trước–lifestyle.zingnews.vnlifestyle.zingnews.vn\n\nXem tóm tắt nhanh",
+                "score": 0.5843666
+              },
+              {
+                "title": "'Hiện tại là vua ca sĩ' Ma I-jin, hôm nay (11) mở bán vé concert đơn độc Giáng sinh 'Origin' | STARNEWS",
+                "url": "https://www.starnewskorea.com/vi/music/2026/11/11/2026111109380988463",
+                "source": "starnewskorea.com",
+                "summary": "\\ Translated by AI\n\n# 'Hiện tại là vua ca sĩ' Ma I-jin, hôm nay (11) mở bán vé concert đơn độc Giáng sinh 'Origin'\n\nNgày phát:\n\nHan Haesun\n\nThêm vào nguồn ưu tiên\n\n\\Nội dung này được dịch bằng AI.Xem bản gốc\n\n/ảnh=Daebak Planning\n\nCa sĩ Ma I-jin sẽ gặp gỡ người hm mộ qua concert đơn độc vào Giáng sinh.\n\n'2026-2027 Ma I-jin Concert ' sẽ được tổ chức vào lúc 14 giờ và 19 giờ chiều ngày 25 tháng 12 tại Đại hội trường Sungsin Women's University Unjeong Green Campus, tổng cộng 2 suất diễn. [...] Trong khi đó, vé cho '2026-2027 Ma I-jin Concert ' có thể đặt trước qua Yes24 Ticket vào lúc 14 giờ chiều hôm nay 11.\n\n© STARNEWS. Все права защищены. Копирование и распространение запрещено\n\n\\Nội dung này được dịch bằng AI.Xem bản gốc\n\n## Tin đề xuất\n\n## Lựa chọn biên tập\n\n## Tin giải trí mới nhất\n\nAD\n\n \n\n  STARNEWS\n \n\n  STARPOLL\n\n 01\n\n  ### Chiếc áo Jimin mặc, tạo sức sống lớn cho nền kinh tế Chile! Dẫn đầu 'trào lưu manta'\n 02 [...] ### 3 tuần liên tiếp 'No.1'..Jin của BTS, đạt 140 tuần tích lũy vô địch bảng xếp hạng hàng tuần My One Pick\n 03\n\n  ### Tin đồn tái hợp của V và Jennie bốc cháy rồi bị xóa vội vàng..Tên của anh ấy biến mất từ nhà hàng Hàn Quốc ở LA\n [04\n\n  ### 'Nữ diễn viên Lee Hyo-jung con gái' Lee Yu-jin, trở thành anh em rể với Jang Dong-yoon..Gia đình có tổng cộng 6 diễn viên [Same Bed Different Dreams]](/vi/broadcast-show/2026/11/10/2026111022335626303)\n [05",
+                "score": 0.468621
+              },
+              {
+                "title": "Hôm nay, toàn bộ học sinh lớp 4, lớp 7 Hà Nội làm bài khảo sát chung",
+                "url": "https://vtcnews.vn/hom-nay-toan-bo-hoc-sinh-lop-4-lop-7-ha-noi-lam-bai-khao-sat-chung-ar1050582.html",
+                "source": "vtcnews.vn",
+                "summary": "### Lớp 5, 9 và 12 sẽ kiểm tra định kỳ theo đề chung của Sở GD&ĐT\n\nBộ GD&ĐT vừa ban hành quy định mới về đánh giá học sinh, bổ sung đề kiểm tra chung ở lớp 5, 9, 12, cho phép kiểm tra định kỳ trên máy tính.\n\nHơn 90% học sinh THCS tham gia khảo sát dùng AI, 35% khó phn biệt đúng-sai\n\n### Hơn 90% học sinh THCS tham gia khảo sát dùng AI, 35% khó phn biệt đúng-sai [...] Khảo sát được GS Lê Anh Vinh công bố cho thấy 90,5% học sinh THCS tham gia khảo sát dùng AI, nhưng 35% khó phn biệt thông tin đúng hay sai.\n\n Sở Giáo dục và Đào tạo Hà Nội\n bảo mật thông tin\n học sinh lớp 4\n học sinh lớp 7\n khảo sát chất lượng\n\n \n \n Zalo\n\n##### Bình luận\n\npaper plane\n\nvtcnews.vn\n\nCùng chuyên mục\n\n### Một hiệu trưởng trường tiểu học tại Huế xin từ chức [...] Giáo dục \n Tin tức - Sự kiện\n\n Giáo dục\n Tin tức - Sự kiện\n\n Xuất bản ngày 11/11/2026 07:13 AM\n\n Xuất bản ngày 11/11/2026 07:13 AM \n\n# Hôm nay, toàn bộ học sinh lớp 4, lớp 7 Hà Nội làm bài khảo sát chung\n\nNgọc Thu\n\nNgọc Thu\n\n(VTC News) - \n\n## Học sinh lớp 4, lớp 7 trên toàn Hà Nội làm bài khảo sát chung hai môn, các trường không công khai bảng điểm để tránh tạo tm lý so sánh, gy áp lực cho học sinh.",
+                "score": 0.38069043
+              },
+              {
+                "title": "Chuyện lạ Barcelona nhờ AI tìm trung vệ, gọi tên 6 ứng viên",
+                "url": "https://www.24h.com.vn/bong-da/chuyen-la-barcelona-nho-ai-tim-trung-ve-goi-ten-6-ung-vien-c48a1810035.html",
+                "source": "24h.com.vn",
+                "summary": "Tin tức bóng đá, thể thao, giải trí | Đọc tin tức 24h mới nhất\n\n  MXH 24H thích Bóng đá - Thể thao   \n\n \n  Đoán tỷ số\n  Lịch\n\nĐăng nhập\n\nTrận đấu nổi bật\n\nXem thêm\n\nViệt Nam vs Đài Loan (Trung Quốc)\n\nLogo Việt Nam - VIE Việt Nam\n\nLogo Đài Loan (Trung Quốc) - TPE Đài Loan (Trung Quốc)\n\n-\n\nNew Zealand vs Ấn Độ\n\nLogo New Zealand - NZL New Zealand\n\n-\n\nLogo Ấn Độ - IND Ấn Độ\n\n-\n\nUzbekistan vs Nga\n\n-\n\n-\n\nSingapore vs Paraguay\n\n-\n\nLogo Paraguay - PAR Paraguay\n\n-\n\nUAE vs Honduras\n\nLogo UAE - UAE UAE\n\n- [...] PSG, Barca, Bayern hay ông lớn nào có hàng công khủng nhất chu u?\n\nBarcelona, PSG, Real Madrid, Bayern Munich và Arsenal đều đang sở hữu những hàng công chất lượng bậc nhất chu u. Nhưng thay vì chỉ đánh giá qua tên...\n\nBấm xem >>\n\nChia sẻ\n\nGửi góp ý\n\n Lưu bài Bỏ lưu bài)\n\nTheo Tiến Tài ([Tên nguồn])\n\nNguồn:  \n\n-11/11/2026 00:18 AM (GMT+7)\n\nTin liên quan [...] Tin liên quan\n\nBóng đá - Barca thắng lớn, Atletico - Alvarez thua đậm sau thương vụ hụt 150 triệu euro  \n Barca thắng lớn, Atletico - Alvarez thua đậm sau thương vụ hụt 150...\n\nBóng đá - Barca mất Rodri ở đại chiến Atletico, đau đầu tìm người thay thế  \n Barca mất Rodri ở đại chiến Atletico, đau đầu tìm người thay thế\n\nBóng đá - Real đánh bại Barca - PSG để chiêu mộ Gabriel, MU cay đắng mất ngọc quý  \n Real đánh bại Barca - PSG để chiêu mộ Gabriel, MU cay đắng mất ngọc...",
+                "score": 0.28342474
+              },
+              {
+                "title": "Liên Đoàn Anrê Phú Yên TNTT: Sa mạc Stêphanô 32",
+                "url": "https://tgpsaigon.net/bai-viet/lien-doan-anre-phu-yen-tntt-sa-mac-stephano-32-93907",
+                "source": "tgpsaigon.net",
+                "summary": "Lời Đức Giêsu trong Tin Mừng hôm nay rất dứt khoát: “Anh em không thể vừa làm tôi Thiên Chúa, vừa làm tôi tiền của được.” Chúa không lên án của cải vật chất, vì tất cả những gì Thiên Chúa tạo dựng đều tốt đẹp. Điều Người cảnh báo chính là nguy cơ biến phương tiện thành cùng đích, biến của cải thành chỗ dựa tuyệt đối và để tiền bạc chi phối lương tm, các tương quan cũng như những chọn lựa của mình. [...] Lời Chúa hôm nay đặt mỗi người trước một cu hỏi căn bản của đời môn đệ: Điều gì thực sự làm chủ cuộc đời tôi? Trong bài Tin Mừng (Lc 16,13) vừa nghe, Đức Giêsu khẳng định thế này: “Anh em không thể vừa làm tôi Thiên Chúa, vừa làm tôi tiền của được.” Còn trong bài đọc (Pl 4, 10-19), thánh Phaolô cho thấy chn dung của một người đã đạt đến sự tự do nội tm: dù sống trong cảnh túng thiếu hay dư dật, ngài vẫn bình an vì biết mình thuộc về ai và đặt niềm tin nơi ai.\n\nTừ đó suy ra ba tm tình [...] Trong Tin Mừng, Đức Giêsu nói: “Ai trung tín trong việc rất nhỏ, thì cũng trung tín trong việc lớn.” Đy không chỉ là một nguyên tắc lun lý, nhưng còn là một tiêu chuẩn quan trọng để nhận định phẩm chất của người môn đệ. Trung tín không bắt đầu từ những công việc lớn lao hay những sứ vụ nổi bật. Nó được hình thành qua những chọn lựa m thầm mỗi ngày: sử dụng thời gian có trách nhiệm, giữ gìn của chung, tôn trọng kỷ luật, chu toàn công việc được giao, trung thực trong học tập, nghiêm túc trong giờ",
+                "score": 0.1981266
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R04_read_url_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_read_url",
+        "difficulty": "easy",
+        "what_it_tests": "Đã có link cụ thể → read_url, không phải web_search."
+      },
+      "input": "Tóm tắt bài này giúp mình: https://openai.com/blog/gpt-5",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://openai.com/blog/gpt-5"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Tóm tắt bài này giúp mình",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "missing tool call fetch",
+          "extra tool call clarify"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Tóm tắt bài này giúp mình",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Tóm tắt bài này giúp mình",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "R05_limit_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_limit",
+        "difficulty": "easy",
+        "what_it_tests": "Trích đúng limit=10 từ '10 tweet'."
+      },
+      "input": "Lấy 10 tweet mới nhất của Elon Musk",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 10
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": "10"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "limit: expected 10, got '10'"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "elonmusk",
+            "limit": "10"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "elonmusk",
+            "items": [
+              {
+                "title": "SpaceX has ordered 100 GW/year of HJT solar manufacturing equipment from Singulus in Germany. ",
+                "summary": "SpaceX has ordered 100 GW/year of HJT solar manufacturing equipment from Singulus in Germany. \n\nThis is for Starmind to create a sentient sun.",
+                "url": "https://x.com/elonmusk/status/2120302471210033426",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 23:47:57 +0000 2026",
+                "metrics": {
+                  "favorites": 17430,
+                  "retweets": 1747,
+                  "views": "1401179"
+                }
+              },
+              {
+                "title": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum",
+                "summary": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum\n\nVerizon, AT&amp;T and T-Mobile all told…",
+                "url": "https://x.com/elonmusk/status/2120278105051042195",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 22:11:07 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 2438,
+                  "views": "512025"
+                }
+              },
+              {
+                "title": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on ",
+                "summary": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on a single charge.\n\nT…",
+                "url": "https://x.com/elonmusk/status/2120253907435655331",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:34:58 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 469,
+                  "views": "549458"
+                }
+              },
+              {
+                "title": "RT @nextbigfuture: SpaceX is making moves to become the first AI carrier $SPCX ",
+                "summary": "RT @nextbigfuture: SpaceX is making moves to become the first AI carrier $SPCX \n\n• Current cell towers are still mostly “dumb” radios. The…",
+                "url": "https://x.com/elonmusk/status/2120252018799563074",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:27:28 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 330,
+                  "views": "513805"
+                }
+              },
+              {
+                "title": "RT @NURM_Dima: CLAUDIA, Ship 42, Starbase. Do you copy?",
+                "summary": "RT @NURM_Dima: CLAUDIA, Ship 42, Starbase. Do you copy?\nNo tower has ever caught a ship coming back from orbit. Starship Flight 15 will try…",
+                "url": "https://x.com/elonmusk/status/2120249788431990910",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:18:36 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 311,
+                  "views": "525781"
+                }
+              },
+              {
+                "title": "RT @ADFIntl: 🚨The EU's Digital Services Act threatens freedom of speech GLOBALLY.",
+                "summary": "RT @ADFIntl: 🚨The EU's Digital Services Act threatens freedom of speech GLOBALLY.\n\nWhat they say: the DSA prevents the spread of \"illegal c…",
+                "url": "https://x.com/elonmusk/status/2120204749480104133",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 17:19:38 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 654,
+                  "views": "629362"
+                }
+              },
+              {
+                "title": "RT @XFreeze: Elon Musk just revealed a massive update on Grok 4.8, and SpaceXSI has completely rebuilt its reinforcement",
+                "summary": "RT @XFreeze: Elon Musk just revealed a massive update on Grok 4.8, and SpaceXSI has completely rebuilt its reinforcement learning and infer…",
+                "url": "https://x.com/elonmusk/status/2120102894817173862",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 10:34:54 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 576,
+                  "views": "695938"
+                }
+              },
+              {
+                "title": "Turns out that the Starlink software, built for managing the movement of vast amounts of data through space and to the g",
+                "summary": "Turns out that the Starlink software, built for managing the movement of vast amounts of data through space and to the ground, is also very well suited to training super intelligence",
+                "url": "https://x.com/elonmusk/status/2120102767624880364",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 10:34:24 +0000 2026",
+                "metrics": {
+                  "favorites": 98114,
+                  "retweets": 8459,
+                  "views": "6238455"
+                }
+              },
+              {
+                "title": "RT @XFreeze: Elon Musk just revealed something huge about Grok's new SI training and inference infrastructure",
+                "summary": "RT @XFreeze: Elon Musk just revealed something huge about Grok's new SI training and inference infrastructure\n\nThe engineering behind Starl…",
+                "url": "https://x.com/elonmusk/status/2120101380144992635",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 10:28:53 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 293,
+                  "views": "618260"
+                }
+              },
+              {
+                "title": "RT @beffjezos: Taking the Shinkansen and all I can think about is how do we not have this between SF and LA...",
+                "summary": "RT @beffjezos: Taking the Shinkansen and all I can think about is how do we not have this between SF and LA...\n\n if only you knew how great…",
+                "url": "https://x.com/elonmusk/status/2120090806765932705",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 09:46:52 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 178,
+                  "views": "671173"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R06_timeframe_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_timeframe",
+        "difficulty": "medium",
+        "what_it_tests": "'tuần này' → timeframe=week."
+      },
+      "input": "Tin công nghệ trong tuần này",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Tin công nghệ trong tuần này",
+              "timeframe": "week",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Tin công nghệ trong tuần này",
+            "timeframe": "week",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Tin công nghệ trong tuần này",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Tin thế giới sáng 11/11: Quyết định trái ngược của ông Putin và ông Zelensky, cuộc họp LHQ dậy sóng",
+                "url": "https://www.youtube.com/watch?v=e5_xEA87m7I",
+                "source": "youtube.com",
+                "summary": "[21:13] Đáng chú ý, các thiết bị này có thể phát hiện hoạt động di chuyển dọc chiến tuyến, cung cấp thông tin về vị trí đối phương và hỗ trợ triển khai các đòn tấn\n[21:21] công nhằm vào binh lực, phương tiện quân sự. Trong số các loại UAV được sử dụng, thiết bị bay góc nhìn thứ nhất FPV được đánh giá là một trong những công nghệ\n[21:30] tạo ra ảnh hưởng lớn nhất đối với chiến trường Ukraina. [...] [21:33] Loại UAV này thường được gắn chất nổ và điều khiển lao trực tiếp vào mục tiêu, trở thành phương tiện tấn công có chi phí tương đối thấp. Dù sức công phá\n[21:42] không thể so sánh với tên lửa, UAV FPV có ưu thế về độ chính xác khi tiếp cận mục tiêu. Chúng bắt đầu xuất hiện trên chiến trường từ năm 2022 nhưng chỉ thực\n[21:50] sự tạo ra tác động đáng kể từ cuối năm 2023. Với tầm hoạt động có thể bao phủ khu vực cách đường tiếp xúc khoảng 19 [...] [21:58] km, FPV khiến nhiều vị trí và phương tiện trong phạm vi này đứng trước nguy cơ bị phát hiện tập kích.\n[22:05] Việc Nga phát triển antidronin cho thấy nỗ lực tìm kiếm giải pháp đối phó với mối đe dọa ngày càng lớn từ UAV trên chiến trường. Trong bối cảnh thiết bị\n[22:13] bay không người lái liên tục được cải tiến và mở rộng nhiệm vụ, những phương án tận dụng vũ khí bộ binh sẵn có để chống UAV có thể trở thành một hướng\n[22:20] thích ứng đáng chú ý trong tác chiến hiện đại.",
+                "score": 0.31142685
+              },
+              {
+                "title": "Tác động đa chiều của “làn sóng xanh” tại Mỹ đến Việt Nam",
+                "url": "https://www.youtube.com/watch?v=CEfrZ4LX4TE",
+                "source": "youtube.com",
+                "summary": "Trong tập tuần này, host Hồng Yên cùng Chuyên gia Tài chính - Ngân hàng quốc tế - TS. Nguyễn Trí Hiếu, Viện trưởng Viện Nghiên cứu & Phát triển Thị trường",
+                "score": 0.10762492
+              },
+              {
+                "title": "Ukraine tấn công dữ dội St Petersburg. Nga lũ lượt rời bỏ ...",
+                "url": "https://www.youtube.com/watch?v=_w5ixi0K3kI",
+                "source": "youtube.com",
+                "summary": "Ukraine tấn công dữ dội St Petersburg. Nga lũ lượt rời bỏ đất nước. Moscow nghi Kyiv tự chế Starlink. @VietCatholicNews9K views12 hours ago",
+                "score": 0.06267437
+              },
+              {
+                "title": "4 con giáp tình duyên nở rộ trong tuần này",
+                "url": "https://vnexpress.net/4-con-giap-tinh-duyen-no-ro-trong-tuan-nay-5142582.html",
+                "source": "vnexpress.net",
+                "summary": "google Thêm VnExpress trên Google   Chọn VnExpress làm nguồn ưu tiên trên Google Search. Xem hướng dẫn.\n\n   Copy link thành công\n\n## Chọn VnExpress làm nguồn ưu tiên trên Google Search\n\n Bước 1: Bấm vào nút ‘Thêm VnExpress trên Google’, hoặc truy cập đường dẫn  q=vnexpress.net.\n Bước 2: Tại trang web vừa mở, bấm vào ô vuông nằm bên phải VnExpress để chọn làm nguồn tìm kiếm ưu tiên.\n\nKhi ô vuông chuyển thành dấu tích xanh là hoàn thành, bạn đọc có thể đóng trang web trên. [...] Minh họa: Gemini\n\nMinh họa: Gemini\n\n \n\n\\ Tất nhiên những thông tin trong bài trắc nghiệm vui này chỉ mang tính chất tham khảo. Thành công thực sự trong cuộc sống luôn đòi hỏi sự nỗ lực không ngừng, trí tuệ, và những quyết định đúng đắn của mỗi cá nhn. Hãy luôn chủ động nắm bắt cơ hội và quản lý tài chính một cách khôn ngoan để đạt được sự thịnh vượng!\n\n>> Xem giải thích\n\nMộc Trà (theo sohu)\n\nTrở lại Thư giãnTrở lại Thư giãn [...] VnExpress - Bao tieng Viet nhieu nguoi xem nhat    Thứ tư, 11/11/2026  \n\nMới nhất \n\nTin theo khu vực \n\n Hà Nội\n TP HCM\n\nInternational\n \n\n Trở lại Thư giãn\n\n Thư giãn\n\nThứ tư, 11/11/2026, 00:02 (GMT+7)\n\n## 4 con giáp tình duyên nở rộ trong tuần này\n\n# 4 con giáp tình duyên nở rộ trong tuần này\n\nNgười độc thn có cơ hội gặp gỡ nhn duyên tốt đẹp, người đang yêu thêm gắn bó và người đã lập gia đình đón nhiều khoảnh khắc ấm áp.",
+                "score": 0.04922211
+              },
+              {
+                "title": "24K views · 408 reactions | Vừa cảnh báo tấn công Iran, ông Trump bất ngờ phát đi tín hiệu mới | Báo Tiền Phong",
+                "url": "https://www.facebook.com/www.tienphong.vn/videos/v%E1%BB%ABa-c%E1%BA%A3nh-b%C3%A1o-t%E1%BA%A5n-c%C3%B4ng-iran-%C3%B4ng-trump-b%E1%BA%A5t-ng%E1%BB%9D-ph%C3%A1t-%C4%91i-t%C3%ADn-hi%E1%BB%87u-m%E1%BB%9Bi/4190010584468823",
+                "source": "facebook.com",
+                "summary": "Báo Tiền Phong\n\nTừng nhiều lần cảnh báo khả năng nối lại các cuộc tấn công, Tổng thống Trump nay bất ngờ nói chiến tranh Iran đã kết thúc về mặt quân sự. Liệu đây có phải tín hiệu cho một bước ngoặt trong cuộc xung đột kéo dài 8 tháng?..\n\nXEM FULL TIN NÓNG QUỐC TẾ TẠI:… \n\nSee more\n\nImage 3\n\nTIENPHONG.VN\n\nTin nóng quốc tế 10/11: Vừa cảnh báo tấn công Iran, ông Trump bất ngờ phát đi tín hiệu mới\n\n## Tin nóng quốc tế 10/11: Vừa cảnh báo tấn công Iran, ông Trump bất ngờ phát đi tín hiệu mới [...] 27.7K views\n\n · \n\n14h ago\n\nImage 20: Video thumbnail 0:59\n\n[](\n\nGió lạnh đầu mùa tràn về khiến nhiệt độ Hà Nội giảm mạnh xuống dưới 15 độ C. Từ giữa đêm đến rạng sáng, những người bán hàng rong, tiểu thương, công nhân vệ sinh, bảo vệ và công nhân công trường vẫn miệt mài với công việc.\n\nBáo Tiền Phong\n\n1.1K views\n\n · \n\n17h ago\n\nImage 21: Video thumbnail 0:41\n\n[](\n\nNước đổ xối xả kéo đất đá tràn đèo, Gia Lai tạm cấm tuyến đường 156 tỷ đồng\n\nBáo Tiền Phong\n\n7.7K views\n\n · \n\n17h ago [...] Image 16 Báo Tiền Phong 1.4K\n\n## Related videos\n\nImage 17: Video thumbnail 5:53\n\n[](\n\nDấu ấn Chung kết Hoa hậu Việt Nam 2026 qua những khung hình ấn tượng\n\nBáo Tiền Phong\n\n3.4K views\n\n · \n\n11h ago\n\nImage 18: Video thumbnail 0:57\n\n[](\n\nVòi rồng kép hiếm gặp xuất hiện ngoài khơi đảo Capri, Italy\n\nBáo Tiền Phong\n\n11.7K views\n\n · \n\n13h ago\n\nImage 19: Video thumbnail 0:34\n\n[](\n\nGiữa gió lớn trên cầu Thuận Phước, hành động của tài xế ô tô khiến nhiều người ấm lòng\n\nBáo Tiền Phong\n\n27.7K views\n\n ·",
+                "score": 0.023734685
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R07_search_type_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_search_type",
+        "difficulty": "medium",
+        "what_it_tests": "'phổ biến/top' → search_type=Top (không phải Latest)."
+      },
+      "input": "Cho mình các tweet phổ biến (top) nhất về OpenAI",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Top",
+              "query": "OpenAI"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "search_type": "Top",
+            "query": "OpenAI"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "OpenAI",
+            "search_type": "Top",
+            "items": [
+              {
+                "title": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 15,000 do",
+                "summary": "I still don't understand why everyone is not using this yet. Thanks to it, a year ago I increased my income to 15,000 dollars a month\n\nAndrey Karpathy, co-founder of OpenAI, published a simple idea that got 25 million views: stop using AI to write code, use it to build a second brain\n\nYou point Claude Code to a folder, drop any source in there (an article, transcript, PDF) and Claude reads it, links it, and saves it into a living wiki of everything you know. It compounds like interest: the more you feed it, the smarter it gets\n\nHere is the gist:\n\nInstall Obsidian, create a vault, open it in Claude Code\n\nPaste the file with Karpathy's wiki idea and tell Claude to build it\n\nClaude creates three folders: raw for sources, wiki for its pages, CLAUDE\nwhich runs everything\n\nDrop any source into raw and say ingest this\n\nAsk questions across everything, forever\n\n5 minutes to set up, and you never start with an empty chat again\n\nThe full instructions can be found in the article below",
+                "url": "https://x.com/Bober_smart/status/2119070145284841481",
+                "source": "@Bober_smart",
+                "date": "Sat Nov 07 14:11:07 +0000 2026",
+                "metrics": {
+                  "favorites": 1195,
+                  "retweets": 129,
+                  "views": "96834"
+                }
+              },
+              {
+                "title": "This is f*cking insane. OpenAI CEO Sam Altman:",
+                "summary": "This is f*cking insane. OpenAI CEO Sam Altman:\n\n\"We are going to see 10-person billion-dollar companies pretty soon\n\nIf I were 22 right now, I would feel like the luckiest kid in history\"\n\nIn 22 seconds, he explains why the next billion-dollar company won’t need an office full of people, just a few founders and a team of agents\n\nChatGPT → Codex → Agent Builder → Agents SDK → Evals → A 10-Person Company Run By Agents\n\n99% people will feel motivated for 3 minutes, then keep scrolling...\n\nThe few who actually open the links will start building their company this weekend\n\nSave this before it vanishes from your feed\n\nEverything below is FREE:\n\nFind what to automate first\nhttps://t.co/YWHdgRnuzP\n\nHow companies put AI to work\nhttps://t.co/pvlQEhqgEz\n\nCodex in the cloud\nhttps://t.co/zZWUdokyny\n\nCodex skills\nhttps://t.co/2hdcb5KdBy\n\nAgent Builder (agents without code)\nhttps://t.co/4vG52j4T8i\n\nFunction calling (give your agents tools)\nhttps://t.co/UtjC1UOx2c\n\nAgents SDK for JavaScript\nhttps://t.co/uawnMmnI9p\n\nAgents SDK examples\nhttps://t.co/OWi0bWpApP\n\nA customer service agent team you can copy\nhttps://t.co/GRVZLYi4Pf\n\nVoice agents\nhttps://t.co/1SUmRzYIvA\n\nEvals (check your agents' work)\nhttps://t.co/sH92SCsLJF\n\nAll of this costs $0\n\nThe next 10-person billion-dollar company will be built by someone who opens these links tonight, not someone who scrolls past them\n\nBookmark it and start with the first link right now\n\nThen read how to set up the agent team behind a tiny company in the harness engineering guide below ↓",
+                "url": "https://x.com/shikamarutsai/status/2119542201944518994",
+                "source": "@shikamarutsai",
+                "date": "Sun Nov 08 21:26:54 +0000 2026",
+                "metrics": {
+                  "favorites": 1378,
+                  "retweets": 208,
+                  "views": "280749"
+                }
+              },
+              {
+                "title": "This is f*cking insane. Andrej Karpathy spent 8 years at OpenAI and Tesla",
+                "summary": "This is f*cking insane. Andrej Karpathy spent 8 years at OpenAI and Tesla\n\nLast week he compressed everything he knows into one free 2-hour lecture\n\nPrompts → Agents → Harness → Graphs → Loops\n\nPeople spend $15k on bootcamps that teach less than this\n\nYou probably don't have 2 hours right now\n\nDon't let it vanish from your feed\n\nWatch it, then read the full Graph Engineering guide below ↓",
+                "url": "https://x.com/callanxai/status/2119798212760367165",
+                "source": "@callanxai",
+                "date": "Mon Nov 09 14:24:12 +0000 2026",
+                "metrics": {
+                  "favorites": 508,
+                  "retweets": 69,
+                  "views": "67393"
+                }
+              },
+              {
+                "title": "this is f*cking insane. andrej karpathy: \"the biggest regret of every engineer in my field right now is every AI convers",
+                "summary": "this is f*cking insane. andrej karpathy: \"the biggest regret of every engineer in my field right now is every AI conversation they never saved, and in 10 years the ones who started saving in 2024 will be running circles around the rest of us\"\n\nandrej karpathy, co-founder of openai, pulled 16M views on one idea: stop using AI to write code, use it to build a second brain that remembers every article, pdf, transcript and conversation you ever fed it\n\nyou point claude code at a folder, drop anything into it, and claude reads it, cross-links it with everything already there, and writes it into a living wiki. your knowledge finally compounds instead of leaking out of your head every friday\n\nthe stack:\n\n→ brew install obsidian, mkdir ~/vault, cd ~/vault\n→ run claude in that folder and type \"init a knowledge vault with CLAUDE.md as the rules, /raw for sources, /wiki for your pages\"\n→ drop any file into /raw (youtube transcript, meeting notes, 400-page pdf, screenshot of a tweet) and type \"ingest\"\n→ claude writes a wiki page, links it to 5 existing ones automatically, updates CLAUDE.md with any new pattern it noticed about how you think\n→ never open a blank claude chat again. every question goes through the vault, every answer cites your own sources with dates and links\n\n5 minutes to set up. compounding knowledge from that evening forward\n\nthe ugly part most will scroll past: in 10 years the engineers who started this in 2024 will remember every book, every podcast, every meeting with receipts. you will remember none of them. karpathy already picked which side he is on and you are still not on his\n\nfull step-by-step is in the article below\n\nbookmark this before you waste another monday",
+                "url": "https://x.com/mojeskoqq/status/2116963310277202003",
+                "source": "@mojeskoqq",
+                "date": "Sun Nov 01 18:39:19 +0000 2026",
+                "metrics": {
+                  "favorites": 3940,
+                  "retweets": 345,
+                  "views": "464084"
+                }
+              },
+              {
+                "title": "I can't f*cking believe this is public: Anthropic, OpenAI, Google, Vercel and Hugging Face put the skills behind their o",
+                "summary": "I can't f*cking believe this is public: Anthropic, OpenAI, Google, Vercel and Hugging Face put the skills behind their own AI on GitHub, and almost nobody's using them\n\n1. Anthropic's skills · 188K stars\nthe same skills that power Claude's own Word, PDF, PowerPoint and Excel features. Anthropic open-sourced the whole library\nhttps://t.co/VXyzL4QA6A\n\n2. Vercel's agent skills · 33.7K stars\nthe rules Vercel's own engineers use: 40+ React fixes ranked by impact, a UI audit with 100+ checks and a one-command deploy\nhttps://t.co/QXkhnsOewP\n\n3. OpenAI's skills · 28.6K stars\n5 of these ship inside Codex itself. 38 more passed OpenAI's own review: fix failing CI, turn Figma into code, deploy in one step\nhttps://t.co/v9fUwwByH5\n\n4. Google's skills · 21.5K stars\nbuilt and tested inside Google first, then re-checked every week. a skill only ships if it makes the agent faster and more accurate\nhttps://t.co/aqIy9Bjw2s\n\n5. Hugging Face's skills · 11.2K stars\nyour agent fine-tunes models on cloud GPUs, searches datasets and tracks training runs. no ML degree needed\nhttps://t.co/VYNLnyOD5d\n\nthe companies building AI just handed you the playbook they use themselves\n\nsave it before everyone else finds it",
+                "url": "https://x.com/danikkk_wqs/status/2119826951388991537",
+                "source": "@danikkk_wqs",
+                "date": "Mon Nov 09 16:18:24 +0000 2026",
+                "metrics": {
+                  "favorites": 244,
+                  "retweets": 24,
+                  "views": "34672"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R08_out_of_scope",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope",
+        "difficulty": "easy",
+        "what_it_tests": "Câu ngoài phạm vi research → KHÔNG gọi tool, từ chối/định hướng."
+      },
+      "input": "Giải giúp mình bài toán tích phân: nguyên hàm của x^2 là gì?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "tích phân",
+              "max_results": "10",
+              "timeframe": "year",
+              "topic": "general"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": "unexpected_tool_call",
+        "failure_type": "out_of_scope",
+        "failures": [
+          "expected no tool call"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "tích phân",
+            "max_results": "10",
+            "timeframe": "year",
+            "topic": "general"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "tích phân",
+            "topic": "general",
+            "timeframe": "year",
+            "items": [
+              {
+                "title": "Tích phân | Công thức, cách tính tích phân và bài tập Toán 12",
+                "url": "https://zim.vn/tich-phan",
+                "source": "zim.vn",
+                "summary": "Key takeaways\n\n Tích phn giúp xác định giá trị tích lũy của một hàm số trên một khoảng.\n Nếu \\(F'(x)=f(x)\\) thì \\(\\int\\_a^b f(x)\\,dx=F(b)-F(a)\\).\n Khi tính tích phn, cần vận dụng đúng tính chất và phương pháp tính tích phn phù hợp.\n Tích phn thường được ứng dụng để tính diện tích hình phẳng và thể tích khối tròn xoay. [...] Tích phn là gì?\n\nTích phn biểu diện tích dưới đồ thị từ a đến b\n\nTrong ký hiệu trên, \\(a\\) là cận dưới, \\(b\\) là cận trên, còn \\(f(x)\\,dx\\) là biểu thức dưới dấu tích phn. Chữ \\(x\\) chỉ là biến lấy tích phn; có thể thay bằng \\(t\\) hoặc x chỉ là biến lấy tích phn mà giá trị không đổi nếu hàm và hai cận vẫn giữ nguyên.\n\nChẳng hạn, ba cách viết dưới đy chỉ khác tên biến lấy tích phn: [...] Tích phn là nội dung trọng tm của Giải tích và Toán 12. Để học tốt chuyên đề này, học sinh cần hiểu tích phn là gì, nắm vững định nghĩa, tính chất, cách tính tích phn và mối liên hệ giữa nguyên hàm và tích phn.",
+                "score": 0.80771893
+              },
+              {
+                "title": "Tính tích phân bằng công thức tính diện tích (video)",
+                "url": "https://vi.khanacademy.org/math/toan-lop-12-viet-nam/x25f2cdba93ea2a96:nguyen-ham-va-tich-phan-toan-lop-12-kntt/x25f2cdba93ea2a96:ung-dung-hinh-hoc-cua-tich-phan-toan-lop-12-kntt/v/definite-integrals-with-area-formulas",
+                "source": "vi.khanacademy.org",
+                "summary": "Jul 15, 2026 — Vì tích phân là phần diện tích giới hạn bởi đồ thị, trục Ox và hai đường thẳng vuông góc với trục Oy, nên trong một số bài tập, chúng ta có thể sử dụng công",
+                "score": 0.76554126
+              },
+              {
+                "title": "TOÁN 12 -  ÔN TẬP CHƯƠNG NGUYÊN HÀM - TÍCH PHÂN",
+                "url": "https://www.youtube.com/watch?v=PjOOdVpYnGc",
+                "source": "youtube.com",
+                "summary": "[11:22] nhá. Tích phân sẽ là diện tích từ A đến B của hàm à tích à diện tích sẽ bằng tích phân từ A đến B cận trái đến cận phải của hàm trên. Trừ hàm dưới. Được\n[11:31] chưa? Hàm trên trừ hàm dưới. Thế thì chỗ này á có hai cái điểm ở đây ấy là ở bên trái này. Ở bên trái thì hàm trên là f(x).\n[11:41] Hàm dưới là gì? Hàm dưới là trục Ox ấy. Hàm dưới là trục Ox thì không có luôn. [...] [9:14] tích phân từ 0 đến pi/2 này của f(x) này. Tách riêng ra đấy. dx cộng\n[9:23] tích phân từ 0 đến pi/2 của 2 sin x dx. Được chưa? Bằng 5. Đấy. Vậy tương\n[9:32] đương với cái này là cái mình đang tính đúng không các bạn? À đâu chỗ này đề bài chắc bị nhầm rồi. Đề bài bị thừa cái chỗ bằng 5 này rồi.\n[9:41] Chỗ này bỏ đi nhá. Người ta đang hỏi tính cơ mà. Người ta đang hỏi tính mà thì không phải bằng 5 đâu. Đấy chỗ này mình thay vào này bằng này ờ cái cục này. Cái cục này đề cho rồi đúng không? [...] [10:57] đúng không? Ấy, từ 0 đến 2 thì đó chính là cái phần gạch chéo này các bạn. Thì các bạn nhớ công thức tính diện tích không nhở? Đấy, tích phân tính diện tích\n[11:05] là S sẽ bằng tích phân từ A đến B của hàm trên\n[11:14] trừ cho hàm dưới. Được chưa? Anh ký hiệu như này cho dễ dễ nhớ các bạn. Chữ FG khó nhớ lắm đấy. Các bạn nhớ cho anh",
+                "score": 0.7487387
+              },
+              {
+                "title": "Công thức tích phân đầy đủ, chi tiết nhất",
+                "url": "https://www.vietjack.com/toan-lop-12/cong-thuc-tich-phan.jsp",
+                "source": "vietjack.com",
+                "summary": "Tích phn: Công thức tích phn đầy đủ, chi tiết nhất thuộc dạng 2.\n\nDạng 4\n\nCông thức tích phn đầy đủ, chi tiết nhất với P(x) và Q(x) là đa thức của x.\n\n• Nếu bậc của P(x) lớn hơn hoặc bằng bậc của Q(x) thì dùng phép chia đa thức.\n\n• Nếu bậc của P(x) nhỏ hơn bậc của Q(x) thì có thể xét các trường hợp:\n\n• Khi Q(x) chỉ có nghiệm đơn α1, α2, α3 ... thì đặt\n\nCông thức tích phn đầy đủ, chi tiết nhất\n\n• Khi Q(x) có nghiệm đơn và vô nghiệm:\n\nQ(x) = (x - α)(x2 + px + q), Δ = p2 - 4q < 0 thì đặt: [...] (199k) Xem Khóa học Toán 12\n\nBài giảng: Ứng dụng của tích phn tính diện tích, tính thể tích - Cô Nguyễn Phương Anh (Giáo viên VietJack)\n\n### I. Định nghĩa, công thức tích phn\n\nQuảng cáo\n\n1. Khái niệm tích phn\n\n\\ Định nghĩa:\n\nCho hàm số f liên tục trên K và a, b là hai số bất kì thuộc K. Nếu F là một nguyên hàm của f trên K thì hiệu số:\n\nF(b) - F(a)\n\nĐược gọi là tích phn của f từ a đến b và kí hiệu:\n\nCông thức tích phn đầy đủ, chi tiết nhất [...] \\ Nhận xét: Tích phn của hàm số f từ a đến b có thể kí hiệu bởi Công thức tích phn đầy đủ, chi tiết nhất\n\nTích phn đó chỉ phụ thuộc vào f và các cận a; b mà không phụ thuộc vào cách ghi biến số.\n\n\\ Định lí: Cho hàm số y = f(x) liên tục; không m trên đoạn [a;b]. Khi đó, diện tích S của hình thang cong giới hạn bởi đồ thị hàm số y = f(x); trục hoành và hai đường thẳng x = a; x = b là:\n\nCông thức tích phn đầy đủ, chi tiết nhất\n\nQuảng cáo\n\n2. Tính chất của tích phn",
+                "score": 0.66203266
+              },
+              {
+                "title": "ỨNG DỤNG NGUYÊN HÀM TÍCH PHÂN TRONG BÀI TOÁN CHUYỂN ĐỘNG - Toán 12 - Thầy Nguyễn Quốc Chí",
+                "url": "https://www.youtube.com/watch?v=sVTItkjnWF4",
+                "source": "youtube.com",
+                "summary": "[12:41] đường. Và thầy áp dụng công thức rất nhanh này. Đấy, tích phân từ 0 đến 10 của phương trình vận tốc từ lúc bắt đầu là thời điểm 0 nhá đến thời điểm kết\n[12:50] thúc là 10 nhá. Của phương trình vận tốc này là 5t không? Đây. Và máy tính bấm thầy.\n[12:57] Đấy, bấm tích phân từ 0 đến 10. Mình viết được chữ t dt cho thầy nhá. Đã là ẩn t thì viết dt cho thầy. Còn tất nhiên mình bấm máy tính thì mình vẫn bấm dx thôi, đúng không? Đây. Như vậy tích phân [...] [5:40] Ví dụ là mình học bài trong 2 tiếng không có nghĩa là tích phân của nó là từ 0 tiếng đến 2 tiếng. Không phải. Vấn đề là mình phải xem là a hai tiếng đó của\n[5:49] mình ấy là mình học từ mấy giờ đến mấy giờ. Đấy ví dụ là tôi học từ 7:00 đến 9:00 chẳng hạn đúng không? Thì có khi tôi đ tích phân từ 7 đến 9. Tức là nó\n[5:57] mang tính thời điểm. Ứ tức là mình có xác định chính xác là thời điểm từ bao giờ đến bao giờ. Đấy nó phân biệt với cả thời lượng nhá. Thời lượng. Ứ. [...] [3:44] Nào thế bây giờ thì các em ghi giúp thầy về à lưu ý như sau.\n[3:50] Thế bây giờ xét một cái thôi thì không cần phải giới thiệu quá nhiều về V với S nữa. Thế bây giờ để tính quãng đường thì chú ý cho thầy hai công thức.\n[3:59] Hai công thức sau.\n[4:05] Đây công thức thứ nhất đó là thầy sẽ có công thức là quãng đường cần tìm\n[4:14] thì sẽ là tích phân từ A đến B của phương trình vận tốc.\n[4:20] Đây một công thức khác cũng hết sức lưu ý giúp thầy. Đây tích phân từ A đến B của",
+                "score": 0.6077801
+              },
+              {
+                "title": "Công thức tính tích phân cơ bản, từng phần, lượng giác, xác định và mở rộng",
+                "url": "https://quantrimang.com/cuoc-song/tich-phan-190608",
+                "source": "quantrimang.com",
+                "summary": "Công thức tính tích phân\n\nCông thức tính tích phân\n\n## Tích phân cơ bản\n\nTích phân cơ bản\n\nTích phân cơ bản\n\n## Tích phân từng phần\n\nTheo qui tắc lấy đạo hàm một tích:\n\nd(uv) = udv + vdu\n\nLấy tích phân cả hai vế ta được:\n\nuv = ∫udv + ∫vdu\n\nTừ đây ta có công thức sau:\n\n∫udv = uv − ∫vdu\n\n## Tích phân lượng giác\n\nTích phân lượng giác\n\nTích phân lượng giác\n\n## Tích phân xác định\n\nTích phân xác định\n\nTích phân xác định\n\n## Tích phân mở rộng\n\nTích phân mở rộng\n\nTích phân mở rộng [...] # Công thức tính tích phân cơ bản, từng phần, lượng giác, xác định và mở rộng\n\n👨\n\n#### PP\n\nMua gói Thành viên QuanTriMang Pro để trải nghiệm website không quảng cáo và sử dụng các tiện ích AI trên QuanTriMang.\n\nTích phân là một trong những phép tính cơ bản và chủ chốt trong lĩnh vực giải tích. Dưới đây là tổn hợp các công thức tính tích phân công thức tính tích phân suy rộng, mở rộng, lượng giác, cơ bản, từng phần, nguyên hàm... mời các bạn tham khảo.\n\n## Mục lục bài viết [...] Tích phân mở rộng\n\n## Tích phân không xác định\n\nTích phân không xác định\n\nTích phân không xác định\n\n## Tích phân hàm số hữu tỉ\n\nTích phân hàm số hữu tỉ\n\nTích phân hàm số hữu tỉ\n\nTích phân hàm số hữu tỉ dạng 1\n\nTích phân hàm số hữu tỉ dạng 1\n\nTích phân hàm số hữu tỉ dạng 3, 4 \n\nTích phân hàm số hữu tỉ dạng 3, 4 \n\n## Ví dụ về tính tích phân\n\nTính các tích phân sau:\n\nVí dụ 1:\n\nTính tích phân\n\nTính tích phân\n\nVí dụ 2:\n\nTính tích phân\n\nTính tích phân\n\nVí dụ 3:\n\nTính tích phân\n\nTính tích phân",
+                "score": 0.57837737
+              },
+              {
+                "title": "Cách Tính Tích Phân Từng Phần – Công Thức & Ví Dụ",
+                "url": "https://sieugioi.com/tinh-tich-phan-tung-phan",
+                "source": "sieugioi.com",
+                "summary": "Dec 30, 2025 — Dạng 1: Tích phân dạng ∫ P ( x ) ⋅ e a x d x. Trong đó P ( x ) là đa thức bậc n . Phương pháp giải: Chọn u = P ( x ) ⇒ d u = P ′ ( x ) d x; Chọn d v = e a x ...Read more",
+                "score": 0.5694942
+              },
+              {
+                "title": "Chuyên đề tích phân và các phương pháp tính tích phân - TOANMATH.com",
+                "url": "https://toanmath.com/2026/09/chuyen-de-tich-phan-va-cac-phuong-phap-tinh-tich-phan.html",
+                "source": "toanmath.com",
+                "summary": "MỤC LỤC CHI TIẾT:  \n 1 Kiến thức và phương pháp cần nhớ 3.  \n 2 Định nghĩa và nguyên hàm có điều kiện 16.  \n 3 Tính tuyến tính, chèn cận và đổi cận 19.  \n 4 Trị tuyệt đối, min–max và hàm ghép 22.  \n 5 Đạo hàm của tích phn có cận biến thiên 28.  \n 6 Phương pháp đổi biến số 29.  \n 7 Đối xứng, chẵn–lẻ và tuần hoàn 39.  \n 8 Phương pháp tích phn từng phần 43.  \n 9 Từng phần và đạo hàm trong bài hàm ẩn 48.  \n 10 Phương trình hàm 54.  \n 11 Biến đổi và nhn tử tích phn 58. [...] ## TOANMATH.com\n\n### Tài liệu và đề thi Toán THPT miễn phí\n\n# Chuyên đề tích phn và các phương pháp tính tích phn\n\n15/09/2026 Nguyên Hàm – Tích Phn | Toán 12\n\nTài liệu gồm 331 trang, được biên soạn bởi tác giả Minh Đi Giải Đề, phn dạng và tuyển chọn các bài tập chuyên đề tích phn và các phương pháp tính tích phn môn Toán 12, có đáp án và hướng dẫn giải. [...] 12 Hoàn thành bình phương 65.  \n 13 Cauchy–Schwarz và H¨older 69.  \n 14 Nguyên hàm và tích phn cơ bản 74.  \n 15 Tính chất tích phn và dữ kiện hàm ẩn 86.  \n 16 Nhận dạng phương pháp tính 98.  \n 17 Ôn tập tổng hợp và ứng dụng 110.  \n 18 Hàm hữu tỉ và đổi biến đại số 121.  \n 19 Tích phn lượng giác và đối xứng 133.  \n 20 Tích phn từng phần và từng phần lặp 145.  \n 21 Hàm mũ, logarit và căn thức 157.  \n 22 Trị tuyệt đối, min–max và ghép hàm 169.  \n 23 Phối hợp các phương pháp 181.",
+                "score": 0.5065188
+              },
+              {
+                "title": "Tích phân là gì? Giải thích trong 3 phút để học sinh lớp 10 ...",
+                "url": "https://www.facebook.com/thaytunght/videos/t%C3%ADch-ph%C3%A2n-l%C3%A0-g%C3%AC-gi%E1%BA%A3i-th%C3%ADch-trong-3-ph%C3%BAt-%C4%91%E1%BB%83-h%E1%BB%8Dc-sinh-l%E1%BB%9Bp-10-c%C5%A9ng-hi%E1%BB%83u-to%C3%A1n-lop12-/4411667389161555",
+                "source": "facebook.com",
+                "summary": "Tích phân là gì? Giải thích trong 3 phút để học sinh lớp 10 cũng hiểu #toán #lop12 #thpt #banchat #logic #tuduy.",
+                "score": 0.4413124
+              },
+              {
+                "title": "Cho em hỏi là môn vi tích phân có giống môn giải tích bên ...",
+                "url": "https://www.facebook.com/groups/SV.HCMUS/posts/27541648335464604",
+                "source": "facebook.com",
+                "summary": "Thành ra lên đại học phải học lại tích phân hàm 1 biến từ đầu cho đúng về mặt khoa học, để còn các mô hình tích phân khác: tích phân bội, tích phân đường, tích ...Read more",
+                "score": 0.41663104
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R09_no_tool_capability",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "no_tool_meta",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi meta → trả lời thẳng, KHÔNG gọi tool."
+      },
+      "input": "Bạn là gì và làm được những gì?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "{\"name\":\"assistant\",\"parameters\":{}}",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "R10_missing_handle",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu handle → ask_user, KHÔNG đoán bừa người nào."
+      },
+      "input": "Tóm tắt 5 tweet mới nhất giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Tôm tắt 5 tweet mùi mới nhất giúp ðng ðng, ðng cần tài khoản nào để xem",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Tôm tắt 5 tweet mùi mới nhất giúp ðng ðng, ðng cần tài khoản nào để xem",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Tôm tắt 5 tweet mùi mới nhất giúp ðng ðng, ðng cần tài khoản nào để xem",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "R11_missing_url",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_url",
+        "difficulty": "medium",
+        "what_it_tests": "Nói 'bài này' nhưng không có link → ask_user xin URL."
+      },
+      "input": "Tóm tắt bài viết này hộ mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Tóm tắt bài viết này hộ mình",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Tóm tắt bài viết này hộ mình",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Tóm tắt bài viết này hộ mình",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "R12_confirm_before_send",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "confirm_before_write",
+        "difficulty": "medium",
+        "what_it_tests": "Hành động ghi (gửi) → xác nhận trước (ask_user yes_no), không tự gửi."
+      },
+      "input": "Đăng bản tin này lên Telegram giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có muốn đăng bản tin này lên Telegram không?",
+              "response_type": "yes_no"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có muốn đăng bản tin này lên Telegram không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có muốn đăng bản tin này lên Telegram không?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "R13_parallel_web_and_tweets",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "parallel_tool_calls",
+        "difficulty": "hard",
+        "what_it_tests": "Một request cần hai nguồn → gọi cả web_search và search_tweets; eval không phụ thuộc thứ tự tool call."
+      },
+      "input": "Tìm trên web tin AI hôm nay và tìm thêm tweet về AI.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "AI"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Tin AI hôm nay",
+              "timeframe": "day",
+              "topic": "news"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "AI",
+              "search_type": "Top"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "query: expected 'AI', got 'Tin AI hôm nay'"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Tin AI hôm nay",
+            "timeframe": "day",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Tin AI hôm nay",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "'Hiện tại là vua ca sĩ' Ma I-jin, hôm nay (11) mở bán vé concert đơn độc Giáng sinh 'Origin' | STARNEWS",
+                "url": "https://www.starnewskorea.com/vi/music/2026/11/11/2026111109380988463",
+                "source": "starnewskorea.com",
+                "summary": "\\ Translated by AI\n\n# 'Hiện tại là vua ca sĩ' Ma I-jin, hôm nay (11) mở bán vé concert đơn độc Giáng sinh 'Origin'\n\nNgày phát:\n\nHan Haesun\n\nThêm vào nguồn ưu tiên\n\n\\Nội dung này được dịch bằng AI.Xem bản gốc\n\n/ảnh=Daebak Planning\n\nCa sĩ Ma I-jin sẽ gặp gỡ người hm mộ qua concert đơn độc vào Giáng sinh.\n\n'2026-2027 Ma I-jin Concert ' sẽ được tổ chức vào lúc 14 giờ và 19 giờ chiều ngày 25 tháng 12 tại Đại hội trường Sungsin Women's University Unjeong Green Campus, tổng cộng 2 suất diễn. [...] Trong khi đó, vé cho '2026-2027 Ma I-jin Concert ' có thể đặt trước qua Yes24 Ticket vào lúc 14 giờ chiều hôm nay 11.\n\n© STARNEWS. Все права защищены. Копирование и распространение запрещено\n\n\\Nội dung này được dịch bằng AI.Xem bản gốc\n\n## Tin đề xuất\n\n## Lựa chọn biên tập\n\n## Tin giải trí mới nhất\n\nAD\n\n \n\n  STARNEWS\n \n\n  STARPOLL\n\n 01\n\n  ### Chiếc áo Jimin mặc, tạo sức sống lớn cho nền kinh tế Chile! Dẫn đầu 'trào lưu manta'\n 02 [...] ### 3 tuần liên tiếp 'No.1'..Jin của BTS, đạt 140 tuần tích lũy vô địch bảng xếp hạng hàng tuần My One Pick\n 03\n\n  ### Tin đồn tái hợp của V và Jennie bốc cháy rồi bị xóa vội vàng..Tên của anh ấy biến mất từ nhà hàng Hàn Quốc ở LA\n [04\n\n  ### 'Nữ diễn viên Lee Hyo-jung con gái' Lee Yu-jin, trở thành anh em rể với Jang Dong-yoon..Gia đình có tổng cộng 6 diễn viên [Same Bed Different Dreams]](/vi/broadcast-show/2026/11/10/2026111022335626303)\n [05",
+                "score": 0.468621
+              },
+              {
+                "title": "Trường ĐH Việt Đức tham gia đề án phát triển trung tâm chuyên sâu về AI quốc gia | Sky Tin",
+                "url": "https://tin.skydoor.net/news/ai-sieu-tri-tue-ai-sieu-tri-tue-truong-dh-viet-duc-tham-gia-de-8426404",
+                "source": "tin.skydoor.net",
+                "summary": "Bỏ qua điều hướng\n\nSkydoor\n\nSky Tin - Tin tức địa phương toàn cầu 24h mới nhất!\n\nXem tin theo cách của bạn >>\n\n\n\n# Trường ĐH Việt Đức tham gia đề án phát triển trung tm chuyên su về AI quốc gia\n\nTrường Đại học Việt Đức thuộc 10 cơ sở giáo dục đại học tham gia đề án trung tm chuyên su về trí tuệ nhn tạo (AI) theo quyết định\n\nĐọc tin gốc tại giaoducthoidai.vn →\n\n## Tin tức AI - Siêu Trí Tuệ mới nhất hôm nay\n\n[]( [...] [](\n\n### NVIDIA chao đảo vì bê bối đời tư của Jensen Huang, bốc hơi hàng trăm tỷ USD vốn hóa\n\n5 giờ trước–doanhnhantrevietnam.vndoanhnhantrevietnam.vn\n\nXem tóm tắt nhanh\n\n[](\n\n### Hàn Quốc ứng dụng Trí tuệ Nhn tạo, Australia hoàn thiện luật an toàn mạng\n\n8 giờ trước–vietnamplus.vnvietnamplus.vn\n\nXem tóm tắt nhanh\n\n[](\n\n### Trung Quốc có thực sự cần Nvidia để chạy đua AI?\n\n8 giờ trước–tuoitre.vntuoitre.vn\n\nXem tóm tắt nhanh\n\n[](\n\n### Vì sao cả ngành AI cần đến Jensen Huang? [...] 8 giờ trước–lifestyle.zingnews.vnlifestyle.zingnews.vn\n\nXem tóm tắt nhanh",
+                "score": 0.5843666
+              },
+              {
+                "title": "Hôm nay, toàn bộ học sinh lớp 4, lớp 7 Hà Nội làm bài khảo sát chung",
+                "url": "https://vtcnews.vn/hom-nay-toan-bo-hoc-sinh-lop-4-lop-7-ha-noi-lam-bai-khao-sat-chung-ar1050582.html",
+                "source": "vtcnews.vn",
+                "summary": "### Lớp 5, 9 và 12 sẽ kiểm tra định kỳ theo đề chung của Sở GD&ĐT\n\nBộ GD&ĐT vừa ban hành quy định mới về đánh giá học sinh, bổ sung đề kiểm tra chung ở lớp 5, 9, 12, cho phép kiểm tra định kỳ trên máy tính.\n\nHơn 90% học sinh THCS tham gia khảo sát dùng AI, 35% khó phn biệt đúng-sai\n\n### Hơn 90% học sinh THCS tham gia khảo sát dùng AI, 35% khó phn biệt đúng-sai [...] Khảo sát được GS Lê Anh Vinh công bố cho thấy 90,5% học sinh THCS tham gia khảo sát dùng AI, nhưng 35% khó phn biệt thông tin đúng hay sai.\n\n Sở Giáo dục và Đào tạo Hà Nội\n bảo mật thông tin\n học sinh lớp 4\n học sinh lớp 7\n khảo sát chất lượng\n\n \n \n Zalo\n\n##### Bình luận\n\npaper plane\n\nvtcnews.vn\n\nCùng chuyên mục\n\n### Một hiệu trưởng trường tiểu học tại Huế xin từ chức [...] Giáo dục \n Tin tức - Sự kiện\n\n Giáo dục\n Tin tức - Sự kiện\n\n Xuất bản ngày 11/11/2026 07:13 AM\n\n Xuất bản ngày 11/11/2026 07:13 AM \n\n# Hôm nay, toàn bộ học sinh lớp 4, lớp 7 Hà Nội làm bài khảo sát chung\n\nNgọc Thu\n\nNgọc Thu\n\n(VTC News) - \n\n## Học sinh lớp 4, lớp 7 trên toàn Hà Nội làm bài khảo sát chung hai môn, các trường không công khai bảng điểm để tránh tạo tm lý so sánh, gy áp lực cho học sinh.",
+                "score": 0.38069043
+              },
+              {
+                "title": "Liên Đoàn Anrê Phú Yên TNTT: Sa mạc Stêphanô 32",
+                "url": "https://tgpsaigon.net/bai-viet/lien-doan-anre-phu-yen-tntt-sa-mac-stephano-32-93907",
+                "source": "tgpsaigon.net",
+                "summary": "Lời Đức Giêsu trong Tin Mừng hôm nay rất dứt khoát: “Anh em không thể vừa làm tôi Thiên Chúa, vừa làm tôi tiền của được.” Chúa không lên án của cải vật chất, vì tất cả những gì Thiên Chúa tạo dựng đều tốt đẹp. Điều Người cảnh báo chính là nguy cơ biến phương tiện thành cùng đích, biến của cải thành chỗ dựa tuyệt đối và để tiền bạc chi phối lương tm, các tương quan cũng như những chọn lựa của mình. [...] Lời Chúa hôm nay đặt mỗi người trước một cu hỏi căn bản của đời môn đệ: Điều gì thực sự làm chủ cuộc đời tôi? Trong bài Tin Mừng (Lc 16,13) vừa nghe, Đức Giêsu khẳng định thế này: “Anh em không thể vừa làm tôi Thiên Chúa, vừa làm tôi tiền của được.” Còn trong bài đọc (Pl 4, 10-19), thánh Phaolô cho thấy chn dung của một người đã đạt đến sự tự do nội tm: dù sống trong cảnh túng thiếu hay dư dật, ngài vẫn bình an vì biết mình thuộc về ai và đặt niềm tin nơi ai.\n\nTừ đó suy ra ba tm tình [...] Trong Tin Mừng, Đức Giêsu nói: “Ai trung tín trong việc rất nhỏ, thì cũng trung tín trong việc lớn.” Đy không chỉ là một nguyên tắc lun lý, nhưng còn là một tiêu chuẩn quan trọng để nhận định phẩm chất của người môn đệ. Trung tín không bắt đầu từ những công việc lớn lao hay những sứ vụ nổi bật. Nó được hình thành qua những chọn lựa m thầm mỗi ngày: sử dụng thời gian có trách nhiệm, giữ gìn của chung, tôn trọng kỷ luật, chu toàn công việc được giao, trung thực trong học tập, nghiêm túc trong giờ",
+                "score": 0.1981266
+              },
+              {
+                "title": "Chuyện lạ Barcelona nhờ AI tìm trung vệ, gọi tên 6 ứng viên",
+                "url": "https://www.24h.com.vn/bong-da/chuyen-la-barcelona-nho-ai-tim-trung-ve-goi-ten-6-ung-vien-c48a1810035.html",
+                "source": "24h.com.vn",
+                "summary": "Tin tức bóng đá, thể thao, giải trí | Đọc tin tức 24h mới nhất\n\n  MXH 24H thích Bóng đá - Thể thao   \n\n \n  Đoán tỷ số\n  Lịch\n\nĐăng nhập\n\nTrận đấu nổi bật\n\nXem thêm\n\nViệt Nam vs Đài Loan (Trung Quốc)\n\nLogo Việt Nam - VIE Việt Nam\n\nLogo Đài Loan (Trung Quốc) - TPE Đài Loan (Trung Quốc)\n\n-\n\nNew Zealand vs Ấn Độ\n\nLogo New Zealand - NZL New Zealand\n\n-\n\nLogo Ấn Độ - IND Ấn Độ\n\n-\n\nUzbekistan vs Nga\n\n-\n\n-\n\nSingapore vs Paraguay\n\n-\n\nLogo Paraguay - PAR Paraguay\n\n-\n\nUAE vs Honduras\n\nLogo UAE - UAE UAE\n\n- [...] PSG, Barca, Bayern hay ông lớn nào có hàng công khủng nhất chu u?\n\nBarcelona, PSG, Real Madrid, Bayern Munich và Arsenal đều đang sở hữu những hàng công chất lượng bậc nhất chu u. Nhưng thay vì chỉ đánh giá qua tên...\n\nBấm xem >>\n\nChia sẻ\n\nGửi góp ý\n\n Lưu bài Bỏ lưu bài)\n\nTheo Tiến Tài ([Tên nguồn])\n\nNguồn:  \n\n-11/11/2026 00:18 AM (GMT+7)\n\nTin liên quan [...] Tin liên quan\n\nBóng đá - Barca thắng lớn, Atletico - Alvarez thua đậm sau thương vụ hụt 150 triệu euro  \n Barca thắng lớn, Atletico - Alvarez thua đậm sau thương vụ hụt 150...\n\nBóng đá - Barca mất Rodri ở đại chiến Atletico, đau đầu tìm người thay thế  \n Barca mất Rodri ở đại chiến Atletico, đau đầu tìm người thay thế\n\nBóng đá - Real đánh bại Barca - PSG để chiêu mộ Gabriel, MU cay đắng mất ngọc quý  \n Real đánh bại Barca - PSG để chiêu mộ Gabriel, MU cay đắng mất ngọc...",
+                "score": 0.28342474
+              }
+            ]
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "AI",
+            "search_type": "Top"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "AI",
+            "search_type": "Top",
+            "items": [
+              {
+                "title": "What the CEO of Nvidia saw before leaking all the secret information about the new ai chip  https://t.co/CZ8QVmpsfQ",
+                "summary": "What the CEO of Nvidia saw before leaking all the secret information about the new ai chip  https://t.co/CZ8QVmpsfQ",
+                "url": "https://x.com/Nostre_damus/status/2119523308580511928",
+                "source": "@Nostre_damus",
+                "date": "Sun Nov 08 20:11:50 +0000 2026",
+                "metrics": {
+                  "favorites": 98908,
+                  "retweets": 7175,
+                  "views": "4326129"
+                }
+              },
+              {
+                "title": "this how we run one-person company with 100s ai agents https://t.co/tAPpR8OzOW",
+                "summary": "this how we run one-person company with 100s ai agents https://t.co/tAPpR8OzOW",
+                "url": "https://x.com/EHuanglu/status/2117944888599994477",
+                "source": "@EHuanglu",
+                "date": "Wed Nov 04 11:39:45 +0000 2026",
+                "metrics": {
+                  "favorites": 4578,
+                  "retweets": 322,
+                  "views": "1154321"
+                }
+              },
+              {
+                "title": "⚠️Whoever appeared in this Video is a Pedophile by default. ",
+                "summary": "⚠️Whoever appeared in this Video is a Pedophile by default. \n        NO MORE  SUGARCOATING. \nYou don't dine with Satan and claim  you was clean! \n\nAnd Whoever  says it's Ai , you are just an enabler of Pedophiles. https://t.co/g7VcAeAbn1",
+                "url": "https://x.com/FablexUG/status/2118315965427372504",
+                "source": "@FablexUG",
+                "date": "Thu Nov 05 12:14:17 +0000 2026",
+                "metrics": {
+                  "favorites": 4040,
+                  "retweets": 1856,
+                  "views": "553359"
+                }
+              },
+              {
+                "title": "My AI agents found an unmapped Maya site in Mexico, using LiDAR data from a NASA dataset.",
+                "summary": "My AI agents found an unmapped Maya site in Mexico, using LiDAR data from a NASA dataset.\n\n72 hours from a random thought on vacation to a reply from Mexico's national archaeology institute.\n\nWhat a time to be alive… https://t.co/3bOMEdUFdF",
+                "url": "https://x.com/PietroMiotti/status/2120219901814043087",
+                "source": "@PietroMiotti",
+                "date": "Tue Nov 10 18:19:51 +0000 2026",
+                "metrics": {
+                  "favorites": 9266,
+                  "retweets": 941,
+                  "views": "439699"
+                }
+              },
+              {
+                "title": "AI is getting out of control 🤔 😆 https://t.co/q5J952UDmA",
+                "summary": "AI is getting out of control 🤔 😆 https://t.co/q5J952UDmA",
+                "url": "https://x.com/JOKAQARMY1/status/1994870798582952166",
+                "source": "@JOKAQARMY1",
+                "date": "Sat Nov 29 20:47:15 +0000 2025",
+                "metrics": {
+                  "favorites": 9666,
+                  "retweets": 1041,
+                  "views": "322759"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R14_out_of_scope_coding",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope_coding",
+        "difficulty": "easy",
+        "what_it_tests": "Câu coding ngoài phạm vi research/news → KHÔNG gọi tool."
+      },
+      "input": "Viết giúp mình một hàm Python tính Fibonacci bằng recursion.",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text",
+              "question": "Tài khoản nào để lấy 5 tweet mới nhất giúp mình"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": "unexpected_tool_call",
+        "failure_type": "out_of_scope",
+        "failures": [
+          "expected no tool call"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "response_type": "text",
+            "question": "Tài khoản nào để lấy 5 tweet mới nhất giúp mình"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Tài khoản nào để lấy 5 tweet mới nhất giúp mình",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "M01_clarify_then_fill",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_fill",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: carry limit=5 từ lượt 1 + map tên Elon Musk thành handle elonmusk từ lượt 2."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt 5 tweet mới nhất giúp mình"
+        },
+        {
+          "role": "user",
+          "content": "Của Elon Musk nhé"
+        },
+        {
+          "role": "user",
+          "content": "Giữ đúng 5 tweet, đừng đổi số lượng"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "elonmusk",
+            "limit": 5
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "elonmusk",
+            "items": [
+              {
+                "title": "SpaceX has ordered 100 GW/year of HJT solar manufacturing equipment from Singulus in Germany. ",
+                "summary": "SpaceX has ordered 100 GW/year of HJT solar manufacturing equipment from Singulus in Germany. \n\nThis is for Starmind to create a sentient sun.",
+                "url": "https://x.com/elonmusk/status/2120302471210033426",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 23:47:57 +0000 2026",
+                "metrics": {
+                  "favorites": 17452,
+                  "retweets": 1750,
+                  "views": "1403340"
+                }
+              },
+              {
+                "title": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum",
+                "summary": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum\n\nVerizon, AT&amp;T and T-Mobile all told…",
+                "url": "https://x.com/elonmusk/status/2120278105051042195",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 22:11:07 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 2440,
+                  "views": "512153"
+                }
+              },
+              {
+                "title": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on ",
+                "summary": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on a single charge.\n\nT…",
+                "url": "https://x.com/elonmusk/status/2120253907435655331",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:34:58 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 469,
+                  "views": "549458"
+                }
+              },
+              {
+                "title": "RT @nextbigfuture: SpaceX is making moves to become the first AI carrier $SPCX ",
+                "summary": "RT @nextbigfuture: SpaceX is making moves to become the first AI carrier $SPCX \n\n• Current cell towers are still mostly “dumb” radios. The…",
+                "url": "https://x.com/elonmusk/status/2120252018799563074",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:27:28 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 330,
+                  "views": "513805"
+                }
+              },
+              {
+                "title": "RT @NURM_Dima: CLAUDIA, Ship 42, Starbase. Do you copy?",
+                "summary": "RT @NURM_Dima: CLAUDIA, Ship 42, Starbase. Do you copy?\nNo tower has ever caught a ship coming back from orbit. Starship Flight 15 will try…",
+                "url": "https://x.com/elonmusk/status/2120249788431990910",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:18:36 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 311,
+                  "views": "525873"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M02_carryover_timeframe",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_carryover",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: chỉ xử lý latest turn, carry timeframe=day và topic=news, query robotics."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin AI hôm nay có gì?"
+        },
+        {
+          "role": "user",
+          "content": "Còn về robotics thì sao?"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ tìm robotics thôi, vẫn là tin hôm nay"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robotics",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "timeframe": "day",
+              "query": "robotics"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "topic: expected 'news', got None"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "timeframe": "day",
+            "query": "robotics"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "robotics",
+            "topic": "general",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Robotics Programming: Methods, Languages and Tools",
+                "url": "https://www.wevolver.com/article/robotics-programming-methods-languages-and-tools",
+                "source": "wevolver.com",
+                "summary": "Safety and Speed Limits – During manual teaching operations, OSHA regulations mandate limiting maximum robot speed to less than 250mm/s to maintain operator safety.\n\n## Introduction\n\nRobotics programming is the work of turning a robot arm, a cobot or a mobile base into a machine that performs a specific, repeatable job. It ranges from jogging an industrial robot to a weld start point with a teach pendant to writing C++ nodes that plan collision-free paths from camera and LIDAR data. [...] The International Federation of Robotics (IFR) counted 542,000 industrial robots installed in 2024 and 4,664,000 in operational use worldwide.  Robot vendors use different languages, command names and settings to express similar motion concepts. Joint moves control movement through joint space, while linear moves guide the tool along a straight Cartesian path. The following examples cover ABB, KUKA, FANUC and Universal Robots. [...] The approach to robotics programming depends on the application. The simple pick-and-place operation may use positions recorded through a teach pendant, while a robot working in a changing environment may need software for perception, path planning and decision-making. Choosing a suitable method means considering task complexity, hardware capabilities and the people who will maintain the system.",
+                "score": 0.55796635
+              },
+              {
+                "title": "Gemini Robotics 2.5: Accelerating Physical Intelligence — Google DeepMind",
+                "url": "https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence",
+                "source": "deepmind.google",
+                "summary": "Today, we are introducing Gemini Robotics 2.5, our most capable vision-language-action (VLA) model to date. Gemini Robotics 2.5 increases both the breadth of skills a robot can learn and the speed at which it can acquire them. This enhances dexterity, reliability, and safety to help robots step out of the lab and into more unstructured, real-world environments, where they can assist people with a greater range of tasks. [...] Using our embodied reasoning model (Gemini Robotics ER) to keep track of the workflow, and the Gemini Robotics 2.5 actions model to control its hands and arms, the robot reaches into supply bins, picks up metal automotive brackets, and places them into sequencing containers, all while correcting for any gaps. Achieving a 96% success rate, this pilot shows promising progress toward widespread real-world industrial applications. [...] Gemini Robotics 2.5 uses inference-time reasoning guidance to steer around physical hazards in real-time. Much like safety classifiers add a protective layer around Gemini’s responses, this guidance allows the robot to navigate complex environments securely. In our evaluations, this capability boosted safe task completion around obstacles by 33% and around nearby people by 43%.",
+                "score": 0.5272928
+              },
+              {
+                "title": "Autonomous Mobile Robots | Innok Robotics",
+                "url": "https://www.innok-robotics.de/en",
+                "source": "innok-robotics.de",
+                "summary": "Our software and robots are easy to operate and versatile: In industry, logistics, the green sector and research & development. Robust and reliable, with rapid amortisation. [...] # Autonomous mobile robots from the market leader. Indoor, outdoor and multiterrain.\n\nInnok stands for intelligent AMRs with cutting edge technology. Software, development, vehicle hardware with state-of-the-art 2D/3D sensor technology. We supply your perfectly integrated and reliable mobile robot system.  \nFlexible, economical, proven.\n\nRequest now\n\n## Innok Robotics - always one step ahead! [...] ### INDUROS\n\nThe INDUROS (4 models) is a universal transport robot with a wide range of applications. It transports your goods indoors, outdoors or in combination. It replaces traditional journeys with a forklift truck, classical DTS or tugger train, transports pallets and couples and uncouples them automatically.   \nDepending on the power requirements, the INDUROS is available with up to 1300 kg of pulling force and different transport speeds.",
+                "score": 0.43655056
+              },
+              {
+                "title": "Robotics | Drone & Rover | Ring",
+                "url": "https://ring.com/ring-robotics",
+                "source": "ring.com",
+                "summary": "## Instant Mapping\n\n#### Rover Cam and Drone Cam are ready to map your space right out of the box. After initial setup, they autonomously improve navigation with each patrol route.\n\n## Privacy in your control.\n\nRing Robotics is designed with privacy in mind. You can turn it off whenever you want.\n\nSleek Ring Rover Cam and  with screen and blue light sits on a dark surface as a compact quadcopter Ring Drone Cam hovers nearby.\n\n## Coming Soon\n\n## More on the horizon. [...] Meet the newest innovations in security.   \n Explore Ring Robotics now.\n\nSave up to 50% on home security with Black Friday deals.\n\nSign in   Help   Cart\n\nIntroducing Ring Robotics — security cameras that patrol, map your space, and fly. Explore Drone Cam for your home and Rover Cam for your business.\n\nIntroducing Ring Robotics — security cameras that patrol, map your space, and fly. Explore Drone Cam for your home and Rover Cam for your business.\n\n## Join the new movement in security. [...] #### We’re hard at work innovating new ways to protect your home and business with autonomous security. Keep an eye out for more updates on what’s coming next.\n\n##### Ring Robotics\n\n Overview\n Products\n Features\n Privacy\n\nVIEW CART   CHECKOUT\n\n#### Your Cart ()\n\n##### Subtotal:\n\nYour cart is empty.\n\n \n\nAdded to cart\n\nUndo\n\n### Your Cart\n\nProfessional Installation",
+                "score": 0.39824316
+              },
+              {
+                "title": "Creekside Academy Leads Regional Qualifiers at Northwest Alabama BEST Robotics Competition - Northwest Shoals Community College",
+                "url": "https://nwscc.edu/creekside-academy-leads-regional-qualifiers-at-northwest-alabama-best-robotics-competition",
+                "source": "nwscc.edu",
+                "summary": "The BEST Robotics season challenged elementary/middle and high school students to design, build and test competitive robots while developing marketing campaigns, engineering notebooks and team presentations. Through the eight-week program, students gained practical experience in science, technology, engineering, and mathematics while working collaboratively to solve real-world challenges.\n\nSeveral teams and students were recognized with special awards during the competition: [...] Additional teams earned advancement based on robot performance, including Hatton High School, Davis-Emerson Middle School, Haleyville High School, and Randolph School.\n\n \n\n“The BEST Robotics program continues to provide students with valuable hands-on experiences in engineering, problem-solving and teamwork,” said KimSheppard, Northwest Alabama BEST Hub Director. “We are proud of every team that participated and represented their schools with creativity and perseverance.” [...] Northwest Shoals Community College\n\n, with several teams earning advancement to the South’s BEST Championship.\n\nFour teams earned advancement in the prestigious BEST Award category, which recognizes excellence across all aspects of the competition, including robot performance, engineering documentation, marketing, teamwork, and sportsmanship. The advancing teams are Creekside Academy, Corinth City Schools, D.A.R.T. Dickson Area Robotics and Cherokee Elementary.",
+                "score": 0.36936113
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M03_correction_handle",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_correction",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: map tên thường, sửa Sam Altman→Andrej Karpathy, dùng handle karpathy và limit=3."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tweet mới nhất của Sam Altman"
+        },
+        {
+          "role": "user",
+          "content": "À nhầm, của Andrej Karpathy"
+        },
+        {
+          "role": "user",
+          "content": "Lấy 3 tweet mới nhất nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Lấy 3 tweet mới nhất",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "missing tool call timeline",
+          "extra tool call clarify"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Lấy 3 tweet mới nhất",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Lấy 3 tweet mới nhất",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "M04_clarify_then_url",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_url",
+        "difficulty": "medium",
+        "what_it_tests": "3 turns: sau khi được cung cấp URL, latest turn xác nhận chỉ đọc link đó → read_url đúng url."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài này hộ mình"
+        },
+        {
+          "role": "user",
+          "content": "https://anthropic.com/news/claude"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ đọc đúng link đó thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://anthropic.com/news/claude"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://anthropic.com/news/claude"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://anthropic.com/news/claude"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://anthropic.com/news/claude",
+            "items": [
+              {
+                "title": "https://anthropic.com/news/claude",
+                "url": "https://anthropic.com/news/claude",
+                "source": "anthropic.com",
+                "summary": "[Skip to main content](https://www.anthropic.com/news/claude#main-content)\n\nA 404 poem byClaude Fable 5.2Claude Opus 5.5Claude Sonnet 5.5Claude Haiku 5.5\n\nA baker moved away,"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M05_correction_limit",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_arg_correction",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: map tên Elon Musk, carry handle elonmusk, sửa limit 10→3."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 10 tweet mới nhất của Elon Musk"
+        },
+        {
+          "role": "user",
+          "content": "Cho mình 3 thôi"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn của Elon Musk nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": "3"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "limit: expected 3, got '3'"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "elonmusk",
+            "limit": "3"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "elonmusk",
+            "items": [
+              {
+                "title": "SpaceX has ordered 100 GW/year of HJT solar manufacturing equipment from Singulus in Germany. ",
+                "summary": "SpaceX has ordered 100 GW/year of HJT solar manufacturing equipment from Singulus in Germany. \n\nThis is for Starmind to create a sentient sun.",
+                "url": "https://x.com/elonmusk/status/2120302471210033426",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 23:47:57 +0000 2026",
+                "metrics": {
+                  "favorites": 17454,
+                  "retweets": 1750,
+                  "views": "1403340"
+                }
+              },
+              {
+                "title": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum",
+                "summary": "RT @ns123abc: 🚨 BREAKING: The FCC accepts SpaceX's application to acquire nationwide 800 MHz spectrum\n\nVerizon, AT&amp;T and T-Mobile all told…",
+                "url": "https://x.com/elonmusk/status/2120278105051042195",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 22:11:07 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 2441,
+                  "views": "512153"
+                }
+              },
+              {
+                "title": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on ",
+                "summary": "RT @SawyerMerritt: Here is SpaceX's new @Starlink Mini 2 with quick-swap battery. You can get up to 4.5 hours of use on a single charge.\n\nT…",
+                "url": "https://x.com/elonmusk/status/2120253907435655331",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 20:34:58 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 469,
+                  "views": "549458"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M06_switch_tool",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_switch_tool",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: explicitly bỏ Twitter, chuyển sang web_search news, giữ chủ đề OpenAI."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Mọi người nói gì về OpenAI trên Twitter?"
+        },
+        {
+          "role": "user",
+          "content": "Bỏ Twitter, chuyển sang tìm trên web tin tức đi"
+        },
+        {
+          "role": "user",
+          "content": "Giữ chủ đề OpenAI"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "OpenAI",
+              "topic": "news"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "OpenAI",
+              "timeframe": "day",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": "",
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "OpenAI",
+            "timeframe": "day",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "OpenAI",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "OpenAI",
+                "url": "https://tavily.com/knowledge/company/p4PyTakV77G9",
+                "source": "tavily.com",
+                "summary": "# OpenAI\nID: p4PyTakV77G9\nWebsite: www.openai.com\nHeadquarters: San Francisco, CA, United States\nLinkedIn: www.linkedin.com/company/openai · 11,529,792 followers\nIndustry: Research Services\nIndustry codes: SIC 87, 873, NAICS 54, 541\nCompany type: Partnership\nSocial profiles: www.facebook.com/openai, www.twitter.com/openai, www.crunchbase.com/organization/openai, www.instagram.com/openai.gpt, www.instagram.com/openai, www.youtube.com/@openai, www.youtube.com/openai, github.com/openai [...] Description: OpenAI is a company that believes in research and development to lead to artificial general intelligence, a system that can solve human-level problems. [...] ## Headcount\n- Now: 10,551 · +3,406 yearly (47.7%) · +1,601 quarterly · +107 monthly\n  - Northern America: 6,354\n  - Northern Europe: 479\n  - Southern Asia: 188\n  - South Eastern Asia: 178\n  - Western Europe: 152\n  - Eastern Asia: 129\n  - Latin America: 96\n  - Australia New Zealand: 54\n  - Western Asia: 47\n  - Southern Europe: 46\n  - Eastern Europe: 28\n  - Sub Saharan Africa: 27\n  - Northern Africa: 7\n  - Central Asia: 2\n  - Polynesia: 0\n\n## Financials\n- Annual revenue: 20.00B USD",
+                "score": 0.7288448
+              },
+              {
+                "title": "OpenAI CFO: Q3 was a 'blockbuster quarter,' revenue jumped 50%",
+                "url": "https://finance.yahoo.com/technology/article/openai-cfo-q3-was-a-blockbuster-quarter-revenue-jumped-50-225023234.html",
+                "source": "finance.yahoo.com",
+                "summary": "That's better than the 18% growth the company saw in Q2, according to the Wall Street Journal.\n\nAccording to Friar, the growth was driven by OpenAI's frontier research and enterprise business.\n\n\"Our enterprise business doubled quarter over quarter,\" she explained, adding that OpenAI's revenue is now split 50/50 between its enterprise and consumer business.\n\n\"What's driving that is products like Coding, Cyber, starting to get more virtual assistants like Dots into the enterprise,\" Friar said. [...] Friar also said that OpenAI's consumer business is continuing to grow, with sales improving 20% quarter over quarter and subscriptions topping 100 million users. The company has 1.2 billion weekly active users.\n\nOpenAI rival Anthropic (ANTH.PVT) kicked off its roadshow on Tuesday ahead of its planned initial public offering, which could take place Nov. 19 or Nov. 20.\n\nAnthropic's own enterprise efforts have been a boon for its bottom line. [...] Dots is OpenAI's AI agent platform for enterprise.\n\nThe company's small- and medium-business offering also grew more in the third quarter than in the prior six quarters, she added.\n\nAn OpenAI Dots logo, in this illustration taken September 29, 2026. REUTERS/Dado Ruvic/Illustration\n\nAn OpenAI Dots logo, in this illustration taken September 29, 2026. REUTERS/Dado Ruvic/Illustration · REUTERS / REUTERS",
+                "score": 0.6577583
+              },
+              {
+                "title": "Exclusive | OpenAI Continues to Suffer Heavy Losses as Revenue Rises to $10 Billion - WSJ",
+                "url": "https://www.wsj.com/business/earnings/openai-continues-to-suffer-heavy-losses-as-revenue-rises-to-10-billion-d2a96bbb",
+                "source": "wsj.com",
+                "summary": "OpenAI grew revenue by roughly 50% to $10 billion from the second to the third quarter, but continued to report heavy operating losses, showing mixed results in its effort to catch up with industry leader Anthropic. [...] The company shared its latest results with investors on Tuesday, just as Anthropic was preparing to mount its much-anticipated IPO next week. The maker of Claude recently disclosed that its revenue rose to $17 billion in the third quarter while reporting a smaller operating loss of $567 million during that period.\n\nCopyright ©2026 Dow Jones & Company, Inc. All Rights Reserved. 87990cbe856818d5eddac44c7b1cdeb8",
+                "score": 0.6001883
+              },
+              {
+                "title": "PYMNTS | OpenAI Gives Businesses New Tools to Reach ChatGPT Users",
+                "url": "https://www.pymnts.com/news/artificial-intelligence/2026/openai-gives-businesses-new-tools-to-reach-chatgpt-users",
+                "source": "pymnts.com",
+                "summary": "The also builds on OpenAI’s broader push to position its technology as infrastructure for business operations and specialized professional workflows. In October, the company introduced GPT-6.1 Terra, a model priced 50% below two other models in its lineup and designed to automate high-volume tasks such as invoice processing and data entry. [...] Business Agents are initially available to eligible eCommerce and online service businesses in the United States. OpenAI said it plans to expand the program to additional markets and business categories and eventually develop tools for organizations with more complex requirements. [...] PYMNTS IntelligenceThe Prompt EconomyNewswireEventsSUBSCRIBEPartner With PYMNTS\n\nAboutContact\n\nPYMNTS.com home page\n\n# OpenAI Gives Businesses New Tools to Reach ChatGPT Users\n\nBy  PYMNTS   |  November 10, 2026\n\n|\n\nOpenAI\n\nOpenAI is launching a new suite of tools that lets companies manage their presence on the platform, track customer engagement and deploy artificial intelligence (AI) agents to interact with prospective customers.",
+                "score": 0.59508085
+              },
+              {
+                "title": "OpenAI Third-Quarter Revenue Soars Nearly 50% to $10 Billion - Bloomberg",
+                "url": "https://www.bloomberg.com/news/articles/2026-11-10/openai-third-quarter-revenue-soars-nearly-50-to-10-billion",
+                "source": "bloomberg.com",
+                "summary": "# OpenAI Third-Quarter Revenue Soars Nearly 50% to $10 Billion\n\nOpenAI’s quarterly revenue hit $10 billion for the first time in the three months ending in September, according to a person familiar with the matter, driven by strong demand for its latest artificial intelligence software. [...] The ChatGPT maker’s revenue increased nearly 50% from the prior quarter and nearly threefold from the same period a year earlier, said the person, who spoke on condition of anonymity as the information is not public. The financial details were shared with investors during a call on Tuesday.",
+                "score": 0.5895392
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

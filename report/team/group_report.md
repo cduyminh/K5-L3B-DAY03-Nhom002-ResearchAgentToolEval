@@ -240,7 +240,7 @@ Chỉ điền nếu nhóm làm bonus (ghi riêng, tối đa 10 điểm). Tool c�
 
 | Bonus | Evidence File | What Worked | Risk / Guardrail |
 |---|---|---|---|
-| Small Local Model | xem B7 | (điền sau khi chạy local) | |
+| Small Local Model | B7; run `starter_v0/runs/*-qwen7b_*`, `*-llama3b_*`, `v5-local-cloud_*`; prompt local `starter_v0/artifacts/local/` | 2 model local (qwen2.5:7b, llama3.2:3b) chạy base eval; 2 vòng tối ưu (v4-local, v5-local) có log; v5-local: qwen 0.85 → 0.90, llama 0.25 → 0.55 (v4-local 0.60), chạy ngược trên cloud vẫn 1.00 | Prompt local tách riêng trong `artifacts/local/`, không đổi bản cloud |
 | Hơn 3 tool mới (≥ 4) | `starter_v0/tools/{hn_search,summarize_text,extract_sentences,claim_evidence_matrix}/` (mỗi tool có `tool.py` + `TOOL.md`), đăng ký trong `tools/__init__.py` và `artifacts/tools.yaml`; 3 test/tool trong `tests/test_tools_todo.py`; eval case route tới: G05 (`hn_search`), G11 (`summarize_text`), G12 (`extract_sentences`), G13 (`claim_evidence_matrix`) | Run `starter_v0/runs/v8_B_group_openrouter_20261111T092614630924.json`: G05, G11, G12, G13 đều PASS (28 case: 27/28) | Tool chỉ xử lý dữ liệu user đưa, không gọi mạng (trừ `hn_search`); trả error dict thay vì raise. `word_count` có folder nhưng chưa đăng ký, không tính |
 | `send` gửi thật lên Telegram sau xác nhận | Hội thoại 4 lượt trên UI: [`starter_v0/transcripts/v8_openrouter_20261111T095155580209.transcript.json`](../../starter_v0/transcripts/v8_openrouter_20261111T095155580209.transcript.json); 4 ảnh `report/team/assets/telegram_flow_*.png` | Tìm tin → tìm tweet → gộp bản tin + yêu cầu đăng (model tự gọi `send`, **cổng chặn**, agent hỏi xác nhận) → "Có, gửi đi" → `status: sent`, biên nhận `message_id=5`, group "Nhom002 Bản tin" 09:54. Chi tiết và cách kiểm tra ở **B5b** | Private group của nhóm; cổng `approval.py`; token/chat id chỉ trong `.env` (gitignore) |
 | Test challenge (0 skipped / regression test) | `pytest` output | `cd starter_v0 && pytest -q` → **102 passed, 0 skipped, 0 failed**: mọi stub `pytest.skip(TODO)` trong `tests/test_tools_todo.py` đã được điền | Test dùng fake HTTP, không gọi mạng thật |
@@ -286,29 +286,37 @@ Test challenge: số bug tìm được trong tool có sẵn (nếu có), cách s
 
 ### B7. Small Local Model Challenge (bonus)
 
-Chỉ điền nếu nhóm làm bonus này.
+Setup: Ollama 0.40.15 (`brew install ollama`, model lưu trên ổ ngoài qua `OLLAMA_MODELS`), 2 model có tool calling: `qwen2.5:7b` (4.7 GB) và `llama3.2:3b` (2.0 GB). Preflight `python scripts/preflight_provider.py --provider ollama --model qwen2.5:7b` → `OK … tool=timeline args={'limit': 1, 'screenname': 'sama'}`. Mọi run dùng **tools v3** (`artifacts/versions/v3/tools.yaml`) để chỉ so sánh prompt; prompt riêng cho local nằm ở `starter_v0/artifacts/local/` (không đụng bản cloud). Bộ base 20 case, 0 provider error ở mọi run.
 
 | Version | Model (provider) | Prompt/Tools | case_accuracy | tool_routing | argument | multiturn | Run File |
-|---|---|---|---|---|---|---|---|
-| v3 | (cloud) | v3 |  |  |  |  |  |
-| v3-<model> | (ollama) | v3 |  |  |  |  |  |
-| v3-<model> | (ollama) | v3 |  |  |  |  |  |
-| v4-local |  |  |  |  |  |  |  |
-| v5-local |  |  |  |  |  |  |  |
+|---|---|---|---:|---:|---:|---:|---|
+| v3 | gpt-4o-mini (OpenRouter) | v3 / v3 | 1.00 | 1.00 | 1.00 | 1.00 | `runs/v3_B_base_openrouter_20261110T180224950196.json` |
+| v3-qwen7b | qwen2.5:7b (ollama) | v3 / v3 | 0.85 | 0.90 | 0.85 | 0.83 | `runs/v3-qwen7b_B_base_ollama_20261111T100137799373.json` |
+| v3-llama3b | llama3.2:3b (ollama) | v3 / v3 | 0.25 | 0.40 | 0.25 | 0.33 | `runs/v3-llama3b_B_base_ollama_20261111T101244991021.json` |
+| v4-local-qwen7b | qwen2.5:7b (ollama) | `local/system_prompt_v4_local.md` / v3 | 0.70 | 0.70 | 0.70 | 0.67 | `runs/v4-local-qwen7b_B_base_ollama_20261111T100454052219.json` |
+| v4-local-llama3b | llama3.2:3b (ollama) | `local/system_prompt_v4_local.md` / v3 | 0.60 | 0.80 | 0.60 | 0.67 | `runs/v4-local-llama3b_B_base_ollama_20261111T101336525648.json` |
+| v5-local-qwen7b | qwen2.5:7b (ollama) | `local/system_prompt_v5_local.md` / v3 | **0.90** | 0.90 | 0.90 | 1.00 | `runs/v5-local-qwen7b_B_base_ollama_20261111T100634029322.json` |
+| v5-local-llama3b | llama3.2:3b (ollama) | `local/system_prompt_v5_local.md` / v3 | 0.55 | 0.80 | 0.55 | 0.50 | `runs/v5-local-llama3b_B_base_ollama_20261111T101420331497.json` |
+| v5-local-cloud | gpt-4o-mini (OpenRouter) | `local/system_prompt_v5_local.md` / v3 | **1.00** | 1.00 | 1.00 | 1.00 | `runs/v5-local-cloud_B_base_openrouter_20261111T100801408427.json` |
 
-Lỗi đặc thù của model nhỏ (đếm từ run JSON):
+Hai vòng tối ưu (mỗi vòng một giả thuyết, cùng tools v3):
+- **v4-local** — giả thuyết "model nhỏ làm theo ví dụ tốt hơn làm theo luật": thêm 5 ví dụ few-shot vào prompt v3, viết dạng `clarify(question=…, response_type="text")`, `lookup(query="robotics", …)`.
+- **v5-local** — giả thuyết "ví dụ viết dạng `tool(args)` làm model chép thành text": giữ nội dung 5 ví dụ nhưng mô tả bằng lời ("call the clarify tool with response_type set to text"), và nói rõ phải gọi qua tool-calling interface, không viết tên tool/args thành chữ.
 
-| Failure Pattern | Count | Example Case | Fix Tried | Helped? |
+Lỗi đặc thù của model nhỏ (đếm tự động từ `result.failures` / `actual_tool_calls` / `actual_text` của 6 run local; một case có thể thuộc nhiều nhóm):
+
+| Failure Pattern | Count (v3 → v4-local → v5-local) | Example Case | Fix Tried | Helped? |
 |---|---|---|---|---|
-| wrong / hallucinated tool |  |  |  |  |
-| invalid JSON args (`_invalid_json_arguments`) |  |  |  |  |
-| no tool call / answered directly |  |  |  |  |
-| missed `clarify` |  |  |  |  |
-| repeated / unnecessary calls |  |  |  |  |
+| wrong / hallucinated tool | qwen 1 → 0 → 1; llama 6 → 3 → 2 | llama v3 R03 "Tin AI hôm nay" gọi `social_search(query="Tin AI hôm nay", search_type="Top")` thay vì `lookup`; qwen R10 tự chọn `timeline(screenname="elonmusk")` | Ví dụ routing (v4/v5-local) | Có với llama (6 → 2); qwen R10 vẫn đoán tài khoản |
+| invalid JSON args (`_invalid_json_arguments`) | 0 ở mọi run | — | — | Không gặp |
+| no tool call / answered directly | qwen 1 → 0 → 0; llama 0 → 0 → 0 | qwen v3 R11: hỏi link bằng chữ thay vì gọi `clarify` | Ví dụ "luôn trả lời bằng tool call" | Có (1 → 0) |
+| **tool call viết thành text** | qwen 0 → **6** → 0; llama 3 → 0 → 0 | qwen v4-local R10: text `clarify(question="Bạn muốn xem tweet của tài khoản nào?", response_type="text")`, không có `tool_calls`; llama v3 R04/R11/R12: in JSON `{"name": …, "parameters": …}` ra text | llama: ví dụ routing (v4-local); qwen: v5-local bỏ cú pháp `tool(args)` trong ví dụ | Có (llama 3 → 0; qwen 6 → 0) |
+| missed `clarify` | qwen 2 → 2 → 1; llama 3 → 1 → 0 | R10/R11 thiếu tài khoản/URL; llama v4-local R12 gọi `send` ngay thay vì `clarify` (không có `confirmed`, tool trả `needs_confirmation`, không gửi thật) | Ví dụ clarify | Có, chưa hết với qwen R10 |
+| repeated / unnecessary calls | 0 ở mọi run | — | — | Không gặp |
 
-- Cái gì giúp model nhỏ gọi tool đúng hơn nhất? Bằng chứng?
-- Bản prompt tối ưu cho local chạy trên model cloud thì sao?
-- Khi nào nhóm sẽ chọn model local thay vì cloud cho agent này?
+- **Cái gì giúp model nhỏ gọi tool đúng hơn nhất? Bằng chứng?** Ví dụ cụ thể cho đúng các tình huống model hay sai (thiếu tài khoản/URL, query tin tức, yêu cầu gửi): llama3.2:3b từ 0.25 lên 0.60/0.55, routing 0.40 → 0.80, số case in lời gọi tool ra text dạng JSON 3 → 0. Nhưng **hình thức** ví dụ quan trọng ngang nội dung: ví dụ viết dạng `tool(args)` làm qwen2.5:7b chép lời gọi thành chữ ở 6/20 case (0.85 → 0.70); cùng nội dung viết bằng lời thì qwen lên 0.90. Hai model phản ứng ngược nhau với cùng một thay đổi (llama hợp với dạng `tool(args)` hơn: 0.60 vs 0.55), nên phải đo trên từng model chứ không suy từ một model.
+- **Bản prompt tối ưu cho local chạy trên model cloud thì sao?** `system_prompt_v5_local.md` trên gpt-4o-mini đạt 1.00 (20/20), bằng v3 — tìm được một prompt dùng tốt cho cả cloud (1.00) và qwen2.5:7b (0.90). Với llama3.2:3b thì chưa đủ (tốt nhất 0.60).
+- **Khi nào nhóm chọn model local thay vì cloud?** Khi dữ liệu không được rời máy hoặc cần chạy offline/không tốn tiền, và việc chủ yếu là routing đơn giản: qwen2.5:7b với v5-local đạt 0.90 nhưng vẫn đoán tài khoản ở R10 và tra web cho câu toán ở R08 — tức là vẫn cần cổng `approval.py` và kiểm tra ở code. Model 3B (0.25–0.60) chưa dùng được cho agent này. Ghi chú: Ollama bỏ qua `tool_choice="required"` nên các case bắt buộc gọi tool khó hơn với local; đó là điều kiện thật cần đo, không phải lỗi harness.
 
 ## 5. Khó khăn và cách xử lý
 

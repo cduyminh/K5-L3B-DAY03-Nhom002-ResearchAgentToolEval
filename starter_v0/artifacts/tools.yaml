@@ -100,7 +100,7 @@ tools:
       type: object
       properties:
         query: {type: string, default: "", description: "Truy vấn"}
-        policy_area: {type: string, enum: [all, ai_research, source_citation, data_privacy, external_publishing, tool_usage], default: "all", description: "Nhóm"}
+        policy_area: {type: string, enum: [all, ai_research, source_citation, data_privacy, external_publishing, tool_usage], default: "all", description: "Chọn đúng nhóm theo chủ đề câu hỏi, chỉ dùng all khi không khớp nhóm nào: source_citation = trích nguồn, fact-check, tweet/tin viral có được coi là sự thật không, cách ghi nguồn; data_privacy = API key, dữ liệu cá nhân/khách hàng trong prompt hay log; external_publishing = đăng bài ra ngoài, gửi Telegram, cần duyệt/xác nhận gì; tool_usage = khi nào hỏi lại, cách dùng tool; ai_research = quy trình nghiên cứu AI, đọc paper."}
         top_k: {type: integer, default: 3, minimum: 1, maximum: 5, description: "Số mục, tối đa 5."}
       required: [query]
 

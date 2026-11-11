@@ -5,7 +5,7 @@
 - Tên nhóm: Nhom002
 - Lớp: L3B
 - Repo nhóm: `K5-L3B-DAY03-Nhom002-ResearchAgentToolEval`
-- URL repo, nhánh nộp, commit chốt: https://github.com/cduyminh/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval · nhánh `main` · commit chốt: (điền khi nộp)
+- URL repo, nhánh nộp, commit chốt: https://github.com/cduyminh/K5-L3B-DAY03-Nhom002-ResearchAgentToolEval · nhánh `main` · commit chốt: `ef67e97` (B7, nội dung bài hoàn chỉnh; các commit sau chỉ cập nhật TEAM.md / tự đánh giá)
 
 ## Thành viên
 

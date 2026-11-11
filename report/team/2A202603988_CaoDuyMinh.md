@@ -58,10 +58,18 @@
 
 ## 5. Tự đánh giá
 
-> Phần này tự viết (RULES: không dùng AI cho phần tự đánh giá). Gợi ý trả lời:
-> - Điều mình hiểu rõ nhất sau lab (ví dụ: vì sao cổng xác nhận phải nằm ở code chứ không chỉ ở prompt)?
-> - Quyết định nào mình tự đưa ra và vì sao (một giả thuyết mỗi version, giữ 10 case của Ly và thêm case adversarial…)?
-> - Chỗ nào làm chưa tốt / sẽ làm khác nếu làm lại?
-> - Tự chấm phần mình phụ trách (C1, C2, C3) và lý do.
+**Điều hiểu rõ nhất:** Sau bài lab này tôi hiểu rằng prompt engineering và tool calling quan trọng ở chỗ system prompt cần có đầy đủ các bước đã học từ role cho đến escalation để từ đó behaviour của model là somewhat deterministic và an toàn.
 
-...
+**Quyết định của mình:** Mình đưa ra quyết định làm adversarial test ở v3 để từ đó quyết định mặc dù đã đạt 20/20 eval case của bộ base vẫn cần có guardrails và boundary để đảm bảo chatbot behaviour đúng.
+
+**Khó nhất:** Khó nhất chính là showcase các incremental changes từ v0 đến v8 cho mọi người xem.
+
+**Nếu làm lại:** Tôi sẽ làm lại từ small model và local model trước để tự làm được agent miễn phí và focus vào một job nào đó đáng sử dụng ngay trên máy tính tôi, ví dụ agent chuyên đọc dữ liệu papers trên arxiv.
+
+**Tự chấm phần phụ trách:**
+
+| Tiêu chí | Tự chấm |
+|---|---:|
+| C1 — Baseline v0 và phân tích lỗi | 10/10 |
+| C2 — Prompt và tool declaration | 15/15 |
+| C3 — Vòng lặp v1→v3 dựa trên bằng chứng | 20/20 |
